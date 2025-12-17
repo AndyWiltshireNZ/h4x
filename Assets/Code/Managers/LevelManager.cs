@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    private void Start()
-    {
-        
-    }
+	[SerializeField] private LevelDefinition LevelDefinition;
 
-    private void Update()
-    {
-        
-    }
+	//Load level based on LevelDefinition
+
+	private void Start()
+	{
+		Debug.Log( "LevelManager started" );
+	}
+
+	private void Update()
+	{
+
+	}
 }

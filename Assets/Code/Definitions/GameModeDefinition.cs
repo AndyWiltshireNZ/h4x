@@ -5,5 +5,12 @@ using UnityEngine.AddressableAssets;
 public class GameModeDefinition : ScriptableObject
 {
 	public AssetReference UIManagerAssetReference;
+	public AssetReference InputManagerAssetReference;
 	public AssetReference LevelManagerAssetReference;
+
+	public enum GameModeType
+	{
+		Default
+	}
+	public GameModeType GameMode;
 }

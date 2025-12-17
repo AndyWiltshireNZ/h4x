@@ -10,10 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95a3d2d5b49d33842becefa8dc3e09ed, type: 3}
-  m_Name: GameMode
+  m_Name: GameModeData
   m_EditorClassIdentifier: Assembly-CSharp::GameModeDefinition
   UIManagerAssetReference:
     m_AssetGUID: 28b98b25ff6dd5b439436ad3ff3cd9ed
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  InputManagerAssetReference:
+    m_AssetGUID: 2f8dae11b5cee6b429b3c5a86c48df33
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
@@ -24,3 +30,4 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+  GameMode: 0

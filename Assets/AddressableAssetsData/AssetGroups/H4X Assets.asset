@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f8dae11b5cee6b429b3c5a86c48df33
+    m_Address: Assets/Addressables/Managers/InputManager.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 37b203b67683bcb4c8a78ba5628f0c5a
     m_Address: Assets/Addressables/Game/MainCamera.prefab
     m_ReadOnly: 0
