@@ -1,0 +1,9 @@
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+
+[CreateAssetMenu( fileName = "GameModeDefinition", menuName = "Definitions/GameModeDefinition" )]
+public class GameModeDefinition : ScriptableObject
+{
+	public AssetReference UIManagerAssetReference;
+	public AssetReference LevelManagerAssetReference;
+}

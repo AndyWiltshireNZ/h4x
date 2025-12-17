@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: H4X Assets
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: H4X Assets
+  m_GUID: 2ed2036b64bf26541b2f04287ab77798
+  m_SerializeEntries:
+  - m_GUID: 28b98b25ff6dd5b439436ad3ff3cd9ed
+    m_Address: Assets/Addressables/Managers/UIManager.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f76bc65a06403c4fbce9eb3a2283dcb
+    m_Address: Assets/Definitions/GameMode.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 37b203b67683bcb4c8a78ba5628f0c5a
+    m_Address: Assets/Addressables/Game/MainCamera.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 692085c0de4880f4e9ae9c9d78eccada
+    m_Address: Assets/Addressables/Managers/LevelManager.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89f459f1a466b244c9e67dc7c68169c7
+    m_Address: Assets/Addressables/GameMode.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: c5a53e5112b01af45b53e2a8b42f2904, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: e3b46859251b3014f9280ebbc8c4cb2d, type: 2}
+    - {fileID: 11400000, guid: b29f6a0f7b159884a9de32e4bec2b1d7, type: 2}
