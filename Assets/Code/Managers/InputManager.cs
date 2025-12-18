@@ -1,37 +1,36 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
-	public static InputSystem inputActions;
-	public static InputSystem InputActions { get { if ( inputActions == null ) { inputActions = new InputSystem(); } return inputActions; } }
+	private InputSystem inputActions;
+	public InputSystem InputActions { get { if ( inputActions == null ) { inputActions = new InputSystem(); } return inputActions; } }
 
 	private bool isLeftClickHeld = false;
 
 	private void Awake()
 	{
-		if ( inputActions == null )
-		{
-			inputActions = new InputSystem();
-		}
-		else
-		{
-			Destroy( this.gameObject );
-		}
+		if ( inputActions == null ) { inputActions = new InputSystem(); }
 	}
 
-	private void OnEnable()
+	public void Setup()
 	{
-		inputActions.UI.LeftClick.Enable();
-		inputActions.UI.LeftClick.performed += LeftClick_pressed;
+		inputActions.UI.Enable();
+		inputActions.UI.Click.performed += LeftClick_pressed;
+		inputActions.UI.Reload.performed += Reload_pressed;
+		inputActions.UI.Quit.performed += Quit_pressed;
 
 		Debug.Log( "InputManager enabled" );
 	}
 
-	private void OnDestroy()
+	private void OnDisable()
 	{
-		inputActions.UI.LeftClick.Disable();
+		inputActions.UI.Click.performed -= LeftClick_pressed;
+		inputActions.UI.Reload.performed -= Reload_pressed;
+		inputActions.UI.Quit.performed -= Quit_pressed;
+		inputActions.UI.Disable();
 	}
 
 	private void LeftClick_pressed( InputAction.CallbackContext ctx )
@@ -73,5 +72,17 @@ public class InputManager : MonoBehaviour
 	{
 		isLeftClickHeld = false;
 		//Debug.Log( "Left Click Released" );
+	}
+
+	private void Reload_pressed( InputAction.CallbackContext ctx )
+	{
+		SceneManager.LoadScene( SceneManager.GetActiveScene().name );
+		Debug.Log( "Scene Reloaded" );
+	}
+
+	private void Quit_pressed( InputAction.CallbackContext ctx )
+	{
+		Application.Quit();
+		Debug.Log( "Application Quit" );
 	}
 }

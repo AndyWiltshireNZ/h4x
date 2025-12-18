@@ -517,7 +517,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LeftClick",
+                    "name": "Click",
                     "type": "PassThrough",
                     "id": "3c7022bf-7922-4f7c-a998-c437916075ad",
                     "expectedControlType": "Button",
@@ -566,6 +566,24 @@
                     "type": "PassThrough",
                     "id": "9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "24f776f9-920f-41eb-acf0-13c4ffe9ac82",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "1ff09e40-3491-4a43-82e1-00c82b41de15",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -898,7 +916,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "LeftClick",
+                    "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -909,7 +927,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "LeftClick",
+                    "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -920,7 +938,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch",
-                    "action": "LeftClick",
+                    "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -931,7 +949,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "LeftClick",
+                    "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -987,6 +1005,28 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e6b135e0-323e-4fc8-8b04-feb574b54dfe",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "efacbb00-fbd0-4281-9970-02f79de7ad5b",
+                    "path": "<Keyboard>/#(R)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

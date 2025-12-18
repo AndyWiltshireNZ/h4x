@@ -6,7 +6,7 @@ public class LevelManager : MonoBehaviour
 
 	//Load level based on LevelDefinition
 
-	private void Start()
+	public void Setup()
 	{
 		Debug.Log( "LevelManager started" );
 	}

@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Threading.Tasks;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 using static GameModeDefinition;
@@ -22,7 +21,15 @@ public class GameMode : MonoBehaviour
 
 	private void Awake ()
     {
-        Instance = this;
+        if ( Instance != null && Instance != this )
+		{
+			Destroy( this );
+		}
+		else
+		{
+			Instance = this;
+		}
+
 		init();
     }
 
@@ -38,27 +45,30 @@ public class GameMode : MonoBehaviour
 		currentCamera = Camera.main.GetComponent<CameraController>();
 
 		AsyncOperationHandle<GameObject> asyncSpawnUIManager = GameModeDefinition.UIManagerAssetReference.InstantiateAsync();
-		AsyncOperationHandle<GameObject> asyncSpawnInputManager = GameModeDefinition.InputManagerAssetReference.InstantiateAsync();
-		AsyncOperationHandle<GameObject> asyncSpawnLevelManager = GameModeDefinition.LevelManagerAssetReference.InstantiateAsync();
-
-		await Task.WhenAll( asyncSpawnUIManager.Task, asyncSpawnInputManager.Task, asyncSpawnLevelManager.Task );
-
+		await asyncSpawnUIManager.Task;
 		if ( asyncSpawnUIManager.Status == AsyncOperationStatus.Succeeded )
 		{
 			GameObject uimanagerObj = asyncSpawnUIManager.Result;
 			UIManager = uimanagerObj.GetComponent<UIManager>();
+			UIManager.Setup();
 		}
 
+		AsyncOperationHandle<GameObject> asyncSpawnInputManager = GameModeDefinition.InputManagerAssetReference.InstantiateAsync();
+		await asyncSpawnInputManager.Task;
 		if ( asyncSpawnInputManager.Status == AsyncOperationStatus.Succeeded )
 		{
 			GameObject inputmanagerObj = asyncSpawnInputManager.Result;
 			InputManager = inputmanagerObj.GetComponent<InputManager>();
+			InputManager.Setup();
 		}
 
+		AsyncOperationHandle<GameObject> asyncSpawnLevelManager = GameModeDefinition.LevelManagerAssetReference.InstantiateAsync();
+		await asyncSpawnLevelManager.Task;
 		if ( asyncSpawnLevelManager.Status == AsyncOperationStatus.Succeeded )
 		{
 			GameObject modemanagerObj = asyncSpawnLevelManager.Result;
 			LevelManager = modemanagerObj.GetComponent<LevelManager>();
+			LevelManager.Setup();
 		}
 	}
 
