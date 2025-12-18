@@ -1,3 +1,18 @@
 ﻿<Solution>
+  <Project Path="MoreMountains.Tools.csproj" />
+  <Project Path="Febucci.TextAnimatorForUnity.Runtime.csproj" />
+  <Project Path="SingularityGroup.HotReload.Editor.csproj" />
+  <Project Path="Febucci.TextAnimatorForUnity.TMP.Runtime.csproj" />
+  <Project Path="MoreMountains.Tools.Editor.csproj" />
+  <Project Path="SingularityGroup.HotReload.Runtime.csproj" />
+  <Project Path="Lofelt.NiceVibrations.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Febucci.TextAnimator.Demo.Runtime.csproj" />
+  <Project Path="Febucci.TextAnimatorForUnity.UITk.Runtime.csproj" />
+  <Project Path="SingularityGroup.HotReload.Runtime.Public.csproj" />
+  <Project Path="Febucci.TextAnimator.Demo.Sounds.Runtime.csproj" />
+  <Project Path="Febucci.Attributes.Runtime.csproj" />
+  <Project Path="Febucci.TextAnimatorForUnity.Input.Runtime.csproj" />
+  <Project Path="Lofelt.NiceVibrations.Demo.csproj" />
+  <Project Path="Lofelt.NiceVibrations.Editor.csproj" />
 </Solution>

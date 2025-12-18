@@ -22,7 +22,7 @@ public class InputManager : MonoBehaviour
 		inputActions.UI.Reload.performed += Reload_pressed;
 		inputActions.UI.Quit.performed += Quit_pressed;
 
-		Debug.Log( "InputManager enabled" );
+		Debug.Log( "InputManager enabled." );
 	}
 
 	private void OnDisable()

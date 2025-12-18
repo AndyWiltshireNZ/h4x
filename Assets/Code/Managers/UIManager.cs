@@ -11,9 +11,9 @@ public class UIManager : MonoBehaviour
 
 	public void Setup()
     {
-        Debug.Log("UIManager started.");
+        Debug.Log( "UIManager started." );
 
-		debugText.text = "Debug Text Initialized";
+		debugText.text = "Debug Text Setup";
 
 		mainmenuCanvasGroup.alpha = 0f;
 		hudCanvasGroup.alpha = 1f;

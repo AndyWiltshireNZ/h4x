@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
 
 	public void Setup()
 	{
-		Debug.Log( "LevelManager started" );
+		Debug.Log( "LevelManager started." );
 	}
 
 	private void Update()
