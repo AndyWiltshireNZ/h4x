@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 99ed4dda5be4d3b40872464872529e1c
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 237096
+  packageName: Sci-Fi Electric Circuit
+  packageVersion: 1.1.0
+  assetPath: Assets/Sci-Fi Electric Circuit/URP/Prefab/Circuit_IC/Circuit_IC_G.prefab
+  uploadId: 692602

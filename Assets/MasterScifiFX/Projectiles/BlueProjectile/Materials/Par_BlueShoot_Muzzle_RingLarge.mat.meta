@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 61c5dd6dc0b9121419960a7af93bdafb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Projectiles/BlueProjectile/Materials/Par_BlueShoot_Muzzle_RingLarge.mat
+  uploadId: 789530

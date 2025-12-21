@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 80dc09222d660304bad79547f8217492
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Fields/DamageField/Materials/Par_DamageField_Par_DamageField.mat
+  uploadId: 789530

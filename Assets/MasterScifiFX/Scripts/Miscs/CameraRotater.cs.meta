@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c664efc60ca3cdc438db28db1ac275b5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Scripts/Miscs/CameraRotater.cs
+  uploadId: 789530

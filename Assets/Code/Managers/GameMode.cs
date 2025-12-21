@@ -7,14 +7,14 @@ public class GameMode : MonoBehaviour
 {
 	public static GameMode Instance;
 	
-	[SerializeField] private GameModeDefinition GameModeDefinition;
+	[SerializeField] private GameModeDefinition GameModeData;
 
 	public UIManager UIManager = null;
 	public InputManager InputManager = null;
 	public LevelManager LevelManager = null;
 	
-	private CameraController currentCamera;
-	public CameraController CurrentCamera	{ get { return currentCamera; } private set { currentCamera = value; } }
+	private Camera currentCamera;
+	public Camera CurrentCamera	{ get { return currentCamera; } private set { currentCamera = value; } }
 
 	private GameModeType currentGameMode;
 	public GameModeType CurrentGameMode	{ get { return currentGameMode; } private set { currentGameMode = value; } }
@@ -42,9 +42,9 @@ public class GameMode : MonoBehaviour
 	{
 		Debug.Log( "GameMode initialized." );
 
-		currentCamera = Camera.main.GetComponent<CameraController>();
+		currentCamera = Camera.main;
 
-		AsyncOperationHandle<GameObject> asyncSpawnUIManager = GameModeDefinition.UIManagerAssetReference.InstantiateAsync();
+		AsyncOperationHandle<GameObject> asyncSpawnUIManager = GameModeData.UIManagerAssetReference.InstantiateAsync();
 		await asyncSpawnUIManager.Task;
 		if ( asyncSpawnUIManager.Status == AsyncOperationStatus.Succeeded )
 		{
@@ -53,7 +53,7 @@ public class GameMode : MonoBehaviour
 			UIManager.Setup();
 		}
 
-		AsyncOperationHandle<GameObject> asyncSpawnInputManager = GameModeDefinition.InputManagerAssetReference.InstantiateAsync();
+		AsyncOperationHandle<GameObject> asyncSpawnInputManager = GameModeData.InputManagerAssetReference.InstantiateAsync();
 		await asyncSpawnInputManager.Task;
 		if ( asyncSpawnInputManager.Status == AsyncOperationStatus.Succeeded )
 		{
@@ -62,7 +62,7 @@ public class GameMode : MonoBehaviour
 			InputManager.Setup();
 		}
 
-		AsyncOperationHandle<GameObject> asyncSpawnLevelManager = GameModeDefinition.LevelManagerAssetReference.InstantiateAsync();
+		AsyncOperationHandle<GameObject> asyncSpawnLevelManager = GameModeData.LevelManagerAssetReference.InstantiateAsync();
 		await asyncSpawnLevelManager.Task;
 		if ( asyncSpawnLevelManager.Status == AsyncOperationStatus.Succeeded )
 		{

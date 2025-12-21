@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: fb25087224273394bbe158a8d679b9ab
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 237096
+  packageName: Sci-Fi Electric Circuit
+  packageVersion: 1.1.0
+  assetPath: Assets/Sci-Fi Electric Circuit/URP/Shader/Electric_Circuit_Flow_URP.shader
+  uploadId: 692602

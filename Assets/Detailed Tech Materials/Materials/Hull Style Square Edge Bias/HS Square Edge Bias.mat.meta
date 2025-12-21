@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: d9f09893a2be6f840890a269970f8c91
+timeCreated: 1544736654
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 144604
+  packageName: Detailed Tech Materials
+  packageVersion: 1.0
+  assetPath: Assets/Detailed Tech Materials/Materials/Hull Style Square Edge Bias/HS
+    Square Edge Bias.mat
+  uploadId: 306648

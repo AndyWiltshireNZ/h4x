@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5088dd1dfe751e9439e20e9ffd28d3dc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Lasers/OrangeLaser/Materials/Par_OrangeLaser_BG.mat
+  uploadId: 789530

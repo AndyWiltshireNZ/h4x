@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d9af5d31b7547574b9d1c3c0e7ec68d3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Projectiles/OrangeProjectile/Materials/Par_OrangeShoot_Muzzle_Particles.mat
+  uploadId: 789530

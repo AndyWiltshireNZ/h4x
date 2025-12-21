@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 695f557d782ea0d40b72d2d20292ab6f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Fields/HealField/Materials/Par_ScifiHealField_VerticalGlowLight.mat
+  uploadId: 789530

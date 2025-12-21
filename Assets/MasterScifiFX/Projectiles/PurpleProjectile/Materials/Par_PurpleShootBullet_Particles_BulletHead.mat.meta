@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f7205497f79a8a440b33996ffca22558
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Projectiles/PurpleProjectile/Materials/Par_PurpleShootBullet_Particles_BulletHead.mat
+  uploadId: 789530

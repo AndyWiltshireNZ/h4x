@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6376cbf1c6baecb4e990eb371a86f26a
+timeCreated: 1456745884
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 57149
+  packageName: Low Poly flat shaded PCB components
+  packageVersion: 1.0
+  assetPath: Assets/PCB/Materials/pcbTexture.mat
+  uploadId: 106730

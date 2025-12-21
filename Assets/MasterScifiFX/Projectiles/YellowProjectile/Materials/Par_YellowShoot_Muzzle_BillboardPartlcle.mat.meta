@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 430e30a667aa4aa4f9d5b99807abf2c4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Projectiles/YellowProjectile/Materials/Par_YellowShoot_Muzzle_BillboardPartlcle.mat
+  uploadId: 789530

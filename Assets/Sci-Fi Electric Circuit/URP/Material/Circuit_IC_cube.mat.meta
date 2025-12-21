@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 77542c327b5a3f84fab06a91bb62a478
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 237096
+  packageName: Sci-Fi Electric Circuit
+  packageVersion: 1.1.0
+  assetPath: Assets/Sci-Fi Electric Circuit/URP/Material/Circuit_IC_cube.mat
+  uploadId: 692602

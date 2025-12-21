@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f1165c3a8274a47479cd80b0dd9f3f6c
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Commons/Shaders/UberParticlesShield.shadergraph
+  uploadId: 789530

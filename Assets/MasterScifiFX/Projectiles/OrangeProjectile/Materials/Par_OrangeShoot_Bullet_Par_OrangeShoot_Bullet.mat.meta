@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d6a3fb82a14e7e64ea24bea9c0154e24
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Projectiles/OrangeProjectile/Materials/Par_OrangeShoot_Bullet_Par_OrangeShoot_Bullet.mat
+  uploadId: 789530

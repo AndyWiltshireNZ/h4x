@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b1767900a629c024a8e339959c65f958
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 237096
+  packageName: Sci-Fi Electric Circuit
+  packageVersion: 1.1.0
+  assetPath: Assets/Sci-Fi Electric Circuit/URP/Prefab/Circuit/Circuit_H.prefab
+  uploadId: 692602

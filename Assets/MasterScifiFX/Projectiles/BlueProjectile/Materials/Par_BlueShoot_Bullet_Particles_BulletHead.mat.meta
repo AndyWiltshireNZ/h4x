@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dbf60309d52533945a4ad872fe9e0dde
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Projectiles/BlueProjectile/Materials/Par_BlueShoot_Bullet_Particles_BulletHead.mat
+  uploadId: 789530

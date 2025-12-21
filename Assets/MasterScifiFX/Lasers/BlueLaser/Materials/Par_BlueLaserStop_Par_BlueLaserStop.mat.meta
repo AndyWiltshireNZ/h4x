@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d0d4e1f7203a9db4fa3f711ca749c085
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Lasers/BlueLaser/Materials/Par_BlueLaserStop_Par_BlueLaserStop.mat
+  uploadId: 789530

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 62fa0f5e3256db24c9ca43ebb5f50233
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Fields/DamageField/Materials/Par_DamageField_Cross.mat
+  uploadId: 789530

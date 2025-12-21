@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a38dc666660a90245bbfb694e118ec57
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Explosions/SimpleScifiExplosion/Materials/Par_SimpleScifiExplosion_ScifiCubeParticles.mat
+  uploadId: 789530

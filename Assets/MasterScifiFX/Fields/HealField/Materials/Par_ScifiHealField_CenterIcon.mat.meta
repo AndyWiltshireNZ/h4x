@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 86d20edfe7f0b4a41895e10cfd05c951
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Fields/HealField/Materials/Par_ScifiHealField_CenterIcon.mat
+  uploadId: 789530

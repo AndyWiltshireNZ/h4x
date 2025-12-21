@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0f032a2c9b4c14f139f9039f8df430f6
+timeCreated: 1456695929
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 57149
+  packageName: Low Poly flat shaded PCB components
+  packageVersion: 1.0
+  assetPath: Assets/PCB/mainboard.prefab
+  uploadId: 106730

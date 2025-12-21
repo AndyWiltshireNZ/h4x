@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 18cff41f44f1f5e498218ff513b82ccb
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Commons/Shaders/Mask.shadersubgraph
+  uploadId: 789530

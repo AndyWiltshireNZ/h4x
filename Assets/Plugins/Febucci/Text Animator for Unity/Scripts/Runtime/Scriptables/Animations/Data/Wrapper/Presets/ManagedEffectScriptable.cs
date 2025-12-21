@@ -53,7 +53,10 @@ namespace Febucci.TextAnimatorForUnity.Effects
         }
 
         [SerializeField] string tagId;
-        [SerializeField] EffectPresetSettings effectSettings;
+        [SerializeField] EffectPresetSettings effectSettings = new EffectPresetSettings()
+        {
+            bakeCurves = true
+        };
         [SerializeField] EffectContentWrapper appearance;
         [SerializeField, FormerlySerializedAs("persistant")] EffectContentWrapper persistent;
         [SerializeField] EffectContentWrapper disappearance;

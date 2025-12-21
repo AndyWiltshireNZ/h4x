@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c5a2551ce2994ca459a50dc83f9e67c5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Projectiles/GreenProjectile/Materials/Par_GreenShoot_Muzzle_BillboardPartlcle.mat
+  uploadId: 789530

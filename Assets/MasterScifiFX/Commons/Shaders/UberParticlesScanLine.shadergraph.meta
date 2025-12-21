@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5467b47ad790e294094dfd1fd06c5f7f
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Commons/Shaders/UberParticlesScanLine.shadergraph
+  uploadId: 789530

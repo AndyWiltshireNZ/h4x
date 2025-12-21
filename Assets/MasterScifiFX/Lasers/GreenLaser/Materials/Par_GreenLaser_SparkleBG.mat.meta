@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c8e1569be6a887a4689a2aaae4e55f72
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Lasers/GreenLaser/Materials/Par_GreenLaser_SparkleBG.mat
+  uploadId: 789530

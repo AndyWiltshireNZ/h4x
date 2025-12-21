@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d30537cded803b54a960e81caebbf6c5
+timeCreated: 1539372560
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 144604
+  packageName: Detailed Tech Materials
+  packageVersion: 1.0
+  assetPath: Assets/Detailed Tech Materials/Materials/Detailed Tech/DT.mat
+  uploadId: 306648

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a14a641e580b19f49bceec1fc2cf8a34
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Lasers/BlueLaser/Materials/Par_BlueLaserStart_Par_BlueLaserStart.mat
+  uploadId: 789530

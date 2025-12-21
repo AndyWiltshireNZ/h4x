@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1ab5ce40e5e32a24ab09333405438fb2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Projectiles/YellowProjectile/Materials/Par_YellowShoot_Muzzle_Particles.mat
+  uploadId: 789530

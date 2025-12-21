@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d298ae15cd10bf24aa5ed0a2c3d08f0b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Projectiles/YellowProjectile/Materials/Par_YellowShoot_Bullet_Particles_LightBG.mat
+  uploadId: 789530

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: e76b020ba30b9b442990bbda9b0c3e3a
+timeCreated: 1549991901
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 144604
+  packageName: Detailed Tech Materials
+  packageVersion: 1.0
+  assetPath: Assets/Detailed Tech Materials/Materials/Weathered Hull Style Vertical
+    Bias/WHS Vertical Bias.mat
+  uploadId: 306648

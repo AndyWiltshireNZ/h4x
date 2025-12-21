@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 26bf860e1cac464428cc270280b3a970
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Projectiles/BlueProjectile/Materials/Par_BlueShoot_Bullet_Particles_LightBG.mat
+  uploadId: 789530

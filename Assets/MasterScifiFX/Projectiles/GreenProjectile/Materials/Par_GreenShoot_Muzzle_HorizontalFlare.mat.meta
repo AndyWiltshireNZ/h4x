@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1a1112c3ef1300f4c89d4f3bfaeb6eea
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Projectiles/GreenProjectile/Materials/Par_GreenShoot_Muzzle_HorizontalFlare.mat
+  uploadId: 789530

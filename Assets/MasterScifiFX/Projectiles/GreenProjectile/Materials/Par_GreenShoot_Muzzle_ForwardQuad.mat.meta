@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 87e05e9f2e3adb1408761aeec810d0c9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 333408
+  packageName: Master Sci-fi FX
+  packageVersion: 1.0
+  assetPath: Assets/MasterScifiFX/Projectiles/GreenProjectile/Materials/Par_GreenShoot_Muzzle_ForwardQuad.mat
+  uploadId: 789530

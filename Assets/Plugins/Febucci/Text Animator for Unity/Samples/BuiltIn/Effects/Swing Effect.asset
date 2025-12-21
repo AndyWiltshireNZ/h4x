@@ -21,6 +21,7 @@ MonoBehaviour:
     stateParams:
       loopDegrees: 0
       oscillationDegrees: 45
+      customPivot: {x: 0, y: 0}
     phaseParams:
       charOffset: 0
       wordOffset: 0
@@ -31,6 +32,7 @@ MonoBehaviour:
     stateParams:
       loopDegrees: 0
       oscillationDegrees: 45
+      customPivot: {x: 0, y: 0}
     phaseParams:
       charOffset: 0
       wordOffset: 0
@@ -41,6 +43,7 @@ MonoBehaviour:
     stateParams:
       loopDegrees: 0
       oscillationDegrees: 45
+      customPivot: {x: 0, y: 0}
     phaseParams:
       charOffset: 0
       wordOffset: 0

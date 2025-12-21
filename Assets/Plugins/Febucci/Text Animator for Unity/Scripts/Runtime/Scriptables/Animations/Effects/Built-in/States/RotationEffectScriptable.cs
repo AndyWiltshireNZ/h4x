@@ -7,6 +7,7 @@
 
 using Febucci.TextAnimatorCore.BuiltIn;
 using UnityEngine;
+using Vector3 = Febucci.Numbers.Vector3;
 
 namespace Febucci.TextAnimatorForUnity.Effects
 {
@@ -15,6 +16,7 @@ namespace Febucci.TextAnimatorForUnity.Effects
     {
         public float loopDegrees = 45;
         public float oscillationDegrees = 45;
+        [Tooltip("1 to lock the rotation to the side of a character, e.g. y = 1 seems like a pendulum, -1 makes it from the bottom. Go beyond 1 to have crazier effects, and 0 to disable")] public Vector2 customPivot = new Vector2(0, 0);
     }
 
     [UnityEngine.Scripting.Preserve]
@@ -23,7 +25,7 @@ namespace Febucci.TextAnimatorForUnity.Effects
     sealed class RotationEffectScriptable : ManagedEffectScriptable<RotationEffectState, RotationData>
     {
         protected override RotationEffectState CreateState(RotationData parameters)
-            => new RotationEffectState(parameters.loopDegrees, parameters.oscillationDegrees);
+            => new RotationEffectState(parameters.loopDegrees, parameters.oscillationDegrees, new Vector3(parameters.customPivot.x, parameters.customPivot.y, 0));
     }
 
 }

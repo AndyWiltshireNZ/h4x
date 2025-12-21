@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: e80f63f4e70dd8c4a85596511c3fa66c
+timeCreated: 1540663573
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 144604
+  packageName: Detailed Tech Materials
+  packageVersion: 1.0
+  assetPath: Assets/Detailed Tech Materials/Materials/Detailed Tech Grid 1/DT Grid
+    1.mat
+  uploadId: 306648

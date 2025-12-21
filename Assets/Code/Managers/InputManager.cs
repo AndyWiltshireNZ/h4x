@@ -8,7 +8,7 @@ public class InputManager : MonoBehaviour
 	private InputSystem inputActions;
 	public InputSystem InputActions { get { if ( inputActions == null ) { inputActions = new InputSystem(); } return inputActions; } }
 
-	private bool isLeftClickHeld = false;
+	//private bool isLeftClickHeld = false;
 
 	private void Awake()
 	{
@@ -18,23 +18,25 @@ public class InputManager : MonoBehaviour
 	public void Setup()
 	{
 		inputActions.UI.Enable();
-		inputActions.UI.Click.performed += LeftClick_pressed;
+		//inputActions.UI.Click.performed += LeftClick_pressed;
 		inputActions.UI.Reload.performed += Reload_pressed;
 		inputActions.UI.Quit.performed += Quit_pressed;
 
 		Debug.Log( "InputManager enabled." );
 	}
 
-	private void OnDisable()
+	private void OnDestroy()
 	{
-		inputActions.UI.Click.performed -= LeftClick_pressed;
+		//inputActions.UI.Click.performed -= LeftClick_pressed;
 		inputActions.UI.Reload.performed -= Reload_pressed;
 		inputActions.UI.Quit.performed -= Quit_pressed;
 		inputActions.UI.Disable();
 	}
 
-	private void LeftClick_pressed( InputAction.CallbackContext ctx )
+	/*private void LeftClick_pressed( InputAction.CallbackContext ctx )
 	{
+		if ( ctx.phase != InputActionPhase.Performed ) return;
+
 		bool isPressed = ctx.ReadValue<float>() > 0.5f;
 
 		if ( isPressed )
@@ -49,7 +51,7 @@ public class InputManager : MonoBehaviour
 
 	private void leftClickPressed()
 	{
-		Debug.Log( "Left Click Pressed" );
+		//Debug.Log( "Left Click Pressed" );
 		isLeftClickHeld = true;
 		StartCoroutine( leftClickHeldRoutine() );
 	}
@@ -72,7 +74,7 @@ public class InputManager : MonoBehaviour
 	{
 		isLeftClickHeld = false;
 		//Debug.Log( "Left Click Released" );
-	}
+	}*/
 
 	private void Reload_pressed( InputAction.CallbackContext ctx )
 	{
