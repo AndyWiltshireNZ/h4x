@@ -147,25 +147,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f0f34434172684f90e4c0903cf4488, type: 3}
   m_Name: DitherVol
   m_EditorClassIdentifier: Masking.Runtime::VolFx.DitherVol
-  active: 0
+  active: 1
   m_Impact:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.5
   m_Power:
     m_OverrideState: 1
-    m_Value: 0.05
+    m_Value: 0.1
   m_Scale:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.9999
   m_Pixelate:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
   m_Fps:
     m_OverrideState: 1
     m_Value: 5
   m_Palette:
     m_OverrideState: 1
-    m_Value: {fileID: 2800000, guid: 48617b1b08e98df4c9d795adf0e72b1b, type: 3}
+    m_Value: {fileID: 2800000, guid: 6311fa752b7177a42af1395284e6f66c, type: 3}
   m_Pattern:
     m_OverrideState: 1
     m_Value: {fileID: 2800000, guid: 349aad560c9df8343a28deb0dad611ee, type: 3}
@@ -173,8 +173,8 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 0
   m_NoiseScale:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 5
   m_Noise:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {fileID: 2800000, guid: a600c2cd1fddf094bafd88ca09d02ccb, type: 3}

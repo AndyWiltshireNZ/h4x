@@ -1,0 +1,352 @@
+// -----------------------------------------------------------------------------
+// SplineArchitect
+// Filename: Spline_Editor.cs
+//
+// Author: Mikael Danielsson
+// Date Created: 25-03-2023
+// (C) 2023 Mikael Danielsson. All rights reserved.
+// -----------------------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+
+using UnityEngine;
+using UnityEngine.Rendering;
+
+using SplineArchitect.Utility;
+using SplineArchitect.Monitor;
+
+using Vector3 = UnityEngine.Vector3;
+
+namespace SplineArchitect.Objects
+{
+    public partial class Spline : MonoBehaviour
+    {
+#if UNITY_EDITOR
+        //ONLY EDITOR DATA
+
+        //General, stored
+        [HideInInspector]
+        public Color color = new Color(0, 0, 0, 1);
+        [HideInInspector]
+        public int editorDirty;
+        [HideInInspector]
+        public bool drawInGame;
+        //General, runtime
+        [NonSerialized]
+        public string editorId;
+        [NonSerialized]
+        public int vertecies;
+        [NonSerialized]
+        public int deformations;
+        [NonSerialized]
+        public int deformationsInBuild;
+        [NonSerialized]
+        public int followers;
+        [NonSerialized]
+        public int followersInBuild;
+        [NonSerialized]
+        public float deformationsMemoryUsage;
+        [NonSerialized]
+        public bool initalizedEditor;
+        [NonSerialized]
+        public bool initalizedLinks;
+        [NonSerialized]
+        public bool disableOnTransformChildrenChanged;
+
+        //Grid data, stored
+        [HideInInspector]
+        public Vector3 gridCenterPoint;
+
+        //Selection data, stored
+        [HideInInspector]
+        public int selectedControlPoint;
+        [HideInInspector]
+        public List<int> selectedAnchors = new List<int>();
+        [HideInInspector]
+        public string selectedSplineMenu = "deformation";
+        [HideInInspector]
+        public string selectedAnchorMenu = "general";
+        [HideInInspector]
+        public string selectedObjectMenu = "general";
+        //Selection data, runtime
+        [NonSerialized]
+        public int indicatorSegement;
+        [NonSerialized]
+        public Vector3 indicatorPosition;
+        [NonSerialized]
+        public float indicatorTime;
+        [NonSerialized]
+        public Vector3 indicatorDirection;
+        [NonSerialized]
+        public float indicatorDistanceToSpline;
+
+        //Static runtime
+        private static Material lineMaterial;
+
+        public void EndCameraRendering(ScriptableRenderContext context, Camera camera)
+        {
+            DrawSpline(camera);
+        }
+
+        public void OnPostCamera(Camera camera)
+        {
+            DrawSpline(camera);
+        }
+
+        private void DrawSpline(Camera camera)
+        {
+            if (!drawInGame)
+                return;
+
+            if (!initalized)
+                return;
+
+            if (!IsEnabled())
+                return;
+
+            if (camera == null)
+                return;
+
+            if (!camera.isActiveAndEnabled || camera.cameraType != CameraType.Game || camera.targetTexture != null)
+                return;
+
+            if (lineMaterial == null)
+            {
+                Shader shader = Shader.Find("Hidden/Internal-Colored");
+                lineMaterial = new Material(shader);
+                lineMaterial.hideFlags = HideFlags.HideAndDontSave;
+
+                lineMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                lineMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                lineMaterial.SetInt("_Cull", (int)UnityEngine.Rendering.CullMode.Off);
+                lineMaterial.SetInt("_ZTest", (int)UnityEngine.Rendering.CompareFunction.Always);
+                lineMaterial.SetInt("_ZWrite", 0);
+            }
+
+            lineMaterial.SetPass(0);
+            GL.MultMatrix(Matrix4x4.identity);
+            GL.PushMatrix();
+
+            GL.Begin(GL.LINES);
+            GL.Color(color);
+
+            for (int i2 = 0; i2 < segments.Count - 1; i2++)
+            {
+                if( segments[i2] == null || segments[i2 + 1] == null)
+                    continue;
+
+                if (segments[i2].localSpace == null || segments[i2 + 1].localSpace == null)
+                    continue;
+
+                Vector3 anchorA = segments[i2].GetPosition(Segment.ControlHandle.ANCHOR);
+                Vector3 tangnetA = segments[i2].GetPosition(Segment.ControlHandle.TANGENT_A);
+                Vector3 tangentB = segments[i2 + 1].GetPosition(Segment.ControlHandle.TANGENT_B);
+                Vector3 anchorB = segments[i2 + 1].GetPosition(Segment.ControlHandle.ANCHOR);
+                int lines = SplineUtility.GetSegmentLinesCount(anchorA, tangnetA, tangentB, anchorB, segments[i2].length, camera);
+
+                for (int i = 0; i < lines; i++)
+                {
+                    float startTime = (float)i / lines;
+                    float endTime = (float)(i + 1) / lines;
+                    Vector3 p1 = BezierUtility.CubicLerp(anchorA, tangnetA, tangentB, anchorB, startTime);
+                    Vector3 p2 = BezierUtility.CubicLerp(anchorA, tangnetA, tangentB, anchorB, endTime);
+                    GL.Vertex(p1);
+                    GL.Vertex(p2);
+                }
+            }
+
+            GL.End();
+            GL.PopMatrix();
+        }
+
+        private void OnTransformChildrenChanged()
+        {
+            if (disableOnTransformChildrenChanged)
+                return;
+
+            monitor.ChildCountChange(out int dif);
+            monitor.UpdateChildCount();
+
+            if (dif > 0)
+            {
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    Transform child = transform.GetChild(i);
+                    ESplineObjectUtility.TryAttacheOnTransformEditor(this, child, false);
+
+                    SplineObject so = child.GetComponent<SplineObject>();
+
+                    if (so == null || so.type != SplineObject.Type.DEFORMATION)
+                        continue;
+
+                    foreach (Transform child2 in child.GetComponentsInChildren<Transform>())
+                    {
+                        if (child2 == child)
+                            continue;
+
+                        ESplineObjectUtility.TryAttacheOnTransformEditor(this, child2, true);
+                    }
+                }
+            }
+        }
+
+        public void DeselectAllNoiseLayers()
+        {
+            for (int i = 0; i < noises.Count; i++)
+            {
+                NoiseLayer nl = noises[i];
+                nl.selected = false;
+                noises[i] = nl;
+            }
+        }
+
+        public Vector3 GetPositionFastWorld(float time)
+        {
+            if (positionMap.Length <= 0)
+                return GetPosition(time, Space.World);
+
+            float indexValue = time / GetResolutionSpline();
+
+            int lmIndex = (int)Mathf.Floor(indexValue);
+            int lmIndex2 = lmIndex + 1;
+            float mod = indexValue;
+            if (indexValue > 1) mod = indexValue % lmIndex;
+
+            if (lmIndex > positionMap.Length - 1)
+                lmIndex = positionMap.Length - 1;
+
+            if (lmIndex < 0)
+                lmIndex = 0;
+
+            if (lmIndex2 > positionMap.Length - 1)
+                lmIndex2 = positionMap.Length - 1;
+
+            if (lmIndex2 < 0)
+                lmIndex2 = 0;
+
+            return positionMap[lmIndex] + ((positionMap[lmIndex2] - positionMap[lmIndex]) * mod);
+        }
+
+        public float GetNearestTimeRough(Vector3 point, float startTime, float endTime, float stepSize, bool ignoreYAxel = false)
+        {
+            float timeValue = -1;
+            float distance = 999999;
+
+            for (float t = startTime; t < endTime; t += stepSize)
+            {
+                Calculate(t);
+            }
+
+            void Calculate(float time)
+            {
+                //Even out big spaces by using fixed time instead.
+                float fixedT = TimeToFixedTime(time);
+                Vector3 bezierPoint = GetPositionFastWorld(fixedT);
+                float d2 = ignoreYAxel ? Vector2.Distance(new Vector2(bezierPoint.x, bezierPoint.z), new Vector2(point.x, point.z)) : Vector3.Distance(bezierPoint, point);
+
+                if (d2 < distance)
+                {
+                    timeValue = fixedT;
+                    distance = d2;
+                }
+            }
+
+            return timeValue;
+        }
+
+        public float GetNearestTime(Vector3 point, int precision, float startTime, float endTime, float steps = 5, bool ignoreYAxel = false)
+        {
+            steps = 100 / length / steps;
+            if (steps > 0.2f) steps = 0.2f;
+            if (steps < 0.0001f) steps = 0.0001f;
+            float timeValue = GetNearestTimeRough(point, startTime, endTime, steps, ignoreYAxel);
+
+            for (int i = precision; i > 0; i--)
+            {
+                //Needs to be lower then 1.999f here. Cant get fixedTime to work, likely dont work in this case. Thats why 1.999f cant be used. 1.35f - 1.66f seems to work good with extreme splines.
+                steps = steps / 1.66f;
+                float timeForwards = timeValue + steps;
+                float timeBackwards = timeValue - steps;
+                timeForwards = SplineUtility.GetValidatedTime(timeForwards, loop);
+                timeBackwards = SplineUtility.GetValidatedTime(timeBackwards, loop);
+
+                Vector3 pForward = GetPositionFastWorld(timeForwards);
+                float dForward = ignoreYAxel ? Vector2.Distance(new Vector2(pForward.x, pForward.z), new Vector2(point.x, point.z)) : Vector3.Distance(pForward, point);
+
+                Vector3 pBackwards = GetPositionFastWorld(timeBackwards);
+                float dBackwards = ignoreYAxel ? Vector2.Distance(new Vector2(pBackwards.x, pBackwards.z), new Vector2(point.x, point.z)) : Vector3.Distance(pBackwards, point);
+
+                if (dForward > dBackwards)
+                {
+                    timeValue = timeBackwards;
+                }
+                else
+                {
+                    timeValue = timeForwards;
+                }
+            }
+
+            return timeValue;
+        }
+
+        private void SetInterpolationModeForNewSegment(Segment segment, int index)
+        {
+            if (segments.Count > 1)
+            {
+                if (index > 0)
+                {
+                    if(index == segments.Count - 1)
+                    {
+                        if (segments[index - 1].GetInterpolationType() == Segment.InterpolationType.LINE)
+                            segment.SetInterpolationMode(Segment.InterpolationType.LINE);
+
+                        return;
+                    }
+
+                    float d1 = Vector3.Distance(segments[index].GetPosition(Segment.ControlHandle.ANCHOR), segments[index - 1].GetPosition(Segment.ControlHandle.ANCHOR));
+                    float d2 = Vector3.Distance(segments[index].GetPosition(Segment.ControlHandle.ANCHOR), segments[index + 1].GetPosition(Segment.ControlHandle.ANCHOR));
+
+                    if (d1 > d2 && segments[index + 1].GetInterpolationType() == Segment.InterpolationType.LINE)
+                        segment.SetInterpolationMode(Segment.InterpolationType.LINE);
+                    else if (d2 > d1 && segments[index - 1].GetInterpolationType() == Segment.InterpolationType.LINE)
+                        segment.SetInterpolationMode(Segment.InterpolationType.LINE);
+                }
+                else if (index == 0 && segments[index + 1].GetInterpolationType() == Segment.InterpolationType.LINE)
+                    segment.SetInterpolationMode(Segment.InterpolationType.LINE);
+            }
+        }
+
+        private void FixUnityPrefabBoundsCase()
+        {
+            // Bounds are calculated using the wrong transform.position during OnEnable
+            // when opening a prefab. They are calculated as if the spline's transform.localPosition were
+            // the world position, completely ignoring any parent transforms.
+            //
+            // This issue seems to be fixed in later Unity versions.
+            if (EHandlePrefab.IsPrefabStageActive())
+            {
+                foreach (Spline spline in HandleRegistry.GetSplines())
+                {
+                    if (spline != null) spline.CalculateControlpointBounds();
+                }
+            }
+        }
+
+        private bool ValidForEditorRuntimeDeformation()
+        {
+            if (EHandleEvents.dragActive)
+                return false;
+
+            if (segments.Count < 2)
+                return false;
+
+            if (EHandleEvents.playModeStateChange == UnityEditor.PlayModeStateChange.ExitingEditMode ||
+                EHandleEvents.playModeStateChange == UnityEditor.PlayModeStateChange.ExitingPlayMode)
+                return false;
+
+            return true;
+        }
+#endif
+    }
+}

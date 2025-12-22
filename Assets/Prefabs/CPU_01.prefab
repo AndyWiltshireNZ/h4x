@@ -224,7 +224,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5132390643324728352, guid: cbfad170be586674098164233346629e, type: 3}
       propertyPath: m_Name
-      value: Component20
+      value: CPUChip
       objectReference: {fileID: 0}
     - target: {fileID: 5132390643324728352, guid: cbfad170be586674098164233346629e, type: 3}
       propertyPath: m_IsActive
@@ -240,7 +240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5132390643325151232, guid: cbfad170be586674098164233346629e, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.50000006
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5132390643325151232, guid: cbfad170be586674098164233346629e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -248,7 +248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5132390643325151232, guid: cbfad170be586674098164233346629e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5132390643325151232, guid: cbfad170be586674098164233346629e, type: 3}
       propertyPath: m_LocalPosition.z

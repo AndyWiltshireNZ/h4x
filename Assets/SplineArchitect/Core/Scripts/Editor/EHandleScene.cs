@@ -1,0 +1,172 @@
+// -----------------------------------------------------------------------------
+// SplineArchitect
+// Filename: EHandleScene.cs
+//
+// Author: Mikael Danielsson
+// Date Created: 17-01-2024
+// (C) 2023 Mikael Danielsson. All rights reserved.
+// -----------------------------------------------------------------------------
+
+using UnityEngine;
+using UnityEditor;
+using UnityEngine.SceneManagement;
+using UnityEditor.SceneManagement;
+
+using SplineArchitect.Objects;
+using SplineArchitect.Utility;
+
+namespace SplineArchitect
+{
+    public class EHandleScene
+    {
+        public static bool sceneIsLoadedPlaymode { get; private set; }
+        public static bool sceneIsClosing { get; private set; }
+        public static bool editorIsQuitting { get; private set; }
+        public static bool isSaving { get; private set; }
+
+        [UnityEditor.Callbacks.DidReloadScripts]
+        private static void AfterAssemblyReload()
+        {
+            //Callbacks
+            //EditorSceneManager.sceneDirtied += OnSceneDirtied;
+            //EditorSceneManager.sceneOpening += OnSceneOpening;
+            EditorSceneManager.sceneClosing += OnSceneClosing;
+            EditorSceneManager.sceneOpened += OnSceneOpened;
+            EditorSceneManager.sceneClosed += OnSceneClosed;
+            EditorSceneManager.sceneSaving += OnSceneSaving;
+            EditorSceneManager.sceneSaved += OnSceneSaved;
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            EditorApplication.quitting += OnEditorIsQuitting;
+        }
+
+        private static void OnEditorIsQuitting()
+        {
+            editorIsQuitting = true;
+        }
+
+        private static void OnSceneOpened(Scene scene, OpenSceneMode mode)
+        {
+            ECore.firstInitialization = true;
+        }
+
+        private static void OnSceneClosed(Scene scene)
+        {
+            HandleRegistry.ClearScene(scene.name);
+            HandleCachedResources.ClearScene(scene.name);
+
+            EHandleEvents.sceneIsClosing = false;
+            sceneIsClosing = false;
+        }
+
+        private static void OnSceneClosing(Scene scene, bool removingScene)
+        {
+            EHandleEvents.sceneIsClosing = true;
+            sceneIsClosing = true;
+        }
+
+        private static void OnSceneSaving(Scene scene, string path)
+        {
+            isSaving = true;
+
+            foreach (Spline spline in HandleRegistry.GetSplines())
+            {
+                if (spline == null)
+                    continue;
+
+                if (spline.componentMode == ComponentMode.REMOVE_FROM_BUILD)
+                    spline.hideFlags = HideFlags.DontSaveInBuild;
+                else
+                    spline.hideFlags = HideFlags.None;
+
+                //SplineObject HideFlags
+                foreach (SplineObject so in spline.allSplineObjects)
+                {
+                    if (so == null)
+                        continue;
+
+                    //Meshes HideFlags
+                    if (so.type == SplineObject.Type.DEFORMATION)
+                    {
+                        if (so.meshMode == MeshMode.SAVE_IN_SCENE)
+                        {
+                            foreach (MeshContainer mc in so.meshContainers)
+                                UpdateHideFlagsMeshContainer(mc, HideFlags.None);
+                        }
+                        else if (so.meshMode == MeshMode.SAVE_IN_BUILD)
+                        {
+                            foreach (MeshContainer mc in so.meshContainers)
+                                UpdateHideFlagsMeshContainer(mc, HideFlags.DontSaveInEditor);
+                        }
+                        else
+                        {
+                            foreach (MeshContainer mc in so.meshContainers)
+                                UpdateHideFlagsMeshContainer(mc, HideFlags.DontSaveInBuild | HideFlags.DontSaveInEditor);
+                        }
+                    }
+
+                    so.hideFlags = HideFlags.DontSaveInBuild;
+
+                    if (so.componentMode == ComponentMode.REMOVE_FROM_BUILD)
+                        continue;
+
+                    so.hideFlags = HideFlags.None;
+                }
+            }
+
+            //SplineConnectors HideFlags
+            foreach (SplineConnector sc in HandleRegistry.GetSplineConnectors())
+            {
+                if (sc == null) continue;
+
+                sc.hideFlags = HideFlags.DontSaveInBuild;
+
+                foreach (Segment s in sc.connections)
+                {
+                    if (s.splineParent.componentMode == ComponentMode.ACTIVE)
+                    {
+                        sc.hideFlags = HideFlags.None;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private static void OnSceneSaved(Scene scene)
+        {
+            EActionDelayed.Add(() =>
+            {
+                isSaving = false;
+            }, 0, 8, EActionDelayed.Type.FRAMES);
+        }
+
+        private static void UpdateHideFlagsMeshContainer(MeshContainer mc, HideFlags hideFlags)
+        {
+            Mesh instanceMesh = mc.GetInstanceMesh();
+            Mesh originMesh = mc.GetOriginMesh();
+
+            if (originMesh == null || instanceMesh == null)
+                return;
+
+            if (originMesh == instanceMesh)
+                return;
+
+            instanceMesh.hideFlags = hideFlags;
+        }
+
+        ////Playmode.
+
+        private static void OnSceneUnloaded(Scene scene)
+        {
+            EHandleEvents.sceneIsLoadedPlaymode = false;
+            sceneIsLoadedPlaymode = false;
+        }
+
+        private static void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+        {
+            EHandleEvents.sceneIsLoadedPlaymode = true;
+            sceneIsLoadedPlaymode = true;
+            ECore.firstInitialization = true;
+        }
+    }
+}

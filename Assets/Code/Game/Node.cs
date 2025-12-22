@@ -99,7 +99,7 @@ public class Node : MonoBehaviour
 				break;
 		}
 
-		Debug.Log( "Node " + gameObject.name + " is now " + (isOpen ? "Open" : "Closed") );
+		//Debug.Log( "Node " + gameObject.name + " is now " + (isOpen ? "Open" : "Closed") );
 	}
 
 	private void Update()
