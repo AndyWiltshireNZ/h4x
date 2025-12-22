@@ -70,6 +70,13 @@ public class GameMode : MonoBehaviour
 			LevelManager = modemanagerObj.GetComponent<LevelManager>();
 			LevelManager.Setup();
 		}
+
+		AsyncOperationHandle<GameObject> asyncSpawnAudioManager = GameModeData.AudioManagerAssetReference.InstantiateAsync();
+		await asyncSpawnAudioManager.Task;
+		if ( asyncSpawnAudioManager.Status == AsyncOperationStatus.Succeeded )
+		{
+			GameObject audiomanagerObj = asyncSpawnAudioManager.Result;
+		}
 	}
 
     private void Update()

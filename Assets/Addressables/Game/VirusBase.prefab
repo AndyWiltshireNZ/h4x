@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveAlongPathway
   speed: {x: 0, y: 0, z: 4}
+  loop: 1
 --- !u!1 &8168255710068591070
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,6 +122,7 @@ GameObject:
   - component: {fileID: 3965435995303205395}
   - component: {fileID: 7893528067424337721}
   - component: {fileID: 6116007477991304232}
+  - component: {fileID: 1649925609963632501}
   m_Layer: 7
   m_Name: Mesh
   m_TagString: Untagged
@@ -221,3 +223,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1649925609963632501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8754596068242355126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30722e3d78c36554a9fac3b0020ad7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PulsingObject
+  _band: 0
+  scaleObject: 0
+  _startScale: 0
+  _scaleMultiplier: 0
+  scaleGlow: 1
+  _startGlow: 3
+  _glowMultiplier: 3
+  _glowColor: {r: 5.9921565, g: 0, b: 0, a: 1}
+  scaleLightIntensity: 0
+  _startLightIntensity: 0
+  _lightIntensityMultiplier: 0

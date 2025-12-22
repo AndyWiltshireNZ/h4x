@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour
 		{
 			levelToLoadAssetReference = LevelManagerData.TestLevelAssetReference;
 			currentLevelIndex = -1;
-			Debug.Log( "Test Level to load: " + (levelToLoadAssetReference.RuntimeKey != null ? levelToLoadAssetReference.RuntimeKey.ToString() : "(null)") );
+			//Debug.Log( "Test Level to load: " + (levelToLoadAssetReference.RuntimeKey != null ? levelToLoadAssetReference.RuntimeKey.ToString() : "(null)") );
 			
 			_ = LoadLevelAsync();
 			return;
@@ -49,7 +49,7 @@ public class LevelManager : MonoBehaviour
 			}
 
 			levelToLoadAssetReference = def.LevelAssetReference;
-			Debug.Log( "Level to load: " + (levelToLoadAssetReference?.RuntimeKey != null ? levelToLoadAssetReference.RuntimeKey.ToString() : "(null)") );
+			//Debug.Log( "Level to load: " + (levelToLoadAssetReference?.RuntimeKey != null ? levelToLoadAssetReference.RuntimeKey.ToString() : "(null)") );
 
 			_ = LoadLevelAsync();
 		}

@@ -5,8 +5,8 @@ public class MoveAlongPathway : MonoBehaviour
 {
     private SplineObject splineObject;
     [SerializeField] private Vector3 speed;
-    private float resetRange;
-    
+	[SerializeField] private bool loop = false;
+	private float resetRange;
     private Vector3 startPos;
 
     void Start()
@@ -22,8 +22,14 @@ public class MoveAlongPathway : MonoBehaviour
 
 		if ( splineObject.localSplinePosition.z > resetRange )
 		{
-			//splineObject.localSplinePosition = startPos;
-			Destroy( this.gameObject );
+			if ( loop == true )
+			{
+				splineObject.localSplinePosition = startPos;
+			}
+			else
+			{
+				Destroy( this.gameObject );
+			}
 		}
     }
 }

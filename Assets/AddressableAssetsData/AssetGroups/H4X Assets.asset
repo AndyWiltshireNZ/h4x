@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2d21c959dab38514e9dd05a09b7d7246
+    m_Address: Assets/Definitions/PacketBaseData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2f76bc65a06403c4fbce9eb3a2283dcb
     m_Address: Assets/Definitions/GameMode.asset
     m_ReadOnly: 0
@@ -40,8 +45,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36d51e91a46ea234aa7d8894d8c865c2
+    m_Address: Assets/Addressables/UI/MainMenuCanvas.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 37b203b67683bcb4c8a78ba5628f0c5a
     m_Address: Assets/Addressables/Game/MainCamera.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 61ccfbb304d0c7443b5e991f9fdfaeb7
+    m_Address: Assets/Addressables/Managers/AudioManager.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -52,6 +67,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 89f459f1a466b244c9e67dc7c68169c7
     m_Address: Assets/Addressables/GameMode.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a9af7bab9a0c514a8d2ca65913e6c93
+    m_Address: Assets/Addressables/UI/HUDCanvas.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 93f18213d33bf7d4a8e61b83eb29e356
+    m_Address: Assets/Definitions/AudioManagerData.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

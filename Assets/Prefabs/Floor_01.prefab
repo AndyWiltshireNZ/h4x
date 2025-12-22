@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2182606089949068107}
   - component: {fileID: 3452328914742044331}
   - component: {fileID: 2045213862388379919}
+  - component: {fileID: 6393992044031034924}
   m_Layer: 0
   m_Name: Floor_01
   m_TagString: Untagged
@@ -112,3 +113,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6393992044031034924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337169185334718510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30722e3d78c36554a9fac3b0020ad7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PulsingObject
+  _band: 0
+  scaleObject: 0
+  _startScale: 0
+  _scaleMultiplier: 0
+  scaleGlow: 1
+  _startGlow: 1
+  _glowMultiplier: 0.01
+  _glowColor: {r: 0.30980393, g: 0.13333334, b: 0.09019608, a: 1}
+  scaleLightIntensity: 0
+  _startLightIntensity: 0
+  _lightIntensityMultiplier: 0

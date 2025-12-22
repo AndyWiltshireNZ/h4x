@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2807687091047145855}
   - component: {fileID: 2897831472206518953}
   - component: {fileID: 6905057322462897009}
+  - component: {fileID: 5696334652149920405}
   m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
@@ -112,6 +113,29 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5696334652149920405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438583397384863880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30722e3d78c36554a9fac3b0020ad7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PulsingObject
+  _band: 0
+  scaleObject: 0
+  _startScale: 0
+  _scaleMultiplier: 0
+  scaleGlow: 1
+  _startGlow: 3
+  _glowMultiplier: 3
+  _glowColor: {r: 0, g: 5.992157, b: 1.6689948, a: 1}
+  scaleLightIntensity: 0
+  _startLightIntensity: 0
+  _lightIntensityMultiplier: 0
 --- !u!1 &3243973647415504829
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d09ebb1ee9d0caf49ba7cea46d259c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveAlongPathway
-  speed: {x: 0, y: 0, z: 8}
+  speed: {x: 0, y: 0, z: 4}
+  loop: 1
 --- !u!1 &6567522484055236115
 GameObject:
   m_ObjectHideFlags: 0
