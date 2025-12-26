@@ -43,8 +43,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 1
-  m_Color: {r: 0.75, g: 0.9, b: 1, a: 1}
-  m_Intensity: 0.2
+  m_Color: {r: 1, g: 0.99091, b: 0.8836478, a: 1}
+  m_Intensity: 0.25
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1853,7 +1853,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 0
-  m_Color: {r: 1, g: 0.15, b: 0.3, a: 1}
+  m_Color: {r: 1, g: 0.5, b: 0.65, a: 1}
   m_Intensity: 3000
   m_Range: 150
   m_SpotAngle: 150
@@ -1958,7 +1958,7 @@ MonoBehaviour:
   _glowMultiplier: 0
   _glowColor: {r: 1, g: 1, b: 1, a: 1}
   scaleLightIntensity: 1
-  _startLightIntensity: 2500
+  _startLightIntensity: 3000
   _lightIntensityMultiplier: 50
 --- !u!1 &6854952007490327415
 GameObject:
@@ -7802,7 +7802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 383067975557145252, guid: 2007554efecbeaf47b40c94aae16a53d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0000000018663644
+      value: -0.0000000018663628
       objectReference: {fileID: 0}
     - target: {fileID: 383067975557145252, guid: 2007554efecbeaf47b40c94aae16a53d, type: 3}
       propertyPath: m_LocalRotation.y
@@ -7810,7 +7810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 383067975557145252, guid: 2007554efecbeaf47b40c94aae16a53d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -1.1633082e-12
+      value: -1.1633072e-12
       objectReference: {fileID: 0}
     - target: {fileID: 383067975557145252, guid: 2007554efecbeaf47b40c94aae16a53d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7991,7 +7991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 383067975557145252, guid: 2007554efecbeaf47b40c94aae16a53d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -1.1632386e-12
+      value: -1.1632376e-12
       objectReference: {fileID: 0}
     - target: {fileID: 383067975557145252, guid: 2007554efecbeaf47b40c94aae16a53d, type: 3}
       propertyPath: m_LocalRotation.y
@@ -7999,7 +7999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 383067975557145252, guid: 2007554efecbeaf47b40c94aae16a53d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000018663653
+      value: -0.0000000018663637
       objectReference: {fileID: 0}
     - target: {fileID: 383067975557145252, guid: 2007554efecbeaf47b40c94aae16a53d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

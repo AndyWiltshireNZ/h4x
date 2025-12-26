@@ -108,7 +108,7 @@ MonoBehaviour:
   scaleGlow: 1
   _startGlow: 2
   _glowMultiplier: 0.5
-  _glowColor: {r: 0, g: 0.62267274, b: 2.9960787, a: 1}
+  _glowColor: {r: 2.9960785, g: 1.2317624, b: 0.14132407, a: 1}
   scaleLightIntensity: 0
   _startLightIntensity: 0
   _lightIntensityMultiplier: 0

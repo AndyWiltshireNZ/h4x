@@ -108,9 +108,9 @@ MonoBehaviour:
   _startScale: 0
   _scaleMultiplier: 0
   scaleGlow: 1
-  _startGlow: 2
-  _glowMultiplier: 2
-  _glowColor: {r: 0, g: 0.6226726, b: 2.9960783, a: 1}
+  _startGlow: 1
+  _glowMultiplier: 1
+  _glowColor: {r: 2.1159735, g: 0.4058939, b: 1.6846292, a: 1}
   scaleLightIntensity: 0
   _startLightIntensity: 0
   _lightIntensityMultiplier: 0
@@ -159,7 +159,6 @@ GameObject:
   - component: {fileID: 1016275930121359254}
   - component: {fileID: 3151797563170667570}
   - component: {fileID: 1636770592904270353}
-  - component: {fileID: 5465011071296207142}
   m_Layer: 0
   m_Name: CPUBase
   m_TagString: Untagged
@@ -239,29 +238,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5465011071296207142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8324087375463597644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30722e3d78c36554a9fac3b0020ad7f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PulsingObject
-  _band: 0
-  scaleObject: 0
-  _startScale: 0
-  _scaleMultiplier: 0
-  scaleGlow: 1
-  _startGlow: 2
-  _glowMultiplier: 0.5
-  _glowColor: {r: 0, g: 0.62267274, b: 2.9960787, a: 1}
-  scaleLightIntensity: 0
-  _startLightIntensity: 0
-  _lightIntensityMultiplier: 0
 --- !u!1001 &7182761677900421341
 PrefabInstance:
   m_ObjectHideFlags: 0

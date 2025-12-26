@@ -78,10 +78,10 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.4
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.4
   rounded:
     m_OverrideState: 0
     m_Value: 0
@@ -103,13 +103,13 @@ MonoBehaviour:
     m_Value: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.85
+    m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
   scatter:
     m_OverrideState: 1
-    m_Value: 0.75
+    m_Value: 0.25
   clamp:
     m_OverrideState: 0
     m_Value: 65472
@@ -127,7 +127,7 @@ MonoBehaviour:
     m_Value: 0
   maxIterations:
     m_OverrideState: 0
-    m_Value: 6
+    m_Value: 4
   dirtTexture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -153,28 +153,28 @@ MonoBehaviour:
     m_Value: 0.5
   m_Power:
     m_OverrideState: 1
-    m_Value: 0.1
+    m_Value: 0.25
   m_Scale:
     m_OverrideState: 1
     m_Value: 0.9999
   m_Pixelate:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   m_Fps:
     m_OverrideState: 1
     m_Value: 5
   m_Palette:
     m_OverrideState: 1
-    m_Value: {fileID: 2800000, guid: 3f863167227493d42aecb758f973d224, type: 3}
+    m_Value: {fileID: 2800000, guid: 2d4aaa7ba85fe6246bbd41d53eb0f2c2, type: 3}
   m_Pattern:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {fileID: 2800000, guid: 349aad560c9df8343a28deb0dad611ee, type: 3}
   m_Mode:
     m_OverrideState: 1
     m_Value: 0
   m_NoiseScale:
     m_OverrideState: 0
-    m_Value: 5
+    m_Value: 3
   m_Noise:
     m_OverrideState: 0
     m_Value: {fileID: 2800000, guid: a600c2cd1fddf094bafd88ca09d02ccb, type: 3}
