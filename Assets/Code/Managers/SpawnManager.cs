@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    private void Start()
+	[SerializeField] private WaveController[] waveControllers;
+	public WaveController[] WaveControllers { get { return waveControllers; } }
+
+	private void Start()
     {
         
     }

@@ -5,6 +5,7 @@ public class MoveAlongPathway : MonoBehaviour
 {
     private SplineObject splineObject;
     [SerializeField] private Vector3 speed;
+	public Vector3 Speed { get { return speed; } set { speed = value; } }
 	[SerializeField] private bool loop = false;
 	private float resetRange;
     private Vector3 startPos;

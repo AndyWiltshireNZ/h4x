@@ -563,7 +563,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""UI"",
+            ""name"": ""Game"",
             ""id"": ""272f6d14-89ba-496f-b7ff-215263d3219f"",
             ""actions"": [
                 {
@@ -669,6 +669,24 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""name"": ""Reload"",
                     ""type"": ""Button"",
                     ""id"": ""1ff09e40-3491-4a43-82e1-00c82b41de15"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugCpuUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""0360b1d0-b53f-4bf8-8ab2-438c4f18135a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugCpuDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""ebbf9b50-0dfa-446b-9510-89154ac97e2c"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1115,6 +1133,28 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""98c1d097-36c4-4b7e-8705-a69df50ed3a3"",
+                    ""path"": ""<Keyboard>/numpadPlus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""DebugCpuUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""104dbcb4-18ca-4596-a82b-e7d577a0998e"",
+                    ""path"": ""<Keyboard>/numpadMinus"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""DebugCpuDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1193,26 +1233,28 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Player_Previous = m_Player.FindAction("Previous", throwIfNotFound: true);
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
-        // UI
-        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-        m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
-        m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
-        m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
-        m_UI_Point = m_UI.FindAction("Point", throwIfNotFound: true);
-        m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
-        m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
-        m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
-        m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
-        m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
-        m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
-        m_UI_Quit = m_UI.FindAction("Quit", throwIfNotFound: true);
-        m_UI_Reload = m_UI.FindAction("Reload", throwIfNotFound: true);
+        // Game
+        m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
+        m_Game_Navigate = m_Game.FindAction("Navigate", throwIfNotFound: true);
+        m_Game_Submit = m_Game.FindAction("Submit", throwIfNotFound: true);
+        m_Game_Cancel = m_Game.FindAction("Cancel", throwIfNotFound: true);
+        m_Game_Point = m_Game.FindAction("Point", throwIfNotFound: true);
+        m_Game_Click = m_Game.FindAction("Click", throwIfNotFound: true);
+        m_Game_RightClick = m_Game.FindAction("RightClick", throwIfNotFound: true);
+        m_Game_MiddleClick = m_Game.FindAction("MiddleClick", throwIfNotFound: true);
+        m_Game_ScrollWheel = m_Game.FindAction("ScrollWheel", throwIfNotFound: true);
+        m_Game_TrackedDevicePosition = m_Game.FindAction("TrackedDevicePosition", throwIfNotFound: true);
+        m_Game_TrackedDeviceOrientation = m_Game.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        m_Game_Quit = m_Game.FindAction("Quit", throwIfNotFound: true);
+        m_Game_Reload = m_Game.FindAction("Reload", throwIfNotFound: true);
+        m_Game_DebugCpuUp = m_Game.FindAction("DebugCpuUp", throwIfNotFound: true);
+        m_Game_DebugCpuDown = m_Game.FindAction("DebugCpuDown", throwIfNotFound: true);
     }
 
     ~@InputSystem()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, InputSystem.Player.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputSystem.UI.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Game.enabled, "This will cause a leak and performance issues, InputSystem.Game.Disable() has not been called.");
     }
 
     /// <summary>
@@ -1469,84 +1511,94 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     /// </summary>
     public PlayerActions @Player => new PlayerActions(this);
 
-    // UI
-    private readonly InputActionMap m_UI;
-    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
-    private readonly InputAction m_UI_Navigate;
-    private readonly InputAction m_UI_Submit;
-    private readonly InputAction m_UI_Cancel;
-    private readonly InputAction m_UI_Point;
-    private readonly InputAction m_UI_Click;
-    private readonly InputAction m_UI_RightClick;
-    private readonly InputAction m_UI_MiddleClick;
-    private readonly InputAction m_UI_ScrollWheel;
-    private readonly InputAction m_UI_TrackedDevicePosition;
-    private readonly InputAction m_UI_TrackedDeviceOrientation;
-    private readonly InputAction m_UI_Quit;
-    private readonly InputAction m_UI_Reload;
+    // Game
+    private readonly InputActionMap m_Game;
+    private List<IGameActions> m_GameActionsCallbackInterfaces = new List<IGameActions>();
+    private readonly InputAction m_Game_Navigate;
+    private readonly InputAction m_Game_Submit;
+    private readonly InputAction m_Game_Cancel;
+    private readonly InputAction m_Game_Point;
+    private readonly InputAction m_Game_Click;
+    private readonly InputAction m_Game_RightClick;
+    private readonly InputAction m_Game_MiddleClick;
+    private readonly InputAction m_Game_ScrollWheel;
+    private readonly InputAction m_Game_TrackedDevicePosition;
+    private readonly InputAction m_Game_TrackedDeviceOrientation;
+    private readonly InputAction m_Game_Quit;
+    private readonly InputAction m_Game_Reload;
+    private readonly InputAction m_Game_DebugCpuUp;
+    private readonly InputAction m_Game_DebugCpuDown;
     /// <summary>
-    /// Provides access to input actions defined in input action map "UI".
+    /// Provides access to input actions defined in input action map "Game".
     /// </summary>
-    public struct UIActions
+    public struct GameActions
     {
         private @InputSystem m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public UIActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
+        public GameActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "UI/Navigate".
+        /// Provides access to the underlying input action "Game/Navigate".
         /// </summary>
-        public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
+        public InputAction @Navigate => m_Wrapper.m_Game_Navigate;
         /// <summary>
-        /// Provides access to the underlying input action "UI/Submit".
+        /// Provides access to the underlying input action "Game/Submit".
         /// </summary>
-        public InputAction @Submit => m_Wrapper.m_UI_Submit;
+        public InputAction @Submit => m_Wrapper.m_Game_Submit;
         /// <summary>
-        /// Provides access to the underlying input action "UI/Cancel".
+        /// Provides access to the underlying input action "Game/Cancel".
         /// </summary>
-        public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
+        public InputAction @Cancel => m_Wrapper.m_Game_Cancel;
         /// <summary>
-        /// Provides access to the underlying input action "UI/Point".
+        /// Provides access to the underlying input action "Game/Point".
         /// </summary>
-        public InputAction @Point => m_Wrapper.m_UI_Point;
+        public InputAction @Point => m_Wrapper.m_Game_Point;
         /// <summary>
-        /// Provides access to the underlying input action "UI/Click".
+        /// Provides access to the underlying input action "Game/Click".
         /// </summary>
-        public InputAction @Click => m_Wrapper.m_UI_Click;
+        public InputAction @Click => m_Wrapper.m_Game_Click;
         /// <summary>
-        /// Provides access to the underlying input action "UI/RightClick".
+        /// Provides access to the underlying input action "Game/RightClick".
         /// </summary>
-        public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
+        public InputAction @RightClick => m_Wrapper.m_Game_RightClick;
         /// <summary>
-        /// Provides access to the underlying input action "UI/MiddleClick".
+        /// Provides access to the underlying input action "Game/MiddleClick".
         /// </summary>
-        public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
+        public InputAction @MiddleClick => m_Wrapper.m_Game_MiddleClick;
         /// <summary>
-        /// Provides access to the underlying input action "UI/ScrollWheel".
+        /// Provides access to the underlying input action "Game/ScrollWheel".
         /// </summary>
-        public InputAction @ScrollWheel => m_Wrapper.m_UI_ScrollWheel;
+        public InputAction @ScrollWheel => m_Wrapper.m_Game_ScrollWheel;
         /// <summary>
-        /// Provides access to the underlying input action "UI/TrackedDevicePosition".
+        /// Provides access to the underlying input action "Game/TrackedDevicePosition".
         /// </summary>
-        public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
+        public InputAction @TrackedDevicePosition => m_Wrapper.m_Game_TrackedDevicePosition;
         /// <summary>
-        /// Provides access to the underlying input action "UI/TrackedDeviceOrientation".
+        /// Provides access to the underlying input action "Game/TrackedDeviceOrientation".
         /// </summary>
-        public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
+        public InputAction @TrackedDeviceOrientation => m_Wrapper.m_Game_TrackedDeviceOrientation;
         /// <summary>
-        /// Provides access to the underlying input action "UI/Quit".
+        /// Provides access to the underlying input action "Game/Quit".
         /// </summary>
-        public InputAction @Quit => m_Wrapper.m_UI_Quit;
+        public InputAction @Quit => m_Wrapper.m_Game_Quit;
         /// <summary>
-        /// Provides access to the underlying input action "UI/Reload".
+        /// Provides access to the underlying input action "Game/Reload".
         /// </summary>
-        public InputAction @Reload => m_Wrapper.m_UI_Reload;
+        public InputAction @Reload => m_Wrapper.m_Game_Reload;
+        /// <summary>
+        /// Provides access to the underlying input action "Game/DebugCpuUp".
+        /// </summary>
+        public InputAction @DebugCpuUp => m_Wrapper.m_Game_DebugCpuUp;
+        /// <summary>
+        /// Provides access to the underlying input action "Game/DebugCpuDown".
+        /// </summary>
+        public InputAction @DebugCpuDown => m_Wrapper.m_Game_DebugCpuDown;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public InputActionMap Get() { return m_Wrapper.m_Game; }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
         public void Enable() { Get().Enable(); }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -1554,9 +1606,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
         public bool enabled => Get().enabled;
         /// <summary>
-        /// Implicitly converts an <see ref="UIActions" /> to an <see ref="InputActionMap" /> instance.
+        /// Implicitly converts an <see ref="GameActions" /> to an <see ref="InputActionMap" /> instance.
         /// </summary>
-        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public static implicit operator InputActionMap(GameActions set) { return set.Get(); }
         /// <summary>
         /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
@@ -1564,11 +1616,11 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
         /// </remarks>
-        /// <seealso cref="UIActions" />
-        public void AddCallbacks(IUIActions instance)
+        /// <seealso cref="GameActions" />
+        public void AddCallbacks(IGameActions instance)
         {
-            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_GameActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GameActionsCallbackInterfaces.Add(instance);
             @Navigate.started += instance.OnNavigate;
             @Navigate.performed += instance.OnNavigate;
             @Navigate.canceled += instance.OnNavigate;
@@ -1605,6 +1657,12 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
+            @DebugCpuUp.started += instance.OnDebugCpuUp;
+            @DebugCpuUp.performed += instance.OnDebugCpuUp;
+            @DebugCpuUp.canceled += instance.OnDebugCpuUp;
+            @DebugCpuDown.started += instance.OnDebugCpuDown;
+            @DebugCpuDown.performed += instance.OnDebugCpuDown;
+            @DebugCpuDown.canceled += instance.OnDebugCpuDown;
         }
 
         /// <summary>
@@ -1613,8 +1671,8 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         /// <remarks>
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
         /// </remarks>
-        /// <seealso cref="UIActions" />
-        private void UnregisterCallbacks(IUIActions instance)
+        /// <seealso cref="GameActions" />
+        private void UnregisterCallbacks(IGameActions instance)
         {
             @Navigate.started -= instance.OnNavigate;
             @Navigate.performed -= instance.OnNavigate;
@@ -1652,15 +1710,21 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
+            @DebugCpuUp.started -= instance.OnDebugCpuUp;
+            @DebugCpuUp.performed -= instance.OnDebugCpuUp;
+            @DebugCpuUp.canceled -= instance.OnDebugCpuUp;
+            @DebugCpuDown.started -= instance.OnDebugCpuDown;
+            @DebugCpuDown.performed -= instance.OnDebugCpuDown;
+            @DebugCpuDown.canceled -= instance.OnDebugCpuDown;
         }
 
         /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="UIActions.UnregisterCallbacks(IUIActions)" />.
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="GameActions.UnregisterCallbacks(IGameActions)" />.
         /// </summary>
-        /// <seealso cref="UIActions.UnregisterCallbacks(IUIActions)" />
-        public void RemoveCallbacks(IUIActions instance)
+        /// <seealso cref="GameActions.UnregisterCallbacks(IGameActions)" />
+        public void RemoveCallbacks(IGameActions instance)
         {
-            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_GameActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
@@ -1670,21 +1734,21 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
         /// </remarks>
-        /// <seealso cref="UIActions.AddCallbacks(IUIActions)" />
-        /// <seealso cref="UIActions.RemoveCallbacks(IUIActions)" />
-        /// <seealso cref="UIActions.UnregisterCallbacks(IUIActions)" />
-        public void SetCallbacks(IUIActions instance)
+        /// <seealso cref="GameActions.AddCallbacks(IGameActions)" />
+        /// <seealso cref="GameActions.RemoveCallbacks(IGameActions)" />
+        /// <seealso cref="GameActions.UnregisterCallbacks(IGameActions)" />
+        public void SetCallbacks(IGameActions instance)
         {
-            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_GameActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_GameActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
     /// <summary>
-    /// Provides a new <see cref="UIActions" /> instance referencing this action map.
+    /// Provides a new <see cref="GameActions" /> instance referencing this action map.
     /// </summary>
-    public UIActions @UI => new UIActions(this);
+    public GameActions @Game => new GameActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -1822,11 +1886,11 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
     }
     /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Game" which allows adding and removing callbacks.
     /// </summary>
-    /// <seealso cref="UIActions.AddCallbacks(IUIActions)" />
-    /// <seealso cref="UIActions.RemoveCallbacks(IUIActions)" />
-    public interface IUIActions
+    /// <seealso cref="GameActions.AddCallbacks(IGameActions)" />
+    /// <seealso cref="GameActions.RemoveCallbacks(IGameActions)" />
+    public interface IGameActions
     {
         /// <summary>
         /// Method invoked when associated input action "Navigate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
@@ -1912,5 +1976,19 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnReload(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DebugCpuUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDebugCpuUp(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DebugCpuDown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDebugCpuDown(InputAction.CallbackContext context);
     }
 }

@@ -5,4 +5,6 @@ using UnityEngine.AddressableAssets;
 public class LevelDefinition : ScriptableObject
 {
 	public AssetReference LevelAssetReference;
+	public int StartCPULevel = 1;
+	public int EndCPULevel = 4;
 }

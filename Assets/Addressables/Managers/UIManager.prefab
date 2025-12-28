@@ -54,7 +54,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   debugText: {fileID: 8892184958946149849}
+  MainMenuController: {fileID: 4164526454034743234}
   mainmenuCanvasGroup: {fileID: 1855207099518190335}
+  HUDController: {fileID: 1273384335849317063}
   hudCanvasGroup: {fileID: 8860600440614309261}
 --- !u!223 &7387013227268783897
 Canvas:
@@ -226,6 +228,17 @@ CanvasGroup:
   m_CorrespondingSourceObject: {fileID: -6928504277315825889, guid: 36d51e91a46ea234aa7d8894d8c865c2, type: 3}
   m_PrefabInstance: {fileID: 461063805510634976}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4164526454034743234 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4588422174862570018, guid: 36d51e91a46ea234aa7d8894d8c865c2, type: 3}
+  m_PrefabInstance: {fileID: 461063805510634976}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b3e10257fb0a3041840e0b3e3d5bc94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1001 &5138009746921267402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -323,6 +336,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a9af7bab9a0c514a8d2ca65913e6c93, type: 3}
+--- !u!114 &1273384335849317063 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -2961652307598196211, guid: 8a9af7bab9a0c514a8d2ca65913e6c93, type: 3}
+  m_PrefabInstance: {fileID: 5138009746921267402}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84e38b0f666aef479f3a744dd123db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!224 &8858997014864278988 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4448600395216295174, guid: 8a9af7bab9a0c514a8d2ca65913e6c93, type: 3}

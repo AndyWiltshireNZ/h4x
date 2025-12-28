@@ -477,7 +477,7 @@
             ]
         },
         {
-            "name": "UI",
+            "name": "Game",
             "id": "272f6d14-89ba-496f-b7ff-215263d3219f",
             "actions": [
                 {
@@ -583,6 +583,24 @@
                     "name": "Reload",
                     "type": "Button",
                     "id": "1ff09e40-3491-4a43-82e1-00c82b41de15",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DebugCpuUp",
+                    "type": "Button",
+                    "id": "0360b1d0-b53f-4bf8-8ab2-438c4f18135a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DebugCpuDown",
+                    "type": "Button",
+                    "id": "ebbf9b50-0dfa-446b-9510-89154ac97e2c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1027,6 +1045,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "98c1d097-36c4-4b7e-8705-a69df50ed3a3",
+                    "path": "<Keyboard>/numpadPlus",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "DebugCpuUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "104dbcb4-18ca-4596-a82b-e7d577a0998e",
+                    "path": "<Keyboard>/numpadMinus",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "DebugCpuDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

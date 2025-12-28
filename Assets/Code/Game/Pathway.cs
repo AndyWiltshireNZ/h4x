@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class Pathway : MonoBehaviour
 {
-    void Start()
+	[SerializeField] private Transform splineTransform;
+	public Transform SplineTransform => splineTransform;
+
+	void Start()
     {
         
     }

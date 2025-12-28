@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class WaveController : MonoBehaviour
 {
     void Start()
     {

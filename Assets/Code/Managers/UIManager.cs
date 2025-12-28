@@ -3,24 +3,17 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-	[SerializeField] private TextMeshProUGUI debugText;
-	public TextMeshProUGUI DebugText { get { return debugText; } set { debugText = value; } }
-
+	public MainMenuController MainMenuController;
 	[SerializeField] private CanvasGroup mainmenuCanvasGroup;
+
+	public HUDController HUDController;
 	[SerializeField] private CanvasGroup hudCanvasGroup;
 
 	public void Setup()
     {
         Debug.Log( "UIManager started." );
 
-		debugText.text = "Debug Text Setup";
-
 		mainmenuCanvasGroup.alpha = 0f;
 		hudCanvasGroup.alpha = 1f;
 	}
-
-    private void Update()
-    {
-        
-    }
 }

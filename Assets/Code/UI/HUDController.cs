@@ -1,14 +1,15 @@
+using TMPro;
 using UnityEngine;
 
 public class HUDController : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
+	[SerializeField] private TextMeshProUGUI debugText;
 
-    void Update()
-    {
-        
-    }
+	public void UpdateDebugText()
+	{
+		debugText.text = 
+			"Level State: " + GameMode.Instance.LevelManager.CurrentLevel.CurrentLevelState.ToString() +
+			"   |   " +		
+			"CPU Level: " + GameMode.Instance.LevelManager.CurrentLevel.CPUManager.CurrentCPULevel.ToString();
+	}
 }

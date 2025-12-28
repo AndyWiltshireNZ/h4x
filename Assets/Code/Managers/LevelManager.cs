@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -11,6 +12,8 @@ public class LevelManager : MonoBehaviour
 	public int CurrentLevelIndex { get { return currentLevelIndex; } set { currentLevelIndex = value; }	}
 
 	private AssetReference levelToLoadAssetReference;
+	private Level currentLevel;
+	public Level CurrentLevel { get { return currentLevel; } }
 
 	private AsyncOperationHandle<GameObject> instantiatedHandle;
 	private bool hasInstantiatedHandle = false;
@@ -69,11 +72,11 @@ public class LevelManager : MonoBehaviour
 			hasInstantiatedHandle = true;
 
 			GameObject levelObj = asyncLoadLevel.Result;
-			Level levelComponent = levelObj.GetComponent<Level>();
-			if ( levelComponent != null )
+			currentLevel = levelObj.GetComponent<Level>();
+			if ( currentLevel != null )
 			{
 				Debug.Log( "Level loaded: " + levelObj.name );
-				levelComponent.Setup();
+				currentLevel.Setup();
 			}
 			else
 			{

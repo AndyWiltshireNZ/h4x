@@ -17,10 +17,10 @@ public class InputManager : MonoBehaviour
 
 	public void Setup()
 	{
-		inputActions.UI.Enable();
+		inputActions.Game.Enable();
 		//inputActions.UI.Click.performed += LeftClick_pressed;
-		inputActions.UI.Reload.performed += Reload_pressed;
-		inputActions.UI.Quit.performed += Quit_pressed;
+		inputActions.Game.Reload.performed += Reload_pressed;
+		inputActions.Game.Quit.performed += Quit_pressed;
 
 		Debug.Log( "InputManager enabled." );
 	}
@@ -28,9 +28,9 @@ public class InputManager : MonoBehaviour
 	private void OnDestroy()
 	{
 		//inputActions.UI.Click.performed -= LeftClick_pressed;
-		inputActions.UI.Reload.performed -= Reload_pressed;
-		inputActions.UI.Quit.performed -= Quit_pressed;
-		inputActions.UI.Disable();
+		inputActions.Game.Reload.performed -= Reload_pressed;
+		inputActions.Game.Quit.performed -= Quit_pressed;
+		inputActions.Game.Disable();
 	}
 
 	/*private void LeftClick_pressed( InputAction.CallbackContext ctx )
