@@ -38,6 +38,8 @@ public class PathwayManager : MonoBehaviour
 			pathways[ i ].gameObject.SetActive( true );
 			nodeManager.Nodes[ currentCPULevel - 1 ].Setup();
 		}
+
+		spawnManager.Setup( pathways );
 	}
 
 	public void UpdatePathwaysRemove( int currentCPULevel )
@@ -46,10 +48,5 @@ public class PathwayManager : MonoBehaviour
 		{
 			pathways[ i ].gameObject.SetActive( false );
 		}
-	}
-
-	public void SetupSpawnManagerOnLevelRun()
-	{
-		spawnManager.Setup( pathways );
 	}
 }

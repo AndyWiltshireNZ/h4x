@@ -64,7 +64,6 @@ public class Level : MonoBehaviour
 
 			case LevelState.LevelRun:
 				Debug.Log( "Level: Entering LevelRun" );
-				cpuManager.PathwayManager.SetupSpawnManagerOnLevelRun();
 				break;
 
 			case LevelState.LevelEnd:
