@@ -1,10 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-
-using NUnit.Framework;
-
 using SplineArchitect.Objects;
-
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -18,6 +14,9 @@ public class SpawnManager : MonoBehaviour
 	// running coroutines and instantiated handles so we can stop / release on destroy
 	private readonly List<Coroutine> _runningCoroutines = new List<Coroutine>();
 	[SerializeField] private List<GameObject> _spawnedObjects = new List<GameObject>();
+
+	// track active addressables instantiate handles so we can release/cancel them if coroutines are stopped
+	private readonly List<AsyncOperationHandle<GameObject>> _activeInstantiateHandles = new List<AsyncOperationHandle<GameObject>>();
 
 	private void OnDestroy()
 	{
@@ -63,10 +62,11 @@ public class SpawnManager : MonoBehaviour
 			return;
 		}
 
-		// Build runtime spawn list from selectedWaveDef.Waves
+		// Clear any existing spawns / coroutines
 		StopAllSpawning();
-		ReleaseAllSpawned();
+		//ReleaseAllSpawned();
 
+		// Build runtime spawn list from selectedWaveDef.Waves
 		spawns = new Spawn[ selectedWaveDef.Waves.Length ];
 		for ( int i = 0; i < selectedWaveDef.Waves.Length; i++ )
 		{
@@ -123,47 +123,42 @@ public class SpawnManager : MonoBehaviour
 					continue;
 				}
 
-				// Load the prefab via Addressables then instantiate using normal Instantiate
-				AsyncOperationHandle<GameObject> loadHandle = spawn.Prefab.LoadAssetAsync<GameObject>();
-				yield return loadHandle;
+				// Use AssetReference.InstantiateAsync rather than LoadAssetAsync + Instantiate
+				Vector3 pos = pathway.Spline.GetPositionFastLocal(0);
+				Quaternion rot = Quaternion.identity;
+				Transform parent = pathway.Spline.transform;
 
-				if ( loadHandle.Status == AsyncOperationStatus.Succeeded && loadHandle.Result != null )
+				AsyncOperationHandle<GameObject> instantiateHandle = spawn.Prefab.InstantiateAsync( pos, rot, parent );
+
+				// track the handle so we can cancel/release if StopAllSpawning is called mid-load
+				_activeInstantiateHandles.Add( instantiateHandle );
+
+				yield return instantiateHandle;
+
+				// remove from tracking list once operation finished (success or fail)
+				_activeInstantiateHandles.Remove( instantiateHandle );
+
+				if ( instantiateHandle.Status == AsyncOperationStatus.Succeeded && instantiateHandle.Result != null )
 				{
-					GameObject prefab = loadHandle.Result;
+					GameObject go = instantiateHandle.Result;
 
-					Vector3 pos = pathway.Spline.positionMap[ 0 ];
-					Quaternion rot = Quaternion.identity;
-					Transform parent = pathway.Spline.transform;
+					// register in spawned list for future cleanup
+					_spawnedObjects.Add( go );
 
-					GameObject spawnObj = Instantiate( prefab, pos, rot, parent );
+					// Tell spline to register follower (CreateFollower will add SplineObject and initialize)
+					pathway.Spline.CreateFollower( go, new Vector3( 0f, 0.5f, 0f ), rot, false, parent );
 
-					Addressables.Release( loadHandle );
+					// Setup movement/entity as before
+					go.GetComponent<MoveAlongPathway>()?.Setup();
 
-					_spawnedObjects.Add( spawnObj );
-
-					SplineObject splineObject = spawnObj.GetComponent<SplineObject>();
-
-					if ( splineObject != null )
-					{
-						// use spline-local properties so spline system places it correctly at start
-						splineObject.localSplinePosition = new Vector3( 0f, 0.5f, 0f );
-						splineObject.localSplineRotation = Quaternion.identity;
-						splineObject.followAxels = Vector3Int.zero;
-						splineObject.type = SplineObject.Type.FOLLOWER;
-						splineObject.componentMode = ComponentMode.ACTIVE;
-						//splineObject.snapMode = SplineObject.SnapMode.SPLINE_OBJECTS;
-						//splineObject.Initalize();
-						splineObject.gameObject.GetComponent<MoveAlongPathway>()?.Setup();
-
-						EntityBase entity = spawnObj.GetComponent<EntityBase>();
-						entity.Setup( this );
-					}
+					EntityBase entity = go.GetComponent<EntityBase>();
+					entity?.Setup( this );
 				}
 				else
 				{
-					Debug.LogError( $"SpawnManager: Failed to load addressable {spawn.Prefab.RuntimeKey}. Status: {loadHandle.Status}" );
-					// ensure we release on failure
-					if ( loadHandle.IsValid() ) Addressables.Release( loadHandle );
+					Debug.LogError( $"SpawnManager: Failed to instantiate addressable {spawn.Prefab.RuntimeKey}. Status: {instantiateHandle.Status}" );
+					// ensure we release a failed handle
+					if ( instantiateHandle.IsValid() ) Addressables.Release( instantiateHandle );
 				}
 
 				yield return new WaitForSeconds( spawn.SpawnInterval );
@@ -234,6 +229,18 @@ public class SpawnManager : MonoBehaviour
 
 	public void StopAllSpawning()
 	{
+		// cancel any in-progress instantiate operations (release their handles).
+		// Completed instantiates will be cleaned up by ReleaseAllSpawned.
+		for ( int i = _activeInstantiateHandles.Count - 1; i >= 0; i-- )
+		{
+			AsyncOperationHandle<GameObject> handle = _activeInstantiateHandles[ i ];
+			if ( handle.IsValid() && !handle.IsDone )
+			{
+				Addressables.Release( handle );
+			}
+		}
+		_activeInstantiateHandles.Clear();
+
 		for ( int i = 0; i < _runningCoroutines.Count; i++ )
 		{
 			if ( _runningCoroutines[ i ] != null )
@@ -251,7 +258,8 @@ public class SpawnManager : MonoBehaviour
 			GameObject go = _spawnedObjects[ i ];
 			if ( go != null )
 			{
-				Destroy( go );
+				// use Addressables.ReleaseInstance for objects created with InstantiateAsync
+				Addressables.ReleaseInstance( go );
 			}
 		}
 		_spawnedObjects.Clear();
