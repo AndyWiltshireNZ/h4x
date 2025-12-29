@@ -11,6 +11,15 @@ public class SpawnManager : MonoBehaviour
 	private Pathway[] availablePathways;
 	private LevelDefinition currentLevelData;
 
+	// minimum world-space distance between spawned entities (configurable in inspector)
+	[SerializeField] private float _minSpawnDistance = 2f;
+
+	// last global spawn time to enforce a minimum time between any two spawned entities
+	private float _lastGlobalSpawnTime = -Mathf.Infinity;
+
+	// flag to prevent the very first spawned entity from moving
+	private bool _firstSpawnPrevented = false;
+
 	// running coroutines and instantiated handles so we can stop / release on destroy
 	private readonly List<Coroutine> _runningCoroutines = new List<Coroutine>();
 
@@ -47,19 +56,26 @@ public class SpawnManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Setup spawn manager with the currently available pathways.
-	/// This will build runtime spawn entries from the LevelDefinition -> WaveDefinitions -> Wave data
-	/// using the current CPU level to pick the active WaveDefinition.
+	/// Start a delayed setup to run after 1 second.
 	/// </summary>
 	public void Setup( Pathway[] pathways )
 	{
+		Coroutine co = StartCoroutine( DelayedSetupRoutine( pathways ) );
+		_runningCoroutines.Add( co );
+	}
+
+	// Delayed setup coroutine — waits 1 second then runs the original setup logic.
+	private IEnumerator DelayedSetupRoutine( Pathway[] pathways )
+	{
+		yield return new WaitForSeconds( 1f );
+
 		currentLevelData = GameMode.Instance.LevelManager.CurrentLevel.LevelData;
 		availablePathways = pathways;
 
 		if ( currentLevelData == null )
 		{
 			Debug.LogWarning( "SpawnManager.Setup: currentLevelData is null" );
-			return;
+			yield break;
 		}
 
 		// determine CPU level and select correct WaveDefinition (wave 1 -> cpu level 1)
@@ -72,7 +88,7 @@ public class SpawnManager : MonoBehaviour
 		if ( currentLevelData.Waves == null || currentLevelData.Waves.Length == 0 )
 		{
 			Debug.LogWarning( "SpawnManager.Setup: No WaveDefinitions defined in LevelDefinition" );
-			return;
+			yield break;
 		}
 
 		int waveIndex = Mathf.Clamp( cpuLevel - 1, 0, currentLevelData.Waves.Length - 1 );
@@ -81,7 +97,7 @@ public class SpawnManager : MonoBehaviour
 		if ( selectedWaveDef == null || selectedWaveDef.Entities == null || selectedWaveDef.Entities.Length == 0 )
 		{
 			Debug.LogWarning( $"SpawnManager.Setup: WaveDefinition for CPU level {cpuLevel} is empty or null" );
-			return;
+			yield break;
 		}
 
 		// Clear any existing handles / coroutines
@@ -124,6 +140,9 @@ public class SpawnManager : MonoBehaviour
 			yield break;
 		}
 
+		// track last used pathway for this spawn routine so we avoid using the same pathway twice in a row
+		Pathway lastPathway = null;
+
 		while ( true )
 		{
 			// collect enabled pathways to pick from
@@ -138,11 +157,68 @@ public class SpawnManager : MonoBehaviour
 			// spawn SpawnQuantity instances, spacing by SpawnInterval
 			for ( int q = 0; q < spawn.SpawnQuantity; q++ )
 			{
-				Pathway pathway = candidates[ Random.Range( 0, candidates.Count ) ];
+				// Start with the list of currently enabled candidates
+				List<Pathway> pickList = new List<Pathway>( candidates );
+
+				// Filter out pathways whose spawn start point is too close to any existing spawned object.
+				// If all candidates are filtered out, we fall back to the original candidate list to avoid blocking spawns.
+				List<Pathway> distanceFiltered = new List<Pathway>();
+				for ( int i = 0; i < pickList.Count; i++ )
+				{
+					Pathway p = pickList[ i ];
+					if ( p == null || p.Spline == null || !p.gameObject.activeInHierarchy )
+					{
+						continue;
+					}
+
+					Vector3 localPos = p.Spline.GetPositionFastLocal(0);
+					Vector3 worldPos = p.Spline.transform.TransformPoint( localPos );
+					if ( !IsSpawnPositionTooCloseToAnySpawn( worldPos ) )
+					{
+						distanceFiltered.Add( p );
+					}
+				}
+
+				if ( distanceFiltered.Count > 0 )
+				{
+					pickList = distanceFiltered;
+				}
+
+				// If more than one candidate is available avoid selecting the same pathway as last time.
+				if ( pickList.Count > 1 && lastPathway != null )
+				{
+					pickList.Remove( lastPathway );
+					// fallback in case removal emptied the list for some reason
+					if ( pickList.Count == 0 )
+					{
+						pickList = new List<Pathway>( candidates );
+					}
+				}
+
+				// choose a pathway
+				Pathway pathway = pickList[ Random.Range( 0, pickList.Count ) ];
 				if ( pathway == null || pathway.Spline == null || !pathway.gameObject.activeInHierarchy )
 				{
+					// do not update lastPathway if selection was invalid; try next iteration
 					continue;
 				}
+
+				// record selected pathway so next spawn does not use it if other pathways exist
+				lastPathway = pathway;
+
+				// get randomized interval for this spawn
+				float randomizedInterval = GetRandomizedInterval( spawn.SpawnInterval );
+
+				// enforce global minimum time between any two spawned entities (uses randomizedInterval as minimum)
+				float timeSinceLast = Time.time - _lastGlobalSpawnTime;
+				float requiredInterval = Mathf.Max( 0.01f, randomizedInterval );
+				float waitTime = Mathf.Max( 0f, requiredInterval - timeSinceLast );
+				if ( waitTime > 0f )
+				{
+					yield return new WaitForSeconds( waitTime );
+				}
+				// update the global last spawn time immediately before starting instantiate to prevent races
+				_lastGlobalSpawnTime = Time.time;
 
 				// Use AssetReference.InstantiateAsync rather than LoadAssetAsync + Instantiate
 				Vector3 pos = pathway.Spline.GetPositionFastLocal(0);
@@ -169,11 +245,18 @@ public class SpawnManager : MonoBehaviour
 					// Tell spline to register follower (CreateFollower will add SplineObject and initialize)
 					pathway.Spline.CreateFollower( go, new Vector3( 0f, 0.5f, 0f ), rot, false, parent );
 
-					// Setup movement/entity as before
-					go.GetComponent<MoveAlongPathway>()?.Setup();
-
-					EntityBase entity = go.GetComponent<EntityBase>();
-					entity?.Setup( this );
+					// Don't move first spawned entity
+					if ( !_firstSpawnPrevented )
+					{
+						RemovedSpawnedFromList( go );
+						go.SetActive( false );
+						_firstSpawnPrevented = true;
+					}
+					else
+					{
+						go?.GetComponent<MoveAlongPathway>()?.Setup();
+						go.GetComponent<EntityBase>()?.Setup( this );
+					}
 				}
 				else
 				{
@@ -182,7 +265,8 @@ public class SpawnManager : MonoBehaviour
 					if ( instantiateHandle.IsValid() ) Addressables.Release( instantiateHandle );
 				}
 
-				yield return new WaitForSeconds( GetRandomizedInterval( spawn.SpawnInterval ) );
+				// randomized delay after spawn before next spawn
+				yield return new WaitForSeconds( randomizedInterval );
 			}
 
 			// small yield before next batch to prevent tight loop
@@ -190,7 +274,7 @@ public class SpawnManager : MonoBehaviour
 		}
 	}
 
-	// Returns spawnInterval randomized by +/- 1 second and clamped to a sensible minimum.
+	// Returns spawnInterval randomized by +/- 2 second and clamped to a sensible minimum.
 	private float GetRandomizedInterval( float baseInterval )
 	{
 		float randomOffset = Random.Range( -1f, 1f );
@@ -258,6 +342,40 @@ public class SpawnManager : MonoBehaviour
 		}
 
 		return result;
+	}
+
+	// Returns true if worldPos is within _minSpawnDistance of any currently tracked spawned instance.
+	private bool IsSpawnPositionTooCloseToAnySpawn( Vector3 worldPos )
+	{
+		if ( _spawnedObjectsByPathway == null || _spawnedObjectsByPathway.Count == 0 )
+		{
+			return false;
+		}
+
+		foreach ( KeyValuePair<Pathway, List<GameObject>> kv in _spawnedObjectsByPathway )
+		{
+			List<GameObject> list = kv.Value;
+			if ( list == null )
+			{
+				continue;
+			}
+
+			for ( int i = 0; i < list.Count; i++ )
+			{
+				GameObject go = list[ i ];
+				if ( go == null )
+				{
+					continue;
+				}
+
+				if ( Vector3.Distance( go.transform.position, worldPos ) < _minSpawnDistance )
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	public void StopAllSpawning()

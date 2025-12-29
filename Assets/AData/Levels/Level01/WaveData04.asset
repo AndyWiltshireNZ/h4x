@@ -19,17 +19,8 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    SpawnQuantity: 10
-    SpawnInterval: 4
-    AutoStart: 1
-  - EntityAssetReference:
-      m_AssetGUID: 2007554efecbeaf47b40c94aae16a53d
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_SubObjectGUID: 
-      m_EditorAssetChanged: 0
-    SpawnQuantity: 10
-    SpawnInterval: 4
+    SpawnQuantity: 5
+    SpawnInterval: 2
     AutoStart: 1
   - EntityAssetReference:
       m_AssetGUID: 1664aee70ae30a147bfc3bb2ffdb224c
@@ -37,15 +28,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    SpawnQuantity: 10
-    SpawnInterval: 4
-    AutoStart: 1
-  - EntityAssetReference:
-      m_AssetGUID: 1664aee70ae30a147bfc3bb2ffdb224c
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_SubObjectGUID: 
-      m_EditorAssetChanged: 0
-    SpawnQuantity: 10
-    SpawnInterval: 4
+    SpawnQuantity: 20
+    SpawnInterval: 2
     AutoStart: 1

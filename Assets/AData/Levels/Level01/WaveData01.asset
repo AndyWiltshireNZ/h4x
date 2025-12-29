@@ -19,6 +19,6 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    SpawnQuantity: 4
-    SpawnInterval: 7
+    SpawnQuantity: 5
+    SpawnInterval: 3.5
     AutoStart: 1
