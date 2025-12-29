@@ -102,7 +102,7 @@ public class SpawnManager : MonoBehaviour
 			spawns[i] = s;
 		}
 
-		// Start waves sequentially, using TimeBetweenWaves from the selected WaveDefinition
+		// Start waves sequentially, using TimeBetweenWaves from the selected LevelDefinition
 		Coroutine waveSequence = StartCoroutine( WavesSequenceRoutine( selectedWaveDef ) );
 		_runningCoroutines.Add( waveSequence );
 	}
@@ -182,7 +182,7 @@ public class SpawnManager : MonoBehaviour
 					if ( instantiateHandle.IsValid() ) Addressables.Release( instantiateHandle );
 				}
 
-				yield return new WaitForSeconds( spawn.SpawnInterval );
+				yield return new WaitForSeconds( GetRandomizedInterval( spawn.SpawnInterval ) );
 			}
 
 			// small yield before next batch to prevent tight loop
@@ -190,9 +190,17 @@ public class SpawnManager : MonoBehaviour
 		}
 	}
 
+	// Returns spawnInterval randomized by +/- 1 second and clamped to a sensible minimum.
+	private float GetRandomizedInterval( float baseInterval )
+	{
+		float randomOffset = Random.Range( -1f, 1f );
+		float interval = baseInterval + randomOffset;
+		return Mathf.Max( 0.01f, interval );
+	}
+
 	/// <summary>
 	/// Sequence through waves in order. For each wave, if the wave is marked AutoStart start its SpawnRoutine.
-	/// Waits the WaveDefinition.TimeBetweenWaves value between each wave.
+	/// Waits the LevelDefinition.TimeBetweenWaves value between each wave.
 	/// </summary>
 	private IEnumerator WavesSequenceRoutine( WaveDefinition waveDef )
 	{

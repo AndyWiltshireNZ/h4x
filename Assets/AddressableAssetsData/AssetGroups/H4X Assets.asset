@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 21cf32005ac797d409cc6397dacac0d6
+    m_Address: Assets/AData/Levels/Level01/WaveData01.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 28b98b25ff6dd5b439436ad3ff3cd9ed
     m_Address: Assets/Addressables/Managers/UIManager.prefab
     m_ReadOnly: 0
@@ -45,6 +50,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36a296f86fbb0a24c9d6c41793494113
+    m_Address: Assets/AData/Levels/Level01/WaveData04.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 36d51e91a46ea234aa7d8894d8c865c2
     m_Address: Assets/Addressables/UI/MainMenuCanvas.prefab
     m_ReadOnly: 0
@@ -52,6 +62,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 37b203b67683bcb4c8a78ba5628f0c5a
     m_Address: Assets/Addressables/Game/MainCamera.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 39616e36da6335448a09e2b89ceefb2e
+    m_Address: Assets/AData/Levels/Level01/WaveData02.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -92,6 +107,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b3be9b0613d0d724c874770445df5c18
     m_Address: Assets/Definitions/VirusBaseData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd85a9fb4e1fa6b4085906f2f42458d6
+    m_Address: Assets/AData/Levels/Level01/WaveData03.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

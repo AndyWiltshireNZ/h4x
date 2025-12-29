@@ -20,7 +20,7 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     SpawnQuantity: 10
-    SpawnInterval: 10
+    SpawnInterval: 4
     AutoStart: 1
   - EntityAssetReference:
       m_AssetGUID: 2007554efecbeaf47b40c94aae16a53d
@@ -29,7 +29,7 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     SpawnQuantity: 10
-    SpawnInterval: 10
+    SpawnInterval: 4
     AutoStart: 1
   - EntityAssetReference:
       m_AssetGUID: 1664aee70ae30a147bfc3bb2ffdb224c
@@ -38,7 +38,7 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     SpawnQuantity: 10
-    SpawnInterval: 10
+    SpawnInterval: 4
     AutoStart: 1
   - EntityAssetReference:
       m_AssetGUID: 1664aee70ae30a147bfc3bb2ffdb224c
@@ -47,5 +47,5 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
     SpawnQuantity: 10
-    SpawnInterval: 10
+    SpawnInterval: 4
     AutoStart: 1
