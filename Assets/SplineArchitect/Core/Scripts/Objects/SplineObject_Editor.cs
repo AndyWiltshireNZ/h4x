@@ -161,7 +161,7 @@ namespace SplineArchitect.Objects
 
         public bool ValidForRuntimeDeformation()
         {
-            if(!componentModeWarningTriggered && !initalizedThisFrame && Application.isPlaying && (componentMode != ComponentMode.ACTIVE || 
+            /*if(!componentModeWarningTriggered && !initalizedThisFrame && Application.isPlaying && (componentMode != ComponentMode.ACTIVE || 
                                                                                                    splineParent.componentMode != ComponentMode.ACTIVE))
             {
                 componentModeWarningTriggered = true;
@@ -174,7 +174,7 @@ namespace SplineArchitect.Objects
             {
                 componentModeWarningTriggered = true;
                 Debug.LogWarning($"[Spline Architect] Component mode is not set to 'Active' or 'Inactivate after scene load' on '{name}'! Generating this object will not work in your built game.");
-            }
+            }*/
 
             if(type == Type.DEFORMATION)
             {

@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
 	public int CurrentLevelIndex { get { return currentLevelIndex; } set { currentLevelIndex = value; }	}
 
 	private AssetReference levelToLoadAssetReference;
+
 	private Level currentLevel;
 	public Level CurrentLevel { get { return currentLevel; } }
 

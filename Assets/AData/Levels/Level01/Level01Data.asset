@@ -18,3 +18,10 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+  StartCPULevel: 1
+  EndCPULevel: 4
+  WaveDefinitions:
+  - {fileID: 11400000, guid: 21cf32005ac797d409cc6397dacac0d6, type: 2}
+  - {fileID: 11400000, guid: 39616e36da6335448a09e2b89ceefb2e, type: 2}
+  - {fileID: 11400000, guid: bd85a9fb4e1fa6b4085906f2f42458d6, type: 2}
+  - {fileID: 11400000, guid: 36a296f86fbb0a24c9d6c41793494113, type: 2}

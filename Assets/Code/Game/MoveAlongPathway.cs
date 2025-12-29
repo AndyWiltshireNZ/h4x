@@ -9,17 +9,22 @@ public class MoveAlongPathway : MonoBehaviour
 	[SerializeField] private bool loop = false;
 	private float resetRange;
     private Vector3 startPos;
+	private bool canMove = false;
 
-    void Start()
+	public void Setup()
     {
 		splineObject = GetComponent<SplineObject>();
 		resetRange = splineObject.splineParent.length;
 		startPos = splineObject.localSplinePosition;
+		canMove = true;
     }
 
     void Update()
     {
-        splineObject.localSplinePosition += speed * Time.deltaTime;
+		if ( !canMove )
+			return;
+
+		splineObject.localSplinePosition += speed * Time.deltaTime;
 
 		if ( splineObject.localSplinePosition.z > resetRange )
 		{

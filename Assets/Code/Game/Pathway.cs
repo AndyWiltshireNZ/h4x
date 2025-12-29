@@ -1,9 +1,10 @@
 using UnityEngine;
+using SplineArchitect.Objects;
 
 public class Pathway : MonoBehaviour
 {
-	[SerializeField] private Transform splineTransform;
-	public Transform SplineTransform => splineTransform;
+	[SerializeField] private Spline spline;
+	public Spline Spline => spline;
 
 	void Start()
     {

@@ -1,13 +1,30 @@
+using System.Collections;
+
+using Unity.IO.LowLevel.Unsafe;
+
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 using static GameModeDefinition;
+
+public enum GameState
+{
+	Default,
+	GameStart,
+	GameMenu,
+	GameRun,
+	GamePause,
+	GameEnd
+}
 
 public class GameMode : MonoBehaviour
 {
 	public static GameMode Instance;
 	
 	[SerializeField] private GameModeDefinition GameModeData;
+
+	private GameState currentGameState;
 
 	public UIManager UIManager = null;
 	public InputManager InputManager = null;
@@ -35,8 +52,18 @@ public class GameMode : MonoBehaviour
 
 	private void OnDestroy()
 	{
+        Addressables.Release( asyncSpawnUIManager );
+		Addressables.Release( asyncSpawnInputManager );
+		Addressables.Release( asyncSpawnLevelManager );
+		Addressables.Release( asyncSpawnAudioManager );
+
 		Instance = null;
 	}
+
+	private AsyncOperationHandle<GameObject> asyncSpawnUIManager;
+	private AsyncOperationHandle<GameObject> asyncSpawnInputManager;
+	private AsyncOperationHandle<GameObject> asyncSpawnLevelManager;
+	private AsyncOperationHandle<GameObject> asyncSpawnAudioManager;
 
 	private async void init()
 	{
@@ -44,7 +71,7 @@ public class GameMode : MonoBehaviour
 
 		currentCamera = Camera.main;
 
-		AsyncOperationHandle<GameObject> asyncSpawnUIManager = GameModeData.UIManagerAssetReference.InstantiateAsync();
+		asyncSpawnUIManager = GameModeData.UIManagerAssetReference.InstantiateAsync();
 		await asyncSpawnUIManager.Task;
 		if ( asyncSpawnUIManager.Status == AsyncOperationStatus.Succeeded )
 		{
@@ -53,7 +80,7 @@ public class GameMode : MonoBehaviour
 			UIManager.Setup();
 		}
 
-		AsyncOperationHandle<GameObject> asyncSpawnInputManager = GameModeData.InputManagerAssetReference.InstantiateAsync();
+		asyncSpawnInputManager = GameModeData.InputManagerAssetReference.InstantiateAsync();
 		await asyncSpawnInputManager.Task;
 		if ( asyncSpawnInputManager.Status == AsyncOperationStatus.Succeeded )
 		{
@@ -62,7 +89,7 @@ public class GameMode : MonoBehaviour
 			InputManager.Setup();
 		}
 
-		AsyncOperationHandle<GameObject> asyncSpawnLevelManager = GameModeData.LevelManagerAssetReference.InstantiateAsync();
+		asyncSpawnLevelManager = GameModeData.LevelManagerAssetReference.InstantiateAsync();
 		await asyncSpawnLevelManager.Task;
 		if ( asyncSpawnLevelManager.Status == AsyncOperationStatus.Succeeded )
 		{
@@ -71,16 +98,109 @@ public class GameMode : MonoBehaviour
 			LevelManager.Setup();
 		}
 
-		AsyncOperationHandle<GameObject> asyncSpawnAudioManager = GameModeData.AudioManagerAssetReference.InstantiateAsync();
+		asyncSpawnAudioManager = GameModeData.AudioManagerAssetReference.InstantiateAsync();
 		await asyncSpawnAudioManager.Task;
 		if ( asyncSpawnAudioManager.Status == AsyncOperationStatus.Succeeded )
 		{
 			GameObject audiomanagerObj = asyncSpawnAudioManager.Result;
 		}
+
+		InitializeStateMachine();
 	}
 
-    private void Update()
-    {
-        
-    }
+    private void InitializeStateMachine()
+	{
+		SetState( GameState.GameStart );
+	}
+
+	private void SetState( GameState newGameState )
+	{
+		if ( currentGameState == newGameState )
+		{
+			return;
+		}
+
+		OnExitState( currentGameState );
+		currentGameState = newGameState;
+		OnEnterState( currentGameState );
+	}
+	
+	private void OnEnterState( GameState state )
+	{
+		switch ( state )
+		{
+			case GameState.GameStart:
+				Debug.Log( "Game: Entering GameStart" );
+				// perform any start initialization then transition to run / menu
+				StartCoroutine ( EnterStartThenRun() );
+				break;
+
+			case GameState.GameMenu:
+				Debug.Log( "Game: Entering GameMenu" );
+				// main menu
+				break;
+
+			case GameState.GameRun:
+				Debug.Log( "Game: Entering GameRun" );
+				// gameplay begins
+				break;
+
+			case GameState.GamePause:
+				Debug.Log( "Game: Entering GamePause" );
+				// gameplay paused
+				break;
+
+			case GameState.GameEnd:
+				Debug.Log( "Game: Entering GameEnd" );
+				// cleanup
+				break;
+		}
+	}
+
+	private IEnumerator EnterStartThenRun()
+	{
+		yield return null; // wait a frame
+		//yield return new WaitForSeconds( 1f );
+
+		SetState( GameState.GameRun );
+	}
+
+	private void OnExitState( GameState state )
+	{
+		// any clean up required when exiting a state
+		switch ( state )
+		{
+			case GameState.GameStart:
+				break;
+			case GameState.GameMenu:
+				break;
+			case GameState.GameRun:
+				break;
+			case GameState.GamePause:
+				break;
+			case GameState.GameEnd:
+				break;
+		}
+	}
+
+	private void Update()
+	{
+		if ( currentGameState == GameState.GameRun )
+		{
+			UpdateRun();
+		}
+	}
+
+	private void UpdateRun()
+	{
+		// Game runtime logic goes here.
+	}
+
+	public void EndGame()
+	{
+		SetState( GameState.GameEnd );
+	}
+
+	// Expose current state for other systems
+	public GameState CurrentGameState => currentGameState;
 }

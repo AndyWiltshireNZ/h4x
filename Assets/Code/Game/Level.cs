@@ -12,6 +12,7 @@ public enum LevelState
 public class Level : MonoBehaviour
 {
 	[SerializeField] private LevelDefinition levelData;
+	public LevelDefinition LevelData { get { return levelData; } }
 
 	[SerializeField] private CPUManager cpuManager;
 	public CPUManager CPUManager { get { return cpuManager; } }
@@ -28,8 +29,6 @@ public class Level : MonoBehaviour
 	{
 		this.gameObject.SetActive( true );
 		cpuManager.gameObject.SetActive( true );
-
-		cpuManager.Setup( levelData, this );
 
 		InitializeStateMachine();
 	}
@@ -59,41 +58,38 @@ public class Level : MonoBehaviour
 		{
 			case LevelState.LevelStart:
 				Debug.Log( "Level: Entering LevelStart" );
-				// perform any start initialization then transition to run
+				cpuManager.Setup();
 				StartCoroutine ( EnterStartThenRun() );
 				break;
 
 			case LevelState.LevelRun:
 				Debug.Log( "Level: Entering LevelRun" );
-				// gameplay begins
+				cpuManager.PathwayManager.SetupSpawnManagerOnLevelRun();
 				break;
 
 			case LevelState.LevelEnd:
 				Debug.Log( "Level: Entering LevelEnd" );
-				// cleanup / show results
 				break;
 		}
 	}
 
 	private IEnumerator EnterStartThenRun()
 	{
-		yield return new WaitForSeconds( 1f );
+		yield return new WaitForSeconds( 2f );
 
 		SetState( LevelState.LevelRun );
 	}
 
 	private void OnExitState( LevelState state )
 	{
+		// any clean up required when exiting a state
 		switch ( state )
 		{
 			case LevelState.LevelStart:
-				// cleanup start-specific resources if needed
 				break;
 			case LevelState.LevelRun:
-				// pause gameplay or stop timers on ending level run state
 				break;
 			case LevelState.LevelEnd:
-				// final cleanup
 				break;
 		}
 	}
@@ -109,7 +105,6 @@ public class Level : MonoBehaviour
 	private void UpdateRun()
 	{
 		// Level runtime logic goes here.
-		// When level completion condition is met, call EndLevel().
 	}
 
 	public void EndLevel()

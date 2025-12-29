@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveAlongPathway
   speed: {x: 0, y: 0, z: 4}
-  loop: 1
+  loop: 0
 --- !u!1 &8168255710068591070
 GameObject:
   m_ObjectHideFlags: 0

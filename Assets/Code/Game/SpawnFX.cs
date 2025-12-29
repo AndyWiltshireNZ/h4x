@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WaveController : MonoBehaviour
+public class SpawnFX : MonoBehaviour
 {
     void Start()
     {

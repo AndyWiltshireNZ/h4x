@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PathwayManager : MonoBehaviour
@@ -7,6 +8,18 @@ public class PathwayManager : MonoBehaviour
 	[SerializeField] private SpawnManager spawnManager;
 
 	[SerializeField] private Pathway[] pathways;
+
+	private void Start()
+	{
+#if UNITY_EDITOR
+		// Only in the editor: select and ping this object in the Hierarchy when play starts.
+		if ( Application.isPlaying )
+		{
+			Selection.activeGameObject = this.gameObject;
+			//EditorGUIUtility.PingObject( this.gameObject );
+		}
+#endif
+	}
 
 	public void SetupPathways( int currentCPULevel )
 	{
@@ -33,5 +46,10 @@ public class PathwayManager : MonoBehaviour
 		{
 			pathways[ i ].gameObject.SetActive( false );
 		}
+	}
+
+	public void SetupSpawnManagerOnLevelRun()
+	{
+		spawnManager.Setup( pathways );
 	}
 }

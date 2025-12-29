@@ -1,16 +1,16 @@
 using UnityEngine;
 
-public class Packet : MonoBehaviour
+public class Packet : EntityBase
 {
 	[SerializeField] private PacketDefinition PacketData;
 
-    void Start()
+    private void Start()
     {
         
     }
 
-    void Update()
-    {
-        
+    private void Update()
+	{
+
     }
 }

@@ -163,7 +163,7 @@ Transform:
   m_GameObject: {fileID: 3243973647415504829}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveAlongPathway
   speed: {x: 0, y: 0, z: 4}
-  loop: 1
+  loop: 0
 --- !u!1 &6567522484055236115
 GameObject:
   m_ObjectHideFlags: 0

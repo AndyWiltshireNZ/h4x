@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Virus : MonoBehaviour
+public class Virus : EntityBase
 {
 	[SerializeField] private VirusDefinition VirusData;
 

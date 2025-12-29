@@ -3,10 +3,11 @@ using UnityEngine.InputSystem;
 
 public class CPUManager : MonoBehaviour
 {
-	private LevelDefinition cpuLevelData;
-	private Level cpuLevel;
+	private Level currentLevel;
+	private LevelDefinition currentLevelData;
 
 	[SerializeField] private PathwayManager pathwayManager;
+	public PathwayManager PathwayManager { get { return pathwayManager; } }
 
 	private InputManager inputManager;
 
@@ -16,17 +17,17 @@ public class CPUManager : MonoBehaviour
 		get { return currentCPULevel; }
 		set
 		{ 
-			currentCPULevel = Mathf.Clamp( value, cpuLevelData.StartCPULevel, cpuLevelData.EndCPULevel );
+			currentCPULevel = Mathf.Clamp( value, currentLevelData.StartCPULevel, currentLevelData.EndCPULevel );
 			GameMode.Instance.UIManager.HUDController.UpdateDebugText();
 		}
 	}
 
-	public void Setup ( LevelDefinition levelDefinition, Level level )
+	public void Setup ()
 	{
-		cpuLevelData = levelDefinition;
-		cpuLevel = level;
+		currentLevel = GameMode.Instance.LevelManager.CurrentLevel;
+		currentLevelData = GameMode.Instance.LevelManager.CurrentLevel.LevelData;
 
-		currentCPULevel = cpuLevelData.StartCPULevel;
+		currentCPULevel = currentLevelData.StartCPULevel;
 		GameMode.Instance.UIManager.HUDController.UpdateDebugText();
 
 		inputManager = GameMode.Instance.InputManager;
@@ -58,14 +59,14 @@ public class CPUManager : MonoBehaviour
 	private void DebugCPULevelUp_pressed( InputAction.CallbackContext ctx )
 	{
 		if ( ctx.phase != InputActionPhase.Performed ) return;
-		if ( CurrentCPULevel < cpuLevelData.EndCPULevel )
+		if ( CurrentCPULevel < currentLevelData.EndCPULevel )
 			UpdateCPULevelUp();
 	}
 
 	private void DebugCPULevelDown_pressed( InputAction.CallbackContext ctx )
 	{
 		if ( ctx.phase != InputActionPhase.Performed ) return;
-		if ( CurrentCPULevel > cpuLevelData.StartCPULevel )
+		if ( CurrentCPULevel > currentLevelData.StartCPULevel )
 			UpdateCPULevelDown();
 	}
 
