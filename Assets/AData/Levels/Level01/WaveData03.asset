@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f94259cebe4a294c85cfef66c1ccb4b, type: 3}
   m_Name: WaveData03
   m_EditorClassIdentifier: Assembly-CSharp::WaveDefinition
-  TimeBetweenWaves: 4
-  Waves:
+  Entities:
   - EntityAssetReference:
       m_AssetGUID: 2007554efecbeaf47b40c94aae16a53d
       m_SubObjectName: 
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    SpawnQuantity: 12
-    SpawnInterval: 3
+    SpawnQuantity: 8
+    SpawnInterval: 8
     AutoStart: 1
   - EntityAssetReference:
       m_AssetGUID: 1664aee70ae30a147bfc3bb2ffdb224c
@@ -29,6 +28,15 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    SpawnQuantity: 12
-    SpawnInterval: 3
+    SpawnQuantity: 8
+    SpawnInterval: 8
+    AutoStart: 1
+  - EntityAssetReference:
+      m_AssetGUID: 1664aee70ae30a147bfc3bb2ffdb224c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    SpawnQuantity: 8
+    SpawnInterval: 8
     AutoStart: 1

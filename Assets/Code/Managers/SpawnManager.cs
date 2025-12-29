@@ -69,16 +69,16 @@ public class SpawnManager : MonoBehaviour
 			cpuLevel = Mathf.Clamp( GameMode.Instance.LevelManager.CurrentLevel.CPUManager.CurrentCPULevel, 1, int.MaxValue );
 		}
 
-		if ( currentLevelData.WaveDefinitions == null || currentLevelData.WaveDefinitions.Length == 0 )
+		if ( currentLevelData.Waves == null || currentLevelData.Waves.Length == 0 )
 		{
 			Debug.LogWarning( "SpawnManager.Setup: No WaveDefinitions defined in LevelDefinition" );
 			return;
 		}
 
-		int waveIndex = Mathf.Clamp( cpuLevel - 1, 0, currentLevelData.WaveDefinitions.Length - 1 );
-		WaveDefinition selectedWaveDef = currentLevelData.WaveDefinitions[ waveIndex ];
+		int waveIndex = Mathf.Clamp( cpuLevel - 1, 0, currentLevelData.Waves.Length - 1 );
+		WaveDefinition selectedWaveDef = currentLevelData.Waves[ waveIndex ];
 
-		if ( selectedWaveDef == null || selectedWaveDef.Waves == null || selectedWaveDef.Waves.Length == 0 )
+		if ( selectedWaveDef == null || selectedWaveDef.Entities == null || selectedWaveDef.Entities.Length == 0 )
 		{
 			Debug.LogWarning( $"SpawnManager.Setup: WaveDefinition for CPU level {cpuLevel} is empty or null" );
 			return;
@@ -88,10 +88,10 @@ public class SpawnManager : MonoBehaviour
 		StopAllSpawning();
 
 		// Build runtime spawn list from selectedWaveDef.Waves
-		spawns = new Spawn[ selectedWaveDef.Waves.Length ];
-		for ( int i = 0; i < selectedWaveDef.Waves.Length; i++ )
+		spawns = new Spawn[ selectedWaveDef.Entities.Length ];
+		for ( int i = 0; i < selectedWaveDef.Entities.Length; i++ )
 		{
-			Wave w = selectedWaveDef.Waves[ i ];
+			Wave w = selectedWaveDef.Entities[ i ];
 			Spawn s = new Spawn
 			{
 				Prefab = w.EntityAssetReference,
@@ -196,14 +196,18 @@ public class SpawnManager : MonoBehaviour
 	/// </summary>
 	private IEnumerator WavesSequenceRoutine( WaveDefinition waveDef )
 	{
-		if ( waveDef == null || waveDef.Waves == null )
+		if ( waveDef == null || waveDef.Entities == null )
 		{
 			yield break;
 		}
 
-		float delay = Mathf.Max( 0f, waveDef.TimeBetweenWaves );
+		float delay = 0f;
+		if ( currentLevelData != null )
+		{
+			delay = Mathf.Max( 0f, currentLevelData.TimeBetweenWaves );
+		}
 
-		for ( int i = 0; i < waveDef.Waves.Length; i++ )
+		for ( int i = 0; i < waveDef.Entities.Length; i++ )
 		{
 			// guard against array mismatches
 			if ( spawns == null || i < 0 || i >= spawns.Length )
@@ -212,7 +216,7 @@ public class SpawnManager : MonoBehaviour
 			}
 
 			Spawn s = spawns[ i ];
-			Wave w = waveDef.Waves[ i ];
+			Wave w = waveDef.Entities[ i ];
 
 			if ( s != null && ( w != null && w.AutoStart ) )
 			{
@@ -221,7 +225,7 @@ public class SpawnManager : MonoBehaviour
 			}
 
 			// wait between waves unless this was the last wave
-			if ( i < waveDef.Waves.Length - 1 && delay > 0f )
+			if ( i < waveDef.Entities.Length - 1 && delay > 0f )
 			{
 				yield return new WaitForSeconds( delay );
 			}

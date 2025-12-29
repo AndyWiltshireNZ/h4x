@@ -7,5 +7,6 @@ public class LevelDefinition : ScriptableObject
 	public AssetReference LevelAssetReference;
 	public int StartCPULevel = 1;
 	public int EndCPULevel = 4;
-	public WaveDefinition[] WaveDefinitions;
+	public float TimeBetweenWaves = 6.0f;
+	public WaveDefinition[] Waves;
 }

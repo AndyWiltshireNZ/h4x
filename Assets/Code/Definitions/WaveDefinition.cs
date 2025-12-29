@@ -4,6 +4,5 @@ using UnityEngine;
 
 public class WaveDefinition : ScriptableObject
 {
-	public float TimeBetweenWaves = 6.0f;
-	public Wave[] Waves;
+	public Wave[] Entities;
 }
