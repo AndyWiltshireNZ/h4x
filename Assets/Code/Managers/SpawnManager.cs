@@ -13,10 +13,32 @@ public class SpawnManager : MonoBehaviour
 
 	// running coroutines and instantiated handles so we can stop / release on destroy
 	private readonly List<Coroutine> _runningCoroutines = new List<Coroutine>();
-	[SerializeField] private List<GameObject> _spawnedObjects = new List<GameObject>();
+
+	// Serialized list so Unity inspector can show spawned objects grouped by pathway.
+	// Keep a runtime dictionary for fast lookup.
+	[System.Serializable]
+	private class SpawnedPerPathway
+	{
+		public Pathway Pathway;
+		public List<GameObject> Instances = new List<GameObject>();
+	}
+
+	[SerializeField] private List<SpawnedPerPathway> _spawnedObjectsByPathwaySerialized = new List<SpawnedPerPathway>();
+	private readonly Dictionary<Pathway, List<GameObject>> _spawnedObjectsByPathway = new Dictionary<Pathway, List<GameObject>>();
 
 	// track active addressables instantiate handles so we can release/cancel them if coroutines are stopped
 	private readonly List<AsyncOperationHandle<GameObject>> _activeInstantiateHandles = new List<AsyncOperationHandle<GameObject>>();
+
+	private void Awake()
+	{
+		RebuildSpawnedDictionaryFromSerialized();
+	}
+
+	private void OnDisable()
+	{
+		StopAllSpawning();
+		ReleaseAllSpawned();
+	}
 
 	private void OnDestroy()
 	{
@@ -62,9 +84,8 @@ public class SpawnManager : MonoBehaviour
 			return;
 		}
 
-		// Clear any existing spawns / coroutines
+		// Clear any existing handles / coroutines
 		StopAllSpawning();
-		//ReleaseAllSpawned();
 
 		// Build runtime spawn list from selectedWaveDef.Waves
 		spawns = new Spawn[ selectedWaveDef.Waves.Length ];
@@ -142,8 +163,8 @@ public class SpawnManager : MonoBehaviour
 				{
 					GameObject go = instantiateHandle.Result;
 
-					// register in spawned list for future cleanup
-					_spawnedObjects.Add( go );
+					// register in spawned dictionary for future cleanup (grouped by pathway)
+					AddSpawnedForPathway( pathway, go );
 
 					// Tell spline to register follower (CreateFollower will add SplineObject and initialize)
 					pathway.Spline.CreateFollower( go, new Vector3( 0f, 0.5f, 0f ), rot, false, parent );
@@ -253,16 +274,28 @@ public class SpawnManager : MonoBehaviour
 
 	private void ReleaseAllSpawned()
 	{
-		for ( int i = 0; i < _spawnedObjects.Count; i++ )
+		// Iterate serialized list so inspector state matches runtime
+		for ( int e = 0; e < _spawnedObjectsByPathwaySerialized.Count; e++ )
 		{
-			GameObject go = _spawnedObjects[ i ];
-			if ( go != null )
+			SpawnedPerPathway entry = _spawnedObjectsByPathwaySerialized[ e ];
+			if ( entry == null || entry.Instances == null )
 			{
-				// use Addressables.ReleaseInstance for objects created with InstantiateAsync
-				Addressables.ReleaseInstance( go );
+				continue;
+			}
+
+			for ( int i = 0; i < entry.Instances.Count; i++ )
+			{
+				GameObject go = entry.Instances[ i ];
+				if ( go != null )
+				{
+					// use Addressables.ReleaseInstance for objects created with InstantiateAsync
+					Addressables.ReleaseInstance( go );
+				}
 			}
 		}
-		_spawnedObjects.Clear();
+
+		_spawnedObjectsByPathwaySerialized.Clear();
+		_spawnedObjectsByPathway.Clear();
 	}
 
 	public void RemovedSpawnedFromList( GameObject go )
@@ -272,14 +305,112 @@ public class SpawnManager : MonoBehaviour
 			return;
 		}
 
-		for ( int i = _spawnedObjects.Count - 1; i >= 0; i-- )
+		// find and remove the GameObject from whichever pathway list it exists in
+		for ( int k = _spawnedObjectsByPathwaySerialized.Count - 1; k >= 0; k-- )
 		{
-			GameObject item = _spawnedObjects[ i ];
-			if ( item == go )
+			SpawnedPerPathway entry = _spawnedObjectsByPathwaySerialized[ k ];
+			if ( entry == null || entry.Instances == null )
 			{
-				_spawnedObjects.RemoveAt( i );
+				continue;
+			}
+
+			for ( int i = entry.Instances.Count - 1; i >= 0; i-- )
+			{
+				if ( entry.Instances[ i ] == go )
+				{
+					entry.Instances.RemoveAt( i );
+				}
+			}
+
+			if ( entry.Instances.Count == 0 )
+			{
+				_spawnedObjectsByPathwaySerialized.RemoveAt( k );
+				_spawnedObjectsByPathway.Remove( entry.Pathway );
+			}
+			else
+			{
+				// keep dictionary in sync
+				if ( entry.Pathway != null )
+				{
+					_spawnedObjectsByPathway[ entry.Pathway ] = entry.Instances;
+				}
 			}
 		}
 	}
 
+	private void AddSpawnedForPathway( Pathway pathway, GameObject go )
+	{
+		if ( pathway == null || go == null )
+		{
+			return;
+		}
+
+		// runtime dictionary - ensure runtime list is independent of serialized list to avoid double-add
+		if ( !_spawnedObjectsByPathway.TryGetValue( pathway, out List<GameObject> list ) )
+		{
+			list = new List<GameObject>();
+			_spawnedObjectsByPathway[ pathway ] = list;
+		}
+
+		if ( !list.Contains( go ) )
+		{
+			list.Add( go );
+		}
+
+		// serialized inspector list - keep in sync but avoid duplicate entries
+		SpawnedPerPathway serializedEntry = null;
+		for ( int i = 0; i < _spawnedObjectsByPathwaySerialized.Count; i++ )
+		{
+			SpawnedPerPathway s = _spawnedObjectsByPathwaySerialized[ i ];
+			if ( s != null && s.Pathway == pathway )
+			{
+				serializedEntry = s;
+				break;
+			}
+		}
+
+		if ( serializedEntry == null )
+		{
+			serializedEntry = new SpawnedPerPathway { Pathway = pathway, Instances = new List<GameObject>() };
+			_spawnedObjectsByPathwaySerialized.Add( serializedEntry );
+		}
+
+		if ( !serializedEntry.Instances.Contains( go ) )
+		{
+			serializedEntry.Instances.Add( go );
+		}
+	}
+
+	private void RebuildSpawnedDictionaryFromSerialized()
+	{
+		_spawnedObjectsByPathway.Clear();
+
+		for ( int i = 0; i < _spawnedObjectsByPathwaySerialized.Count; i++ )
+		{
+			SpawnedPerPathway entry = _spawnedObjectsByPathwaySerialized[ i ];
+			if ( entry == null || entry.Pathway == null || entry.Instances == null )
+			{
+				continue;
+			}
+
+			// copy the serialized list into a new runtime list to avoid shared references
+			_spawnedObjectsByPathway[ entry.Pathway ] = new List<GameObject>( entry.Instances );
+		}
+	}
+
+	// Optional accessor for other systems
+	public List<GameObject> GetSpawnedForPathway( Pathway pathway )
+	{
+		if ( pathway == null )
+		{
+			return null;
+		}
+
+		if ( _spawnedObjectsByPathway.TryGetValue( pathway, out List<GameObject> list ) )
+		{
+			return list;
+		}
+
+		return null;
+	}
 }

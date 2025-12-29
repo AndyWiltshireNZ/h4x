@@ -16,7 +16,7 @@ public class PathwayManager : MonoBehaviour
 		if ( Application.isPlaying )
 		{
 			Selection.activeGameObject = this.gameObject;
-			//EditorGUIUtility.PingObject( this.gameObject );
+			EditorGUIUtility.PingObject( this.gameObject );
 		}
 #endif
 	}
