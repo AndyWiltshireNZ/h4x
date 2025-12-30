@@ -38,6 +38,9 @@ public class SpawnManager : MonoBehaviour
 	// track active addressables instantiate handles so we can release/cancel them if coroutines are stopped
 	private readonly List<AsyncOperationHandle<GameObject>> _activeInstantiateHandles = new List<AsyncOperationHandle<GameObject>>();
 
+	// track claimed pathways to prevent multiple spawn routines instantiating on the same pathway at once
+	private readonly HashSet<Pathway> _claimedPathways = new HashSet<Pathway>();
+
 	private void Awake()
 	{
 		RebuildSpawnedDictionaryFromSerialized();
@@ -103,7 +106,8 @@ public class SpawnManager : MonoBehaviour
 		// Clear any existing handles / coroutines
 		StopAllSpawning();
 
-		// Build runtime spawn list from selectedWaveDef.Waves
+		// Build runtime spawn list from selectedWaveDef.Entities
+		// NOTE: Spawn interval will now come from WaveDefinition.SpawnInterval, not from individual Wave entries.
 		spawns = new Spawn[ selectedWaveDef.Entities.Length ];
 		for ( int i = 0; i < selectedWaveDef.Entities.Length; i++ )
 		{
@@ -111,19 +115,17 @@ public class SpawnManager : MonoBehaviour
 			Spawn s = new Spawn
 			{
 				Prefab = w.EntityAssetReference,
-				SpawnQuantity = Mathf.Max( 1, w.SpawnQuantity ),
-				SpawnInterval = Mathf.Max( 0.01f, w.SpawnInterval ),
 				EntitySpeed = selectedWaveDef.entitySpeed
 			};
 			spawns[i] = s;
 		}
 
-		// Start waves sequentially, using TimeBetweenWaves from the selected LevelDefinition
+		// Start waves sequentially (no inter-wave delay configured here)
 		Coroutine waveSequence = StartCoroutine( WavesSequenceRoutine( selectedWaveDef ) );
 		_runningCoroutines.Add( waveSequence );
 	}
 
-	private IEnumerator SpawnRoutine( Spawn spawn )
+	private IEnumerator SpawnRoutine( Spawn spawn, float waveSpawnInterval )
 	{
 		// wait until the spawn prefab has a valid runtime key (addressable assigned)
 		float wait = 0f;
@@ -150,136 +152,145 @@ public class SpawnManager : MonoBehaviour
 			if ( candidates.Count == 0 )
 			{
 				// no enabled pathways right now - wait and retry
-				yield return new WaitForSeconds( spawn.SpawnInterval );
+				yield return new WaitForSeconds( waveSpawnInterval );
 				continue;
 			}
 
-			// spawn SpawnQuantity instances, spacing by SpawnInterval
-			for ( int q = 0; q < spawn.SpawnQuantity; q++ )
+			// Spawn a single instance per spawn event (SpawnQuantity feature removed).
+			// Start with the list of currently enabled candidates
+			List<Pathway> pickList = new List<Pathway>( candidates );
+
+			// Filter out pathways whose spawn start point is too close to any existing spawned object.
+			// If all candidates are filtered out, we fall back to the original candidate list to avoid blocking spawns.
+			List<Pathway> distanceFiltered = new List<Pathway>();
+			for ( int i = 0; i < pickList.Count; i++ )
 			{
-				// Start with the list of currently enabled candidates
-				List<Pathway> pickList = new List<Pathway>( candidates );
-
-				// Filter out pathways whose spawn start point is too close to any existing spawned object.
-				// If all candidates are filtered out, we fall back to the original candidate list to avoid blocking spawns.
-				List<Pathway> distanceFiltered = new List<Pathway>();
-				for ( int i = 0; i < pickList.Count; i++ )
+				Pathway p = pickList[ i ];
+				if ( p == null || p.Spline == null || !p.gameObject.activeInHierarchy )
 				{
-					Pathway p = pickList[ i ];
-					if ( p == null || p.Spline == null || !p.gameObject.activeInHierarchy )
-					{
-						continue;
-					}
-
-					Vector3 localPos = p.Spline.GetPositionFastLocal(0);
-					Vector3 worldPos = p.Spline.transform.TransformPoint( localPos );
-					if ( !IsSpawnPositionTooCloseToAnySpawn( worldPos ) )
-					{
-						distanceFiltered.Add( p );
-					}
-				}
-
-				if ( distanceFiltered.Count > 0 )
-				{
-					pickList = distanceFiltered;
-				}
-
-				// If more than one candidate is available avoid selecting the same pathway as last time.
-				if ( pickList.Count > 1 && lastPathway != null )
-				{
-					pickList.Remove( lastPathway );
-					// fallback in case removal emptied the list for some reason
-					if ( pickList.Count == 0 )
-					{
-						pickList = new List<Pathway>( candidates );
-					}
-				}
-
-				// choose a pathway
-				Pathway pathway = pickList[ Random.Range( 0, pickList.Count ) ];
-				if ( pathway == null || pathway.Spline == null || !pathway.gameObject.activeInHierarchy )
-				{
-					// do not update lastPathway if selection was invalid; try next iteration
 					continue;
 				}
 
-				// record selected pathway so next spawn does not use it if other pathways exist
-				lastPathway = pathway;
-
-				// get randomized interval for this spawn
-				float randomizedInterval = GetRandomizedInterval( spawn.SpawnInterval );
-
-				// enforce global minimum time between any two spawned entities (uses randomizedInterval as minimum)
-				float timeSinceLast = Time.time - _lastGlobalSpawnTime;
-				float requiredInterval = Mathf.Max( 0.01f, randomizedInterval );
-				float waitTime = Mathf.Max( 0f, requiredInterval - timeSinceLast );
-				if ( waitTime > 0f )
+				Vector3 localPos = p.Spline.GetPositionFastLocal(0);
+				Vector3 worldPos = p.Spline.transform.TransformPoint( localPos );
+				if ( !IsSpawnPositionTooCloseToAnySpawn( worldPos ) )
 				{
-					yield return new WaitForSeconds( waitTime );
+					distanceFiltered.Add( p );
 				}
-				// update the global last spawn time immediately before starting instantiate to prevent races
-				_lastGlobalSpawnTime = Time.time;
+			}
 
-				// Use AssetReference.InstantiateAsync rather than LoadAssetAsync + Instantiate
-				Vector3 pos = pathway.Spline.GetPositionFastLocal(0);
-				Quaternion rot = Quaternion.identity;
-				Transform parent = pathway.Spline.transform;
+			if ( distanceFiltered.Count > 0 )
+			{
+				pickList = distanceFiltered;
+			}
 
-				AsyncOperationHandle<GameObject> instantiateHandle = spawn.Prefab.InstantiateAsync( pos, rot, parent );
-
-				// track the handle so we can cancel/release if StopAllSpawning is called mid-load
-				_activeInstantiateHandles.Add( instantiateHandle );
-
-				yield return instantiateHandle;
-
-				// remove from tracking list once operation finished (success or fail)
-				_activeInstantiateHandles.Remove( instantiateHandle );
-
-				if ( instantiateHandle.Status == AsyncOperationStatus.Succeeded && instantiateHandle.Result != null )
+			// If more than one candidate is available avoid selecting the same pathway as last time.
+			if ( pickList.Count > 1 && lastPathway != null )
+			{
+				pickList.Remove( lastPathway );
+				// fallback in case removal emptied the list for some reason
+				if ( pickList.Count == 0 )
 				{
-					GameObject go = instantiateHandle.Result;
+					pickList = new List<Pathway>( candidates );
+				}
+			}
 
-					// register in spawned dictionary for future cleanup (grouped by pathway)
-					AddSpawnedForPathway( pathway, go );
+			// choose a pathway
+			Pathway pathway = pickList[ Random.Range( 0, pickList.Count ) ];
+			if ( pathway == null || pathway.Spline == null || !pathway.gameObject.activeInHierarchy )
+			{
+				// do not update lastPathway if selection was invalid; try next iteration
+				yield return null;
+				continue;
+			}
 
-					// Tell spline to register follower (CreateFollower will add SplineObject and initialize)
-					pathway.Spline.CreateFollower( go, new Vector3( 0f, 0.5f, 0f ), rot, false, parent );
+			// record selected pathway so next spawn does not use it if other pathways exist
+			lastPathway = pathway;
 
-					// Don't move first spawned entity
-					if ( !_firstSpawnPrevented )
-					{
-						RemovedSpawnedFromList( go );
-						go.SetActive( false );
-						_firstSpawnPrevented = true;
-					}
-					else
-					{
-						// Apply configured wave entity speed to the mover before enabling movement.
-						MoveAlongPathway mover = go.GetComponent<MoveAlongPathway>();
-						if ( mover != null )
-						{
-							mover.Speed = new Vector3( 0f, 0f, spawn.EntitySpeed );
-							mover.Setup();
-						}
-						else
-						{
-							// Still call Setup if component exists but null check handled above.
-						}
+			// try to claim the selected pathway so no other SpawnRoutine can instantiate on it concurrently
+			if ( !TryClaimPathway( pathway ) )
+			{
+				// claimed by another routine; give it a short delay and retry
+				yield return new WaitForSeconds( 0.05f );
+				continue;
+			}
 
-						// Pass spawn manager and entity speed into EntityBase.Setup
-						go.GetComponent<EntityBase>()?.Setup( this, spawn.EntitySpeed );
-					}
+			// get randomized interval for this spawn (now based on the wave-level interval)
+			float randomizedInterval = GetRandomizedInterval( waveSpawnInterval );
+
+			// enforce global minimum time between any two spawned entities (uses randomizedInterval as minimum)
+			float timeSinceLast = Time.time - _lastGlobalSpawnTime;
+			float requiredInterval = Mathf.Max( 0.01f, randomizedInterval );
+			float waitTime = Mathf.Max( 0f, requiredInterval - timeSinceLast );
+			if ( waitTime > 0f )
+			{
+				yield return new WaitForSeconds( waitTime );
+			}
+			// update the global last spawn time immediately before starting instantiate to prevent races
+			_lastGlobalSpawnTime = Time.time;
+
+			// Use AssetReference.InstantiateAsync rather than LoadAssetAsync + Instantiate
+			Vector3 pos = new Vector3 ( 0f, 0f, 1000f );
+			Quaternion rot = Quaternion.identity;
+			Transform parent = pathway.Spline.transform;
+
+			AsyncOperationHandle<GameObject> instantiateHandle = spawn.Prefab.InstantiateAsync( pos, rot, parent );
+
+			// track the handle so we can cancel/release if StopAllSpawning is called mid-load
+			_activeInstantiateHandles.Add( instantiateHandle );
+
+			yield return instantiateHandle;
+
+			// remove from tracking list once operation finished (success or fail)
+			_activeInstantiateHandles.Remove( instantiateHandle );
+
+			if ( instantiateHandle.Status == AsyncOperationStatus.Succeeded && instantiateHandle.Result != null )
+			{
+				GameObject go = instantiateHandle.Result;
+
+				// register in spawned dictionary for future cleanup (grouped by pathway)
+				AddSpawnedForPathway( pathway, go );
+
+				// Tell spline to register follower (CreateFollower will add SplineObject and initialize)
+				pathway.Spline.CreateFollower( go, new Vector3( 0f, 0f, 0.5f ), rot, false, parent );
+
+				// Don't move first spawned entity
+				if ( !_firstSpawnPrevented )
+				{
+					RemovedSpawnedFromList( go );
+					go.SetActive( false );
+					_firstSpawnPrevented = true;
 				}
 				else
 				{
-					Debug.LogError( $"SpawnManager: Failed to instantiate addressable {spawn.Prefab.RuntimeKey}. Status: {instantiateHandle.Status}" );
-					// ensure we release a failed handle
-					if ( instantiateHandle.IsValid() ) Addressables.Release( instantiateHandle );
-				}
+					// Apply configured wave entity speed to the mover before enabling movement.
+					MoveAlongPathway mover = go.GetComponent<MoveAlongPathway>();
+					if ( mover != null )
+					{
+						mover.Speed = new Vector3( 0f, 0f, spawn.EntitySpeed );
+						mover.Setup();
+					}
+					else
+					{
+						// Still call Setup if component exists but null check handled above.
+					}
 
-				// randomized delay after spawn before next spawn
-				yield return new WaitForSeconds( randomizedInterval );
+					// Pass spawn manager and entity speed into EntityBase.Setup
+					go.GetComponent<EntityBase>()?.Setup( this, spawn.EntitySpeed );
+				}
 			}
+			else
+			{
+				Debug.LogError( $"SpawnManager: Failed to instantiate addressable {spawn.Prefab.RuntimeKey}. Status: {instantiateHandle.Status}" );
+				// ensure we release a failed handle
+				if ( instantiateHandle.IsValid() ) Addressables.Release( instantiateHandle );
+			}
+
+			// release pathway claim so other routines may use it
+			ReleaseClaimedPathway( pathway );
+
+			// randomized delay after spawn before next spawn
+			yield return new WaitForSeconds( randomizedInterval );
 
 			// small yield before next batch to prevent tight loop
 			yield return null;
@@ -296,19 +307,12 @@ public class SpawnManager : MonoBehaviour
 
 	/// <summary>
 	/// Sequence through waves in order and start its SpawnRoutine for each configured spawn.
-	/// Waits the LevelDefinition.TimeBetweenWaves value between each wave.
 	/// </summary>
 	private IEnumerator WavesSequenceRoutine( WaveDefinition waveDef )
 	{
 		if ( waveDef == null || waveDef.Entities == null )
 		{
 			yield break;
-		}
-
-		float delay = 0f;
-		if ( currentLevelData != null )
-		{
-			delay = Mathf.Max( 0f, currentLevelData.TimeBetweenWaves );
 		}
 
 		for ( int i = 0; i < waveDef.Entities.Length; i++ )
@@ -324,14 +328,9 @@ public class SpawnManager : MonoBehaviour
 
 			if ( s != null )
 			{
-				Coroutine co = StartCoroutine( SpawnRoutine( s ) );
+				// pass the wave-level SpawnInterval into the routine
+				Coroutine co = StartCoroutine( SpawnRoutine( s, Mathf.Max( 0.01f, waveDef.SpawnInterval ) ) );
 				_runningCoroutines.Add( co );
-			}
-
-			// wait between waves unless this was the last wave
-			if ( i < waveDef.Entities.Length - 1 && delay > 0f )
-			{
-				yield return new WaitForSeconds( delay );
 			}
 		}
 	}
@@ -418,6 +417,8 @@ public class SpawnManager : MonoBehaviour
 			}
 		}
 		_runningCoroutines.Clear();
+		// clear claimed pathways as coroutines have been stopped
+		_claimedPathways.Clear();
 	}
 
 	private void ReleaseAllSpawned()
@@ -560,5 +561,33 @@ public class SpawnManager : MonoBehaviour
 		}
 
 		return null;
+	}
+
+	// Try to claim a pathway for the current coroutine; returns true if claimed.
+	private bool TryClaimPathway( Pathway pathway )
+	{
+		if ( pathway == null )
+		{
+			return false;
+		}
+
+		if ( _claimedPathways.Contains( pathway ) )
+		{
+			return false;
+		}
+
+		_claimedPathways.Add( pathway );
+		return true;
+	}
+
+	// Release a previously claimed pathway.
+	private void ReleaseClaimedPathway( Pathway pathway )
+	{
+		if ( pathway == null )
+		{
+			return;
+		}
+
+		_claimedPathways.Remove( pathway );
 	}
 }
