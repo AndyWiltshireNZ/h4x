@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: -3824144962903549795}
   - component: {fileID: 8429692655685574085}
   m_Layer: 8
-  m_Name: PacketBase
+  m_Name: Packet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad7cd2807b697545a9033def900251f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  entityType: 0
   sphereCollider: {fileID: 6526505014026527499}
   sphereNodeCollider: {fileID: 8429692655685574085}
   PacketData: {fileID: 11400000, guid: 2d21c959dab38514e9dd05a09b7d7246, type: 2}
@@ -246,7 +247,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.6
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6567522484055236115
 GameObject:

@@ -915,7 +915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: SplineArchitect::SplineArchitect.Objects.Spline
   loop: 0
-  length: 49.808525
+  length: 52.308514
   normalType: 0
   segments:
   - anchor: {x: 53.504677, y: 0.7491226, z: 4.2541685}
@@ -970,7 +970,7 @@ MonoBehaviour:
     noise: 1
     saddleSkew: {x: 0, y: 0}
     scale: {x: 1, y: 1}
-    length: 7.992977
+    length: 10.492966
     zPosition: 41.815548
     linkTarget: 0
     ignoreSnapping: 0
@@ -981,9 +981,9 @@ MonoBehaviour:
     oldDirTangentB: {x: 0, y: 0, z: 1}
     connectorPosOffset: {x: 0, y: 0, z: 0}
     connectorRotOffset: {x: 0, y: 0, z: 0, w: 1}
-  - anchor: {x: 5.004677, y: 0.7491226, z: 0.004168585}
-    tangentA: {x: 4.904677, y: 0.7491226, z: 0.004168585}
-    tangentB: {x: 5.1046767, y: 0.7491226, z: 0.004168585}
+  - anchor: {x: 2.5046768, y: 0.7491226, z: 0.004168585}
+    tangentA: {x: 2.404677, y: 0.7491226, z: 0.004168585}
+    tangentB: {x: 2.6046767, y: 0.7491226, z: 0.004168585}
     interpolationType: 1
     localSpace: {fileID: 8991734387415044093}
     zRotation: 0
@@ -992,7 +992,7 @@ MonoBehaviour:
     saddleSkew: {x: 0, y: 0}
     scale: {x: 1, y: 1}
     length: 0
-    zPosition: 49.808525
+    zPosition: 52.308514
     linkTarget: 0
     ignoreSnapping: 0
     ignoreLink: 0
@@ -1014,7 +1014,7 @@ MonoBehaviour:
   editorDirty: 0
   drawInGame: 0
   gridCenterPoint: {x: 51.754677, y: -2.570877, z: 4.1741686}
-  selectedControlPoint: 0
+  selectedControlPoint: 1009
   selectedAnchors: 
   selectedSplineMenu: deformation
   selectedAnchorMenu: general
@@ -1167,7 +1167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: SplineArchitect::SplineArchitect.Objects.Spline
   loop: 0
-  length: 49.81347
+  length: 51.81336
   normalType: 0
   segments:
   - anchor: {x: 4.254677, y: 0.7491226, z: 53.00417}
@@ -1201,7 +1201,7 @@ MonoBehaviour:
     noise: 1
     saddleSkew: {x: 0, y: 0}
     scale: {x: 1, y: 1}
-    length: 7.562134
+    length: 7.562168
     zPosition: 33.75049
     linkTarget: 0
     ignoreSnapping: 0
@@ -1213,8 +1213,8 @@ MonoBehaviour:
     connectorPosOffset: {x: 0, y: 0, z: 0}
     connectorRotOffset: {x: 0, y: 0, z: 0, w: 1}
   - anchor: {x: -0.002298355, y: 0.7491226, z: 13.0041685}
-    tangentA: {x: -0.0022162942, y: 0.7491226, z: 12.904168}
-    tangentB: {x: -0.002380416, y: 0.7491226, z: 13.104169}
+    tangentA: {x: -0.0022319248, y: 0.7491226, z: 12.904168}
+    tangentB: {x: -0.0023647854, y: 0.7491226, z: 13.104169}
     interpolationType: 1
     localSpace: {fileID: 1542493401291067494}
     zRotation: 0
@@ -1222,8 +1222,8 @@ MonoBehaviour:
     noise: 1
     saddleSkew: {x: 0, y: 0}
     scale: {x: 1, y: 1}
-    length: 8.500847
-    zPosition: 41.312622
+    length: 10.500702
+    zPosition: 41.312656
     linkTarget: 0
     ignoreSnapping: 0
     ignoreLink: 0
@@ -1233,9 +1233,9 @@ MonoBehaviour:
     oldDirTangentB: {x: 0, y: 0, z: 1}
     connectorPosOffset: {x: 0, y: 0, z: 0}
     connectorRotOffset: {x: 0, y: 0, z: 0, w: 1}
-  - anchor: {x: 0.004676819, y: 0.7491226, z: 4.5041685}
-    tangentA: {x: 0.0047588795, y: 0.7491226, z: 4.4041686}
-    tangentB: {x: 0.004594758, y: 0.7491226, z: 4.6041684}
+  - anchor: {x: 0.004676819, y: 0.7491226, z: 2.5041685}
+    tangentA: {x: 0.004743249, y: 0.7491226, z: 2.4041686}
+    tangentB: {x: 0.0046103885, y: 0.7491226, z: 2.6041684}
     interpolationType: 1
     localSpace: {fileID: 1542493401291067494}
     zRotation: 0
@@ -1244,7 +1244,7 @@ MonoBehaviour:
     saddleSkew: {x: 0, y: 0}
     scale: {x: 1, y: 1}
     length: 0
-    zPosition: 49.81347
+    zPosition: 51.81336
     linkTarget: 0
     ignoreSnapping: 0
     ignoreLink: 0
@@ -1266,7 +1266,7 @@ MonoBehaviour:
   editorDirty: 0
   drawInGame: 0
   gridCenterPoint: {x: 51.754677, y: -2.570877, z: 4.1741686}
-  selectedControlPoint: 0
+  selectedControlPoint: 1009
   selectedAnchors: 
   selectedSplineMenu: deformation
   selectedAnchorMenu: general
@@ -1739,7 +1739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: SplineArchitect::SplineArchitect.Objects.Spline
   loop: 0
-  length: 49.81048
+  length: 52.310528
   normalType: 0
   segments:
   - anchor: {x: -53.495323, y: 0.7491226, z: 4.2541685}
@@ -1794,7 +1794,7 @@ MonoBehaviour:
     noise: 1
     saddleSkew: {x: 0, y: 0}
     scale: {x: 1, y: 1}
-    length: 8.006908
+    length: 10.506958
     zPosition: 41.80357
     linkTarget: 0
     ignoreSnapping: 0
@@ -1805,9 +1805,9 @@ MonoBehaviour:
     oldDirTangentB: {x: 0, y: 0, z: 1}
     connectorPosOffset: {x: 0, y: 0, z: 0}
     connectorRotOffset: {x: 0, y: 0, z: 0, w: 1}
-  - anchor: {x: -4.995323, y: 0.7491226, z: 0.004168585}
-    tangentA: {x: -4.8953233, y: 0.7491226, z: 0.004168585}
-    tangentB: {x: -5.095323, y: 0.7491226, z: 0.004168585}
+  - anchor: {x: -2.4953232, y: 0.7491226, z: 0.004168585}
+    tangentA: {x: -2.3953233, y: 0.7491226, z: 0.004168585}
+    tangentB: {x: -2.595323, y: 0.7491226, z: 0.004168585}
     interpolationType: 1
     localSpace: {fileID: 5848032562194300681}
     zRotation: 0
@@ -1816,7 +1816,7 @@ MonoBehaviour:
     saddleSkew: {x: 0, y: 0}
     scale: {x: 1, y: 1}
     length: 0
-    zPosition: 49.81048
+    zPosition: 52.310528
     linkTarget: 0
     ignoreSnapping: 0
     ignoreLink: 0
@@ -1838,7 +1838,7 @@ MonoBehaviour:
   editorDirty: 0
   drawInGame: 0
   gridCenterPoint: {x: 51.754677, y: -2.570877, z: 4.1741686}
-  selectedControlPoint: 0
+  selectedControlPoint: 1009
   selectedAnchors: 
   selectedSplineMenu: deformation
   selectedAnchorMenu: general
@@ -1890,6 +1890,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   pathwayManager: {fileID: 1343755747046886994}
+  cpuCore: {fileID: 5500220239904419514}
+  xpThresholdsData: {fileID: 11400000, guid: fd94574806f8b544095d7cabf6d18ece, type: 2}
 --- !u!1 &5111321990511137041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1948,7 +1950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: SplineArchitect::SplineArchitect.Objects.Spline
   loop: 0
-  length: 49.813374
+  length: 51.813313
   normalType: 0
   segments:
   - anchor: {x: 4.254677, y: 0.7491226, z: -52.99583}
@@ -1982,7 +1984,7 @@ MonoBehaviour:
     noise: 1
     saddleSkew: {x: 0, y: 0}
     scale: {x: 1, y: 1}
-    length: 7.562134
+    length: 7.5621834
     zPosition: 33.750484
     linkTarget: 0
     ignoreSnapping: 0
@@ -1994,8 +1996,8 @@ MonoBehaviour:
     connectorPosOffset: {x: 0, y: 0, z: 0}
     connectorRotOffset: {x: 0, y: 0, z: 0, w: 1}
   - anchor: {x: -0.002298355, y: 0.7491226, z: -12.9958315}
-    tangentA: {x: -0.0022162942, y: 0.7491226, z: -12.895831}
-    tangentB: {x: -0.002380416, y: 0.7491226, z: -13.095832}
+    tangentA: {x: -0.0022319248, y: 0.7491226, z: -12.895831}
+    tangentB: {x: -0.0023647854, y: 0.7491226, z: -13.095832}
     interpolationType: 1
     localSpace: {fileID: 7169372085415701044}
     zRotation: 0
@@ -2003,8 +2005,8 @@ MonoBehaviour:
     noise: 1
     saddleSkew: {x: 0, y: 0}
     scale: {x: 1, y: 1}
-    length: 8.500755
-    zPosition: 41.31262
+    length: 10.500645
+    zPosition: 41.312668
     linkTarget: 0
     ignoreSnapping: 0
     ignoreLink: 0
@@ -2014,9 +2016,9 @@ MonoBehaviour:
     oldDirTangentB: {x: 0, y: 0, z: 1}
     connectorPosOffset: {x: 0, y: 0, z: 0}
     connectorRotOffset: {x: 0, y: 0, z: 0, w: 1}
-  - anchor: {x: 0.004676819, y: 0.7491226, z: -4.4958315}
-    tangentA: {x: 0.0047588795, y: 0.7491226, z: -4.3958316}
-    tangentB: {x: 0.004594758, y: 0.7491226, z: -4.5958314}
+  - anchor: {x: 0.004676819, y: 0.7491226, z: -2.4958315}
+    tangentA: {x: 0.004743249, y: 0.7491226, z: -2.3958316}
+    tangentB: {x: 0.0046103885, y: 0.7491226, z: -2.5958314}
     interpolationType: 1
     localSpace: {fileID: 7169372085415701044}
     zRotation: 0
@@ -2025,7 +2027,7 @@ MonoBehaviour:
     saddleSkew: {x: 0, y: 0}
     scale: {x: 1, y: 1}
     length: 0
-    zPosition: 49.813374
+    zPosition: 51.813313
     linkTarget: 0
     ignoreSnapping: 0
     ignoreLink: 0
@@ -2047,7 +2049,7 @@ MonoBehaviour:
   editorDirty: 0
   drawInGame: 0
   gridCenterPoint: {x: 51.754677, y: -2.570877, z: 4.1741686}
-  selectedControlPoint: 0
+  selectedControlPoint: 1009
   selectedAnchors: 
   selectedSplineMenu: deformation
   selectedAnchorMenu: general
@@ -2713,7 +2715,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2688368855359301341}
   - component: {fileID: 5500220239904419514}
-  - component: {fileID: 649565336371773603}
   - component: {fileID: 91018479460048616}
   m_Layer: 9
   m_Name: CPUCore
@@ -2734,7 +2735,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6673312164992561030}
+  - {fileID: 7755482468447460219}
   m_Father: {fileID: 1526140781190627421}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5500220239904419514
@@ -2752,27 +2755,8 @@ MonoBehaviour:
   entityLayerMask:
     serializedVersion: 2
     m_Bits: 384
---- !u!65 &649565336371773603
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7877791231260266319}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 384
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 8, y: 4, z: 8}
-  m_Center: {x: 0, y: 0, z: 0}
+  packetBoxCollider: {fileID: 7279559009885713306}
+  virusBoxCollider: {fileID: 5154345055779646124}
 --- !u!54 &91018479460048616
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2891,6 +2875,112 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &8604453152335423865
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7755482468447460219}
+  - component: {fileID: 5154345055779646124}
+  m_Layer: 9
+  m_Name: VirusCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7755482468447460219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8604453152335423865}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2688368855359301341}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5154345055779646124
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8604453152335423865}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1600
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8, y: 4, z: 7}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &9198312529026135613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6673312164992561030}
+  - component: {fileID: 7279559009885713306}
+  m_Layer: 9
+  m_Name: PacketCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6673312164992561030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9198312529026135613}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2688368855359301341}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7279559009885713306
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9198312529026135613}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1600
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 4, z: 9}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &150354505294776709
 PrefabInstance:
   m_ObjectHideFlags: 0

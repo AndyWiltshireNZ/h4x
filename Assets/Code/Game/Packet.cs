@@ -1,16 +1,14 @@
 using UnityEngine;
+using System;
 
 public class Packet : EntityBase
 {
 	[SerializeField] private PacketDefinition PacketData;
 
-    private void Start()
+	[NonSerialized] public int XPValue;
+
+	private void Start()
     {
-        
-    }
-
-    private void Update()
-	{
-
-    }
+        XPValue = PacketData.XPValue;
+	}
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f94259cebe4a294c85cfef66c1ccb4b, type: 3}
   m_Name: WaveData01
   m_EditorClassIdentifier: Assembly-CSharp::WaveDefinition
-  entitySpeed: 4
+  entitySpeed: 8
   SpawnInterval: 2.5
   Entities:
   - EntityAssetReference:

@@ -3,6 +3,20 @@ using SplineArchitect.Objects;
 
 public class EntityBase : MonoBehaviour
 {
+	public enum EntityType
+	{
+		Packet,
+		Silica,
+		Virus,
+		Malware
+	}
+
+	[SerializeField] private EntityType entityType;
+	public EntityType GetEntityType()
+	{
+		return entityType;
+	}
+
 	private SpawnManager spawnManager;
 	[SerializeField] private SphereCollider sphereCollider;
 	[SerializeField] private SphereCollider sphereNodeCollider;
