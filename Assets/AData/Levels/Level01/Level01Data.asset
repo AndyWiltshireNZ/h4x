@@ -20,7 +20,7 @@ MonoBehaviour:
     m_EditorAssetChanged: 0
   StartCPULevel: 1
   EndCPULevel: 4
-  TimeBetweenWaves: 4
+  TimeBetweenWaves: 8
   Waves:
   - {fileID: 11400000, guid: 21cf32005ac797d409cc6397dacac0d6, type: 2}
   - {fileID: 11400000, guid: 39616e36da6335448a09e2b89ceefb2e, type: 2}

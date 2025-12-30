@@ -20,7 +20,7 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    SpawnQuantity: 5
+    SpawnQuantity: 1
     SpawnInterval: 3
   - EntityAssetReference:
       m_AssetGUID: 1664aee70ae30a147bfc3bb2ffdb224c
@@ -28,5 +28,5 @@ MonoBehaviour:
       m_SubObjectType: 
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-    SpawnQuantity: 5
+    SpawnQuantity: 1
     SpawnInterval: 3
