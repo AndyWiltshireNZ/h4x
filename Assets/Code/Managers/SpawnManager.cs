@@ -113,7 +113,7 @@ public class SpawnManager : MonoBehaviour
 				Prefab = w.EntityAssetReference,
 				SpawnQuantity = Mathf.Max( 1, w.SpawnQuantity ),
 				SpawnInterval = Mathf.Max( 0.01f, w.SpawnInterval ),
-				AutoStart = w.AutoStart
+				EntitySpeed = selectedWaveDef.entitySpeed
 			};
 			spawns[i] = s;
 		}
@@ -254,8 +254,20 @@ public class SpawnManager : MonoBehaviour
 					}
 					else
 					{
-						go?.GetComponent<MoveAlongPathway>()?.Setup();
-						go.GetComponent<EntityBase>()?.Setup( this );
+						// Apply configured wave entity speed to the mover before enabling movement.
+						MoveAlongPathway mover = go.GetComponent<MoveAlongPathway>();
+						if ( mover != null )
+						{
+							mover.Speed = new Vector3( 0f, 0f, spawn.EntitySpeed );
+							mover.Setup();
+						}
+						else
+						{
+							// Still call Setup if component exists but null check handled above.
+						}
+
+						// Pass spawn manager and entity speed into EntityBase.Setup
+						go.GetComponent<EntityBase>()?.Setup( this, spawn.EntitySpeed );
 					}
 				}
 				else
@@ -283,7 +295,7 @@ public class SpawnManager : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Sequence through waves in order. For each wave, if the wave is marked AutoStart start its SpawnRoutine.
+	/// Sequence through waves in order and start its SpawnRoutine for each configured spawn.
 	/// Waits the LevelDefinition.TimeBetweenWaves value between each wave.
 	/// </summary>
 	private IEnumerator WavesSequenceRoutine( WaveDefinition waveDef )
@@ -310,7 +322,7 @@ public class SpawnManager : MonoBehaviour
 			Spawn s = spawns[ i ];
 			Wave w = waveDef.Entities[ i ];
 
-			if ( s != null && ( w != null && w.AutoStart ) )
+			if ( s != null )
 			{
 				Coroutine co = StartCoroutine( SpawnRoutine( s ) );
 				_runningCoroutines.Add( co );
@@ -368,7 +380,13 @@ public class SpawnManager : MonoBehaviour
 					continue;
 				}
 
-				if ( Vector3.Distance( go.transform.position, worldPos ) < _minSpawnDistance )
+				// Check distance only in xz plane, ignore y distance for spawn position checks.
+				Vector3 flatGoPos = go.transform.position;
+				flatGoPos.y = 0f;
+				Vector3 flatWorldPos = worldPos;
+				flatWorldPos.y = 0f;
+
+				if ( Vector3.Distance( flatGoPos, flatWorldPos ) < _minSpawnDistance )
 				{
 					return true;
 				}

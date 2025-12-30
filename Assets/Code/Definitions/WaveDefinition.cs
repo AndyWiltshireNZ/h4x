@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class WaveDefinition : ScriptableObject
 {
+	public float entitySpeed = 1.0f;
 	public Wave[] Entities;
 }

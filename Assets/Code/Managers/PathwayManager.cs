@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -47,6 +46,13 @@ public class PathwayManager : MonoBehaviour
 		for ( int i = currentCPULevel; i < pathways.Length; i++ )
 		{
 			pathways[ i ].gameObject.SetActive( false );
+		}
+
+		// Ensure SpawnManager refreshes its wave selection when CPU level is decreased.
+		// This will rebuild spawns and restart spawn coroutines based on the current CPU level.
+		if ( spawnManager != null )
+		{
+			spawnManager.Setup( pathways );
 		}
 	}
 }

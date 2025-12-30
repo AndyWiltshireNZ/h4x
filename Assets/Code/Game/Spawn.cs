@@ -14,6 +14,6 @@ public class Spawn
 	[Tooltip("Seconds between spawns (per spawned instance)")]
 	public float SpawnInterval = 1f;
 
-	[Tooltip("If true the spawn will start automatically when SpawnManager.Setup is called")]
-	public bool AutoStart = true;
+	[Tooltip("Movement speed applied to spawned entities (z axis)")]
+	public float EntitySpeed = 1f;
 }

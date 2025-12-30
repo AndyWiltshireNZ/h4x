@@ -14,15 +14,12 @@ public class Wave
 	// Interval between spawns in seconds
 	public float SpawnInterval = 3.0f;
 
-	public bool AutoStart = true;
-
 	public Wave() { }
 
-	public Wave( AssetReference entityAssetRef, int quantity, float interval, bool autoStart )
+	public Wave( AssetReference entityAssetRef, int quantity, float interval )
 	{
 		EntityAssetReference = entityAssetRef;
 		SpawnQuantity = quantity;
 		SpawnInterval = interval;
-		AutoStart = autoStart;
 	}
 }
