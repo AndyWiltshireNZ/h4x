@@ -22,6 +22,12 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - EntityAssetReference:
+      m_AssetGUID: 2007554efecbeaf47b40c94aae16a53d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+  - EntityAssetReference:
       m_AssetGUID: 1664aee70ae30a147bfc3bb2ffdb224c
       m_SubObjectName: 
       m_SubObjectType: 

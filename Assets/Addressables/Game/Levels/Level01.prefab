@@ -1712,7 +1712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   spawns: []
-  _minSpawnDistance: 2
+  _minSpawnDistance: 3
   _spawnedObjectsByPathwaySerialized: []
 --- !u!1 &4931977988849661106
 GameObject:

@@ -11,8 +11,8 @@ public class SpawnManager : MonoBehaviour
 	private Pathway[] availablePathways;
 	private LevelDefinition currentLevelData;
 
-	// minimum world-space distance between spawned entities (configurable in inspector)
-	[SerializeField] private float _minSpawnDistance = 2f;
+	// minimum world-space distance between spawned entities
+	private float _minSpawnDistance = 3.5f;
 
 	// last global spawn time to enforce a minimum time between any two spawned entities
 	private float _lastGlobalSpawnTime = -Mathf.Infinity;
