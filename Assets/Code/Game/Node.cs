@@ -8,6 +8,9 @@ public class Node : MonoBehaviour
 	[SerializeField] private BoxCollider triggerBoxCollider;
 	public BoxCollider TriggerBoxCollider { get { return triggerBoxCollider; } }
 
+	[SerializeField] private LayerMask entityLayerMask;
+	public LayerMask EntityLayerMask { get { return entityLayerMask; } }
+
 	private bool isOpen = false;
 	private bool isHovered = false;
 	public bool IsHovered { get { return isHovered; } set { isHovered = value; } }
@@ -49,5 +52,30 @@ public class Node : MonoBehaviour
 		{
 			nodeHoverObject.SetActive( on );
 		}
+	}
+
+	// Collision-based handling: only process collisions where the other object's layer
+	// is included in the serialized `entityLayerMask` (e.g. "packet" or "virus").
+	private void OnCollisionEnter( Collision collision )
+	{
+		if ( collision == null ) { return; }
+
+		Collider otherCollider = collision.collider;
+		if ( otherCollider == null ) { return; }
+
+		int otherLayer = otherCollider.gameObject.layer;
+
+		// Check LayerMask membership
+		if ( (entityLayerMask.value & (1 << otherLayer)) == 0 )
+		{
+			// not in the configured mask -> ignore
+			return;
+		}
+
+		// If the collided object (or its parent) is an EntityBase, destroy it so its cleanup runs.
+		EntityBase otherEntity = otherCollider.GetComponentInParent<EntityBase>();
+		if ( otherEntity == null ) { return; }
+
+		otherEntity.DestroyEntity();
 	}
 }

@@ -25,23 +25,10 @@ public class EntityBase : MonoBehaviour
 		splineObject = GetComponent<SplineObject>();
 	}
 
-	private void OnDestroy()
-	{
-		spawnManager?.RemovedSpawnedFromList( this.gameObject );
-	}
-
 	private void OnTriggerEnter(Collider other)
 	{
 		TryMatchSpeedWith( other );
 	}
-/*
-	private void OnCollisionEnter(Collision collision)
-	{
-		if ( collision == null )
-			return;
-
-		TryMatchSpeedWith( collision.collider );
-	}*/
 
 	private void TryMatchSpeedWith(Collider otherCollider)
 	{
@@ -77,5 +64,28 @@ public class EntityBase : MonoBehaviour
 		{
 			mover.Speed = otherMover.Speed;
 		}
+	}
+
+	public virtual void DestroyEntity()
+	{
+		// run destroy fx
+
+		//Debug.Log( "EntityBase: Destroying entity " + this.gameObject.name );
+
+		Destroy( this.gameObject );
+	}
+
+	public virtual void CPUDestroyEntity()
+	{
+		// run cpu destroy fx
+
+		//Debug.Log( "EntityBase: CPU Destroying entity " + this.gameObject.name );
+
+		Destroy( this.gameObject );
+	}
+
+	private void OnDestroy()
+	{
+		spawnManager?.RemovedSpawnedFromList( this.gameObject );
 	}
 }

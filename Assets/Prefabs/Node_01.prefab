@@ -280,6 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7432111195242928633}
   - component: {fileID: 9198802355569606661}
+  - component: {fileID: 731740187316464445}
   m_Layer: 0
   m_Name: Node_01
   m_TagString: Untagged
@@ -323,10 +324,36 @@ MonoBehaviour:
   nodeOpenObject: {fileID: 4818533276433079572}
   nodeHoverObject: {fileID: 4929387346485601878}
   triggerBoxCollider: {fileID: 2039651642436033270}
-  clickableLayer:
+  entityLayerMask:
     serializedVersion: 2
-    m_Bits: 64
-  maxDistance: 100
+    m_Bits: 384
+--- !u!54 &731740187316464445
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343827647896750911}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4929387346485601878
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,9 +454,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2557365830857003678}
   - component: {fileID: 2039651642436033270}
-  - component: {fileID: 5782603548544845788}
   m_Layer: 6
-  m_Name: Trigger
+  m_Name: NodeClickTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -463,7 +489,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1984
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -471,33 +497,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.25, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &5782603548544845788
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5423586152291238505}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 128
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
 --- !u!1 &7009697986504193223
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,8 +687,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3071067579076547544}
   - component: {fileID: 2182791856668847064}
-  m_Layer: 0
-  m_Name: Collider
+  m_Layer: 10
+  m_Name: NodeBlockCollider
   m_TagString: NodeClosed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -720,7 +719,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 384
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -729,8 +728,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2, y: 2, z: 0.5}
+  m_Center: {x: 0, y: 0, z: -0.25}
 --- !u!1 &8295764678336238631
 GameObject:
   m_ObjectHideFlags: 0
