@@ -47,14 +47,19 @@ public class SpawnManager : MonoBehaviour
 
 	private void OnDisable()
 	{
-		StopAllSpawning();
-		ReleaseAllSpawned();
+		StopEverything();
 	}
 
 	private void OnDestroy()
 	{
+		StopEverything();
+	}
+
+	public void StopEverything()
+	{
 		StopAllSpawning();
 		ReleaseAllSpawned();
+		DestroyAllEntities();
 	}
 
 	/// <summary>
@@ -588,5 +593,28 @@ public class SpawnManager : MonoBehaviour
 		}
 
 		_claimedPathways.Remove( pathway );
+	}
+
+	private void DestroyAllEntities()
+	{
+		// Iterate serialized list so inspector state matches runtime
+		for ( int e = 0; e < _spawnedObjectsByPathwaySerialized.Count; e++ )
+		{
+			SpawnedPerPathway entry = _spawnedObjectsByPathwaySerialized[ e ];
+			if ( entry == null || entry.Instances == null )
+			{
+				continue;
+			}
+			for ( int i = 0; i < entry.Instances.Count; i++ )
+			{
+				GameObject go = entry.Instances[ i ];
+				if ( go != null )
+				{
+					Destroy( go );
+				}
+			}
+		}
+		_spawnedObjectsByPathwaySerialized.Clear();
+		_spawnedObjectsByPathway.Clear();
 	}
 }

@@ -4,6 +4,7 @@ using TMPro;
 
 public class CPUCanvasController : MonoBehaviour
 {
+	private CPUManager cpuManagerParent;
 	private XPThresholdsDefinition xpThresholdsData;
 
 	[SerializeField] private CanvasGroup cpuCanvasGroup;
@@ -15,11 +16,12 @@ public class CPUCanvasController : MonoBehaviour
 	private int currentXP = 0;
 	private int nextXP = 0;
 
-	public void Setup ( XPThresholdsDefinition xpThresholdsDefinition )
+	public void Setup ( CPUManager cpuManager, XPThresholdsDefinition xpThresholdsDefinition )
 	{
+		cpuManagerParent = cpuManager;
 		xpThresholdsData = xpThresholdsDefinition;
 		cpuLevelValueText.text = "1";
-		xpValueText.text = $"0 / {xpThresholdsData.GetXPThresholdForLevel( 0 )}";
+		xpValueText.text = $"0 / {cpuManagerParent.GetXPThresholdForLevel( 0 )}";
 		xpMeterFillImage.fillAmount = 0;
 	}
 
@@ -32,7 +34,7 @@ public class CPUCanvasController : MonoBehaviour
 	public void UpdateCPUXPText( int currentXPValue )
 	{
 		currentXP = currentXPValue;
-		nextXP = xpThresholdsData.GetXPThresholdForLevel( currentCPULevel );
+		nextXP = cpuManagerParent.GetXPThresholdForLevel( currentCPULevel );
 
 		string currentXPText = currentXP.ToString();
 		string nextXPText = nextXP.ToString();

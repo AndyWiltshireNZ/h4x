@@ -6,7 +6,8 @@ public enum LevelState
 	Default,
 	LevelStart,
 	LevelRun,
-	LevelEnd
+	LevelEndWon,
+	LevelEndLost
 }
 
 public class Level : MonoBehaviour
@@ -17,7 +18,14 @@ public class Level : MonoBehaviour
 	[SerializeField] private CPUManager cpuManager;
 	public CPUManager CPUManager { get { return cpuManager; } }
 
+	private UpgradeManager upgradeManager;
+
+	private float currentHackTimer;
+	public float CurrentHackTimer { get { return currentHackTimer; } private set { currentHackTimer = value; } }
+	private float hackTimerElapsed;
+
 	private LevelState currentLevelState;
+	public LevelState CurrentLevelState => currentLevelState;
 
 	private void Awake()
     {
@@ -30,6 +38,8 @@ public class Level : MonoBehaviour
 		this.gameObject.SetActive( true );
 		cpuManager.gameObject.SetActive( true );
 
+		upgradeManager = GameMode.Instance.UpgradeManager;
+
 		InitializeStateMachine();
 	}
 
@@ -38,7 +48,7 @@ public class Level : MonoBehaviour
 		SetState( LevelState.LevelStart );
 	}
 
-	private void SetState( LevelState newLevelState )
+	public void SetState( LevelState newLevelState )
 	{
 		if ( currentLevelState == newLevelState )
 		{
@@ -58,16 +68,35 @@ public class Level : MonoBehaviour
 		{
 			case LevelState.LevelStart:
 				Debug.Log( "Level: Entering LevelStart" );
+
 				cpuManager.Setup();
+
+				// set initial hack timer value based on upgrade level
+				hackTimerElapsed = upgradeManager.CurrentHackTime;
+				GameMode.Instance.UIManager.HUDController.UpdateHackTimer( upgradeManager.CurrentHackTime );
+				GameMode.Instance.UIManager.HUDController.UpdateHackTimerText( 0 ); // Get Ready text
+
 				StartCoroutine ( EnterStartThenRun() );
 				break;
 
 			case LevelState.LevelRun:
 				Debug.Log( "Level: Entering LevelRun" );
+
+				GameMode.Instance.UIManager.HUDController.UpdateHackTimerText( 1 ); // Hack Time Remaining text
+
 				break;
 
-			case LevelState.LevelEnd:
-				Debug.Log( "Level: Entering LevelEnd" );
+			case LevelState.LevelEndWon:
+				Debug.Log( "Level: Entering LevelEndWon" );
+
+				// triggered by cpu reaching max level
+
+				break;
+			case LevelState.LevelEndLost:
+				Debug.Log( "Level: Entering LevelEndLost" );
+
+				// triggered by hack timer reaching zero
+
 				break;
 		}
 	}
@@ -88,7 +117,9 @@ public class Level : MonoBehaviour
 				break;
 			case LevelState.LevelRun:
 				break;
-			case LevelState.LevelEnd:
+			case LevelState.LevelEndWon:
+				break;
+			case LevelState.LevelEndLost:
 				break;
 		}
 	}
@@ -103,14 +134,22 @@ public class Level : MonoBehaviour
 
 	private void UpdateRun()
 	{
-		// Level runtime logic goes here.
+		if ( hackTimerElapsed > 0f )
+		{
+			hackTimerElapsed -= Time.deltaTime;
+			GameMode.Instance.UIManager.HUDController.UpdateHackTimer( hackTimerElapsed );
+		}
+		else
+		{
+			hackTimerElapsed = 0f;
+			GameMode.Instance.UIManager.HUDController.UpdateHackTimer( hackTimerElapsed );
+			EndLevelLost();
+		}
 	}
 
-	public void EndLevel()
+	public void EndLevelLost()
 	{
-		SetState( LevelState.LevelEnd );
+		cpuManager?.PathwayManager?.SpawnManager?.StopEverything();
+		SetState( LevelState.LevelEndLost );
 	}
-
-	// Expose current state for other systems
-	public LevelState CurrentLevelState => currentLevelState;
 }

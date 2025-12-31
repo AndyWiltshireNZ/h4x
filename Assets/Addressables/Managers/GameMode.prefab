@@ -96,10 +96,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   GameModeData: {fileID: 11400000, guid: 2f76bc65a06403c4fbce9eb3a2283dcb, type: 2}
-  UIManager: {fileID: 5150729552113253175, guid: 28b98b25ff6dd5b439436ad3ff3cd9ed, type: 3}
-  InputManager: {fileID: 740425840030367321, guid: 2f8dae11b5cee6b429b3c5a86c48df33, type: 3}
-  LevelManager: {fileID: 6720301907611765155, guid: 692085c0de4880f4e9ae9c9d78eccada, type: 3}
-  AudioManager: {fileID: 3007695655277586851, guid: 61ccfbb304d0c7443b5e991f9fdfaeb7, type: 3}
+  UIManager: {fileID: 0}
+  InputManager: {fileID: 0}
+  UpgradeManager: {fileID: 0}
+  LevelManager: {fileID: 0}
 --- !u!1 &7783659786329995427
 GameObject:
   m_ObjectHideFlags: 0

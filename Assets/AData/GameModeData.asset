@@ -31,6 +31,12 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+  UpgradeManagerAssetReference:
+    m_AssetGUID: 80d586782dce81d4a9e2c00f18d0f484
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
   AudioManagerAssetReference:
     m_AssetGUID: 61ccfbb304d0c7443b5e991f9fdfaeb7
     m_SubObjectName: 

@@ -9,6 +9,7 @@ public class GameModeDefinition : ScriptableObject
 	public AssetReference UIManagerAssetReference;
 	public AssetReference InputManagerAssetReference;
 	public AssetReference LevelManagerAssetReference;
+	public AssetReference UpgradeManagerAssetReference;
 	public AssetReference AudioManagerAssetReference;
 
 	public enum GameModeType

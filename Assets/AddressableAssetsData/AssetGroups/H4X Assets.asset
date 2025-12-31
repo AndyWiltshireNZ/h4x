@@ -105,6 +105,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 80d586782dce81d4a9e2c00f18d0f484
+    m_Address: Assets/Addressables/Managers/UpgradeManager.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 89f459f1a466b244c9e67dc7c68169c7
     m_Address: Assets/Addressables/GameMode.prefab
     m_ReadOnly: 0
@@ -127,6 +132,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9f59ce2ca4b00cf4ebfe1e0627a19865
     m_Address: Assets/Definitions/Level01Data.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a0e24abb04587914b8c5a4edd5220da5
+    m_Address: Assets/AData/UpgradeManagerData.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

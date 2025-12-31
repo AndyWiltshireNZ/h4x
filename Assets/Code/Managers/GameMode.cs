@@ -26,6 +26,7 @@ public class GameMode : MonoBehaviour
 
 	public UIManager UIManager = null;
 	public InputManager InputManager = null;
+	public UpgradeManager UpgradeManager = null;
 	public LevelManager LevelManager = null;
 	
 	private Camera currentCamera;
@@ -33,6 +34,12 @@ public class GameMode : MonoBehaviour
 
 	private GameModeType currentGameMode;
 	public GameModeType CurrentGameMode	{ get { return currentGameMode; } private set { currentGameMode = value; } }
+
+	private AsyncOperationHandle<GameObject> asyncSpawnUIManager;
+	private AsyncOperationHandle<GameObject> asyncSpawnInputManager;
+	private AsyncOperationHandle<GameObject> asyncSpawnUpgradeManager;
+	private AsyncOperationHandle<GameObject> asyncSpawnLevelManager;
+	private AsyncOperationHandle<GameObject> asyncSpawnAudioManager;
 
 	private void Awake ()
     {
@@ -54,18 +61,19 @@ public class GameMode : MonoBehaviour
 			Addressables.Release( asyncSpawnUIManager );
 		if (asyncSpawnInputManager.IsValid() )
 			Addressables.Release( asyncSpawnInputManager );
+		if (asyncSpawnUpgradeManager.IsValid() )
+			Addressables.Release( asyncSpawnUpgradeManager );
 		if (asyncSpawnLevelManager.IsValid() )
 			Addressables.Release( asyncSpawnLevelManager );
 		if (asyncSpawnAudioManager.IsValid() )
 			Addressables.Release( asyncSpawnAudioManager );
 
 		Instance = null;
+		UIManager = null;
+		InputManager = null;
+		UpgradeManager = null;
+		LevelManager = null;
 	}
-
-	private AsyncOperationHandle<GameObject> asyncSpawnUIManager;
-	private AsyncOperationHandle<GameObject> asyncSpawnInputManager;
-	private AsyncOperationHandle<GameObject> asyncSpawnLevelManager;
-	private AsyncOperationHandle<GameObject> asyncSpawnAudioManager;
 
 	private async void init()
 	{
@@ -91,12 +99,21 @@ public class GameMode : MonoBehaviour
 			InputManager.Setup();
 		}
 
+		asyncSpawnUpgradeManager = GameModeData.UpgradeManagerAssetReference.InstantiateAsync();
+		await asyncSpawnUpgradeManager.Task;
+		if ( asyncSpawnUpgradeManager.Status == AsyncOperationStatus.Succeeded )
+		{
+			GameObject upgrademanagerObj = asyncSpawnUpgradeManager.Result;
+			UpgradeManager = upgrademanagerObj.GetComponent<UpgradeManager>();
+			UpgradeManager.Setup();
+		}
+
 		asyncSpawnLevelManager = GameModeData.LevelManagerAssetReference.InstantiateAsync();
 		await asyncSpawnLevelManager.Task;
 		if ( asyncSpawnLevelManager.Status == AsyncOperationStatus.Succeeded )
 		{
-			GameObject modemanagerObj = asyncSpawnLevelManager.Result;
-			LevelManager = modemanagerObj.GetComponent<LevelManager>();
+			GameObject levelmanagerObj = asyncSpawnLevelManager.Result;
+			LevelManager = levelmanagerObj.GetComponent<LevelManager>();
 			LevelManager.Setup();
 		}
 

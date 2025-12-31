@@ -1,0 +1,11 @@
+using UnityEngine;
+
+[CreateAssetMenu( fileName = "UpgradeManagerDefinition", menuName = "Definitions/UpgradeManagerDefinition" )]
+public class UpgradeManagerDefinition : ScriptableObject
+{
+	// first 4 increase by 15s, next 3 by 30s, next 2 by 45s, last by 60s
+	public float[] HackTimerUpgrades = new float[] { 60f, 75f, 90f, 105f, 135f, 165f, 195f, 240f, 285f, 345f };
+
+	// first 4 increase by 5, next 3 by 10, next 2 by 15, last by 20
+	public int[] PacketXPValueUpgrades = new int[] { 5, 10, 15, 20, 30, 40, 50, 65, 80, 100 };
+}

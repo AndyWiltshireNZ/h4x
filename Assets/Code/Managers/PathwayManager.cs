@@ -5,6 +5,7 @@ public class PathwayManager : MonoBehaviour
 {
 	[SerializeField] private NodeManager nodeManager;
 	[SerializeField] private SpawnManager spawnManager;
+	public SpawnManager SpawnManager => spawnManager;
 
 	[SerializeField] private Pathway[] pathways;
 
@@ -46,6 +47,8 @@ public class PathwayManager : MonoBehaviour
 		for ( int i = currentCPULevel; i < pathways.Length; i++ )
 		{
 			pathways[ i ]?.gameObject.SetActive( false );
+			if ( nodeManager?.Nodes[ i ]?.FirstTimeLoad == true )
+				nodeManager?.Nodes[ i ]?.ResetNode();
 		}
 
 		// Ensure SpawnManager refreshes its wave selection when CPU level is decreased.

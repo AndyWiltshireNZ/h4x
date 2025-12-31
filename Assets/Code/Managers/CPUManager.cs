@@ -9,16 +9,16 @@ public class CPUManager : MonoBehaviour
 	private Level currentLevel;
 	private LevelDefinition currentLevelData;
 
+	[SerializeField] private XPThresholdsDefinition xpThresholdsData;
+
 	[SerializeField] private CPUManagerDefinition cpuManagerData;
 
 	[SerializeField] private PathwayManager pathwayManager;
-	public PathwayManager PathwayManager { get { return pathwayManager; } }
+	public PathwayManager PathwayManager => pathwayManager;
 
 	private InputManager inputManager;
 
 	[SerializeField] private CPUCore cpuCore;
-
-	[SerializeField] private XPThresholdsDefinition xpThresholdsData;
 
 	private AsyncOperationHandle<GameObject> asyncSpawnCPUCanvas;
 	private CPUCanvasController cpuCanvasController;
@@ -64,6 +64,22 @@ public class CPUManager : MonoBehaviour
 		}
 	}
 
+	public int GetXPThresholdForLevel( int level )
+	{
+		if ( level < 1 )
+		{
+			return 0;
+		}
+		else if ( level > xpThresholdsData.Thresholds.Length )
+		{
+			return xpThresholdsData.Thresholds[ xpThresholdsData.Thresholds.Length - 1 ];
+		}
+		else
+		{
+			return xpThresholdsData.Thresholds[ level - 1 ];
+		}
+	}
+
 	private HUDController HUD => GameMode.Instance?.UIManager?.HUDController;
 
 	public async void Setup ()
@@ -100,7 +116,7 @@ public class CPUManager : MonoBehaviour
 			cpuCanvasObj.transform.SetParent( this.transform );
 			cpuCanvasObj.transform.localPosition = new Vector3( 0f, 2f, 0f );
 			cpuCanvasController = cpuCanvasObj.GetComponent<CPUCanvasController>();
-			cpuCanvasController.Setup( xpThresholdsData );
+			cpuCanvasController.Setup( this, xpThresholdsData );
 			cpuCanvasController.UpdateCPULevelText( currentCPULevel );
 			cpuCanvasController.UpdateCPUXPText( currentXP );
 		}
@@ -120,12 +136,9 @@ public class CPUManager : MonoBehaviour
 	{
 		if ( inputManager != null )
 		{
-			if ( GameMode.Instance.GameModeDefinition.DebugMode == true )
-			{
-				inputManager.InputActions.Game.DebugCpuUp.performed -= DebugCPULevelUp_pressed;
-				inputManager.InputActions.Game.DebugCpuDown.performed -= DebugCPULevelDown_pressed;
-				inputManager.InputActions.Game.DebugAddXP.performed -= DebugCPUAddXP_pressed;
-			}
+			inputManager.InputActions.Game.DebugCpuUp.performed -= DebugCPULevelUp_pressed;
+			inputManager.InputActions.Game.DebugCpuDown.performed -= DebugCPULevelDown_pressed;
+			inputManager.InputActions.Game.DebugAddXP.performed -= DebugCPUAddXP_pressed;
 		}
 
 		if ( asyncSpawnCPUCanvas.IsValid() )
@@ -195,10 +208,15 @@ public class CPUManager : MonoBehaviour
 		// If we've reached the configured max level, set CurrentXP and NextXP to the max threshold value
 		if ( currentLevelData != null && xpThresholdsData != null && CurrentCPULevel >= currentLevelData.EndCPULevel )
 		{
-			int maxThreshold = xpThresholdsData.GetXPThresholdForLevel( currentLevelData.EndCPULevel );
+			int maxThreshold = GetXPThresholdForLevel( currentLevelData.EndCPULevel );
 			CurrentXP = maxThreshold;
 			NextXP = maxThreshold;
 			cpuCanvasController?.UpdateCPUXPText( CurrentXP );
+
+			// reached max cpu level - level won - tell level to switch state
+			currentLevel.SetState( LevelState.LevelEndWon );
+			StopEverythingOnLevelEnd();
+
 			return;
 		}
 
@@ -226,7 +244,7 @@ public class CPUManager : MonoBehaviour
 		// Prevent adding XP if at max configured level
 		if ( currentLevelData != null && xpThresholdsData != null && CurrentCPULevel >= currentLevelData.EndCPULevel )
 		{
-			int maxThreshold = xpThresholdsData.GetXPThresholdForLevel( currentLevelData.EndCPULevel );
+			int maxThreshold = GetXPThresholdForLevel( currentLevelData.EndCPULevel );
 			CurrentXP = maxThreshold;
 			NextXP = maxThreshold;
 			cpuCanvasController?.UpdateCPUXPText( CurrentXP );
@@ -253,7 +271,7 @@ public class CPUManager : MonoBehaviour
 		if ( CurrentCPULevel >= end )
 		{
 			//Debug.Log( "CPUManager: Reached max CPU level." );
-			int maxThreshold = xpThresholdsData.GetXPThresholdForLevel( end );
+			int maxThreshold = GetXPThresholdForLevel( end );
 			CurrentXP = maxThreshold;
 			NextXP = maxThreshold;
 			cpuCanvasController?.UpdateCPUXPText( CurrentXP );
@@ -313,12 +331,17 @@ public class CPUManager : MonoBehaviour
 		int end = currentLevelData.EndCPULevel;
 		int clampedLevel = Mathf.Clamp( currentCPULevel, start, end );
 
-		int threshold = xpThresholdsData.GetXPThresholdForLevel( clampedLevel );
+		int threshold = GetXPThresholdForLevel( clampedLevel );
 		NextXP = threshold;
 	}
 
 	private void UpdateHUDDebugText()
 	{
 		HUD?.UpdateDebugText();
+	}
+
+	private void StopEverythingOnLevelEnd()
+	{
+		pathwayManager?.SpawnManager?.StopEverything();
 	}
 }

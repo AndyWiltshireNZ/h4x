@@ -15,14 +15,28 @@ public class Node : MonoBehaviour
 	private bool isHovered = false;
 	public bool IsHovered { get { return isHovered; } set { isHovered = value; } }
 
+	private bool firstTimeLoad = false;
+	public bool FirstTimeLoad { get { return firstTimeLoad; } set { firstTimeLoad = value; } }
+
 	public void Setup()
 	{
-		nodeOpenObject.SetActive( false );
-		nodeClosedObject.SetActive( true );
-		nodeHoverObject.SetActive( false );
+		if ( firstTimeLoad == false )
+		{
+			nodeOpenObject.SetActive( false );
+			nodeClosedObject.SetActive( true );
+			nodeHoverObject.SetActive( false );
 
-		isOpen = false;
-		isHovered = false;
+			isOpen = false;
+			isHovered = false;
+
+			firstTimeLoad = true;
+		}
+	}
+
+	public void ResetNode()
+	{
+		firstTimeLoad = false;
+		Setup();
 	}
 
 	public void ToggleObjects()
