@@ -94,7 +94,7 @@ public class CPUCore : MonoBehaviour
 				// add xp to cpu manager
 				int xpValue = otherEntity.gameObject.GetComponent<Packet>()?.XPValue ?? 0;
 				cpuManager.AddXP( xpValue );
-				Debug.Log( $"Packet collected: {xpValue} +XP!" );
+				//Debug.Log( $"Packet collected: {xpValue} +XP!" );
 				break;
 			case EntityBase.EntityType.Silica:
 				// add silica to ...
@@ -113,7 +113,7 @@ public class CPUCore : MonoBehaviour
 			case EntityBase.EntityType.Virus:
 				// reduce hack timer
 
-				Debug.Log( "Virus hit: -Hack Time!" );
+				//Debug.Log( "Virus hit: -Hack Time!" );
 				break;
 			case EntityBase.EntityType.Malware:
 				// reduce hack timer + randomize nodes

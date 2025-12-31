@@ -1,7 +1,4 @@
 using System.Collections;
-
-using Unity.IO.LowLevel.Unsafe;
-
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -23,6 +20,7 @@ public class GameMode : MonoBehaviour
 	public static GameMode Instance;
 	
 	[SerializeField] private GameModeDefinition GameModeData;
+	public GameModeDefinition GameModeDefinition { get { return GameModeData; } }
 
 	private GameState currentGameState;
 
@@ -52,10 +50,14 @@ public class GameMode : MonoBehaviour
 
 	private void OnDestroy()
 	{
-        Addressables.Release( asyncSpawnUIManager );
-		Addressables.Release( asyncSpawnInputManager );
-		Addressables.Release( asyncSpawnLevelManager );
-		Addressables.Release( asyncSpawnAudioManager );
+		if (asyncSpawnUIManager.IsValid())
+			Addressables.Release( asyncSpawnUIManager );
+		if (asyncSpawnInputManager.IsValid() )
+			Addressables.Release( asyncSpawnInputManager );
+		if (asyncSpawnLevelManager.IsValid() )
+			Addressables.Release( asyncSpawnLevelManager );
+		if (asyncSpawnAudioManager.IsValid() )
+			Addressables.Release( asyncSpawnAudioManager );
 
 		Instance = null;
 	}

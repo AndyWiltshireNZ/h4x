@@ -1889,6 +1889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccb4f816f6966e34799d30c2735562fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  cpuManagerData: {fileID: 11400000, guid: db535bcea3965a349a365efe9e601f65, type: 2}
   pathwayManager: {fileID: 1343755747046886994}
   cpuCore: {fileID: 5500220239904419514}
   xpThresholdsData: {fileID: 11400000, guid: fd94574806f8b544095d7cabf6d18ece, type: 2}

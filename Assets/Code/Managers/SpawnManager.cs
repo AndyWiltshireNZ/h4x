@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using SplineArchitect.Objects;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -252,7 +251,7 @@ public class SpawnManager : MonoBehaviour
 				AddSpawnedForPathway( pathway, go );
 
 				// Tell spline to register follower (CreateFollower will add SplineObject and initialize)
-				pathway.Spline.CreateFollower( go, new Vector3( 0f, 0f, 0.5f ), rot, false, parent );
+				pathway.Spline.CreateFollower( go, new Vector3( 0f, 0.5f, 0f ), rot, false, parent );
 
 				// Don't move first spawned entity
 				if ( !_firstSpawnPrevented )

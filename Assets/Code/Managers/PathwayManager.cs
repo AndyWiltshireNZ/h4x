@@ -24,7 +24,7 @@ public class PathwayManager : MonoBehaviour
 	{
 		foreach ( var pathway in pathways )
 		{
-			pathway.gameObject.SetActive( false );
+			pathway?.gameObject.SetActive( false );
 		}
 
 		UpdatePathwaysAdd( currentCPULevel );
@@ -34,8 +34,8 @@ public class PathwayManager : MonoBehaviour
 	{
 		for ( int i = 0; i < currentCPULevel && i < pathways.Length; i++ )
 		{
-			pathways[ i ].gameObject.SetActive( true );
-			nodeManager.Nodes[ currentCPULevel - 1 ].Setup();
+			pathways[ i ]?.gameObject.SetActive( true );
+			nodeManager?.Nodes[ i ]?.Setup();
 		}
 
 		spawnManager.Setup( pathways );
@@ -45,7 +45,7 @@ public class PathwayManager : MonoBehaviour
 	{
 		for ( int i = currentCPULevel; i < pathways.Length; i++ )
 		{
-			pathways[ i ].gameObject.SetActive( false );
+			pathways[ i ]?.gameObject.SetActive( false );
 		}
 
 		// Ensure SpawnManager refreshes its wave selection when CPU level is decreased.

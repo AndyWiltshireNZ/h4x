@@ -10,7 +10,8 @@ public class HUDController : MonoBehaviour
 		debugText.text = 
 			"Level State: " + GameMode.Instance.LevelManager.CurrentLevel.CurrentLevelState.ToString() +
 			"   |   " + 
-			"Current XP: " + GameMode.Instance.LevelManager.CurrentLevel.CPUManager.CurrentXP.ToString() +
+			"Current XP: " + GameMode.Instance.LevelManager.CurrentLevel.CPUManager.CurrentXP.ToString() + 
+			" / " + GameMode.Instance.LevelManager.CurrentLevel.CPUManager.NextXP.ToString() +
 			"   |   " + 
 			"CPU Level: " + GameMode.Instance.LevelManager.CurrentLevel.CPUManager.CurrentCPULevel.ToString();
 	}

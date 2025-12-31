@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d92ad140421c69f4684b18e74c8d203f, type: 3}
   m_Name: XPThresholdsData
   m_EditorClassIdentifier: Assembly-CSharp::XPThresholdsDefinition
-  Thresholds: 64000000fa00000071020000dc050000a60e00009f2400009a5b000001e50000763c020027970500bcf90d0056f02200
+  Thresholds: fa00000071020000dc050000a60e00009f2400009a5b000001e50000763c020027970500bcf90d0056f02200

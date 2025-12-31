@@ -15,8 +15,28 @@ MonoBehaviour:
   m_GroupName: H4X Assets
   m_GUID: 2ed2036b64bf26541b2f04287ab77798
   m_SerializeEntries:
+  - m_GUID: 00e262d62ea127440b304d75acdefc8d
+    m_Address: Assets/Addressables/Game
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0f0581ca92447b64bbd0554cff084415
+    m_Address: Assets/AData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1406788846eb1364d869cf20d79582cc
+    m_Address: Assets/Addressables
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1664aee70ae30a147bfc3bb2ffdb224c
     m_Address: Assets/Addressables/Game/VirusBase.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b0126200f9d5394eb1b5c881111ce3a
+    m_Address: Assets/AData/Levels
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -70,6 +90,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 614d3c77ab540f6449a80336b6f35ec8
+    m_Address: Assets/Addressables/Game/Entities
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 61ccfbb304d0c7443b5e991f9fdfaeb7
     m_Address: Assets/Addressables/Managers/AudioManager.prefab
     m_ReadOnly: 0
@@ -105,8 +130,28 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a117279b5fc60d14c9799dd03ab1d4c1
+    m_Address: Assets/Addressables/UI/CPUCanvas.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4f14af1cd4b0d04c8e34b71f14a21ba
+    m_Address: Assets/AData/Entities
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac2de7630b460c74fb3352f3dfb7a676
+    m_Address: Assets/Addressables/UI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b3be9b0613d0d724c874770445df5c18
     m_Address: Assets/Definitions/VirusBaseData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd42a46405f4dd649bf3a507468fa422
+    m_Address: Assets/Addressables/Managers
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -115,8 +160,28 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3347c67f11def647b20de57ce46e807
+    m_Address: Assets/Addressables/Game/Levels
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d9c009a123b940b45827e3d3f744cd5f
+    m_Address: Assets/AData/Levels/Level01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dae4a16f0a447c4448f52e38e15eebcd
     m_Address: Assets/Definitions/LevelManagerData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: db535bcea3965a349a365efe9e601f65
+    m_Address: Assets/AData/CPUManagerData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd94574806f8b544095d7cabf6d18ece
+    m_Address: Assets/AData/XPThresholdsData.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
