@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3464992614078221668}
   - component: {fileID: 4723536470810381865}
   - component: {fileID: 6004707111147479406}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CPULevel_Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 3216739898913934670}
   - component: {fileID: 8058736523150407027}
   - component: {fileID: 3841067464941690968}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CPULevel_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -284,7 +284,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1650949803882991100}
   - component: {fileID: 4900608738273957500}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CanvasGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,8 +323,8 @@ CanvasGroup:
   m_GameObject: {fileID: 1496691949697831122}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!1 &5036034552142296322
 GameObject:
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 2593226729613686192}
   - component: {fileID: 4694112544992697278}
   - component: {fileID: 9199079447224438324}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CPUXP_Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 8843680739568097072}
   - component: {fileID: 8717068767293733109}
   - component: {fileID: 9200571146393400423}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 1458579853274561482}
   - component: {fileID: 1329624338169604200}
   - component: {fileID: 199166903282714695}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Meter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +622,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5441357528174724831}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: XPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -663,7 +663,7 @@ GameObject:
   - component: {fileID: 2490402076822654149}
   - component: {fileID: 9216003770746861743}
   - component: {fileID: 228918384344244810}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CPUCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -735,7 +735,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &9216003770746861743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -743,7 +743,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8297230787704131343}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 

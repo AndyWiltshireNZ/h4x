@@ -11,4 +11,10 @@ public class UpgradeManagerDefinition : ScriptableObject
 
 	// first 4 decrease by 0.5s, next 3 by 1s, next 2 by 1.5s, last by 2s
 	public float[] VirusTimeReductionUpgrades = new float[] { 10f, 9.5f, 9.0f, 8.5f, 7.5f, 6.5f, 5.5f, 4.0f, 2.5f, 0.5f };
+
+	// first 4 decrease by 0.125s, next 3 by 0.25s, next 2 by 0.5s, last by 1.0s
+	public float[] DataSpawnIntervalUpgrades = new float[] { 3.625f, 3.5f, 3.375f, 3.25f, 3.0f, 2.75f, 2.5f, 2.0f, 1.5f, 0.5f };
+
+	// first 4 increase by 0.125, next 3 by 0.25, next 2 by 0.5, last by 1.0
+	public float[] DataFlowSpeedUpgrades = new float[] { 5.5f, 5.625f, 5.75f, 5.875f, 6.0f, 6.25f, 6.5f, 7.5f, 8.0f, 9.0f };
 }

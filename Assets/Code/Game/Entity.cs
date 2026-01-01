@@ -3,14 +3,14 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 [Serializable]
-public class Wave
+public class Entity
 {
 	// The addressable prefab to spawn
 	public AssetReference EntityAssetReference;
 
-	public Wave() { }
+	public Entity() { }
 
-	public Wave( AssetReference entityAssetRef )
+	public Entity( AssetReference entityAssetRef )
 	{
 		EntityAssetReference = entityAssetRef;
 	}

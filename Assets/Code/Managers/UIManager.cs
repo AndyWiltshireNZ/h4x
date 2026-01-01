@@ -3,6 +3,7 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+	[SerializeField] private Canvas mainCanvas;
 	[SerializeField] private MainMenuController mainMenuController;
 	public MainMenuController MainMenuController => mainMenuController;
 	[SerializeField] private CanvasGroup mainmenuCanvasGroup;
@@ -11,9 +12,21 @@ public class UIManager : MonoBehaviour
 	public HUDController HUDController => hudController;
 	[SerializeField] private CanvasGroup hudCanvasGroup;
 
+	private Camera currentUICamera;
+
+	private void Awake()
+	{
+		this.gameObject.SetActive( false );
+	}
+
 	public void Setup()
     {
         Debug.Log( "UIManager started." );
+
+		this.gameObject.SetActive( true );
+
+		currentUICamera = GameMode.Instance?.UICamera;
+		mainCanvas.worldCamera = currentUICamera;
 
 		mainmenuCanvasGroup.alpha = 0f;
 		hudCanvasGroup.alpha = 1f;

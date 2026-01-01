@@ -34,6 +34,10 @@ public class HUDController : MonoBehaviour
 			"Packet Value: " + GameMode.Instance.UpgradeManager.CurrentPacketValue.ToString() + " xp" +
 			"   |   " +
 			"Virus Time Reduction: " + GameMode.Instance.UpgradeManager.CurrentVirusTime.ToString() + " sec" +
+			"   |   " +
+			"Data Spawn Interval: " + GameMode.Instance.UpgradeManager.CurrentDataSpawnInterval.ToString() + " sec" +
+			"   |   " +
+			"Data Flow Speed: " + GameMode.Instance.UpgradeManager.CurrentDataFlowSpeed.ToString() +
 			"";
 	}
 

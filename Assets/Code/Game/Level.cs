@@ -39,6 +39,7 @@ public class Level : MonoBehaviour
 		cpuManager.gameObject.SetActive( true );
 
 		upgradeManager = GameMode.Instance.UpgradeManager;
+		upgradeManager.Setup();
 
 		InitializeStateMachine();
 	}

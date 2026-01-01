@@ -90,6 +90,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4c8bf10024a525044a582a6e272ed568
+    m_Address: Assets/Addressables/UI/UI_Button.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5343a5a7add0618428bfec1e65b78572
+    m_Address: Assets/Addressables/Game/UICamera.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 614d3c77ab540f6449a80336b6f35ec8
     m_Address: Assets/Addressables/Game/Entities
     m_ReadOnly: 0
@@ -187,6 +197,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: db535bcea3965a349a365efe9e601f65
     m_Address: Assets/AData/CPUManagerData.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e322c94ed30250248aca0695be7e9058
+    m_Address: Assets/Addressables/UI/UI_Button_Icon_Right.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

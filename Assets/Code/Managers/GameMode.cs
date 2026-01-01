@@ -30,7 +30,10 @@ public class GameMode : MonoBehaviour
 	public LevelManager LevelManager = null;
 	
 	private Camera currentCamera;
-	public Camera CurrentCamera	{ get { return currentCamera; } private set { currentCamera = value; } }
+	public Camera CurrentCamera	=> currentCamera;
+
+	private Camera uiCamera;
+	public Camera UICamera => uiCamera;
 
 	private GameModeType currentGameMode;
 	public GameModeType CurrentGameMode	{ get { return currentGameMode; } private set { currentGameMode = value; } }
@@ -80,6 +83,7 @@ public class GameMode : MonoBehaviour
 		Debug.Log( "GameMode initialized." );
 
 		currentCamera = Camera.main;
+		uiCamera = currentCamera.gameObject.GetComponent<CameraController>().UICamera;
 
 		asyncSpawnUIManager = GameModeData.UIManagerAssetReference.InstantiateAsync();
 		await asyncSpawnUIManager.Task;
@@ -104,6 +108,8 @@ public class GameMode : MonoBehaviour
 		if ( asyncSpawnUpgradeManager.Status == AsyncOperationStatus.Succeeded )
 		{
 			GameObject upgrademanagerObj = asyncSpawnUpgradeManager.Result;
+
+			// Run Initial Setup - then Level.cs re-reruns Setup on level reloads
 			UpgradeManager = upgrademanagerObj.GetComponent<UpgradeManager>();
 			UpgradeManager.Setup();
 		}

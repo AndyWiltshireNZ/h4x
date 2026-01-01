@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -9,6 +10,11 @@ public class SpawnManager : MonoBehaviour
 	[SerializeField] private Spawn[] spawns;
 	private Pathway[] availablePathways;
 	private LevelDefinition currentLevelData;
+
+	private UpgradeManager upgradeManager;
+
+	// get current spawn interval from upgrade manager
+	private float currentSpawnInterval;
 
 	// minimum world-space distance between spawned entities
 	private float _minSpawnDistance = 3.5f;
@@ -67,6 +73,9 @@ public class SpawnManager : MonoBehaviour
 	/// </summary>
 	public void Setup( Pathway[] pathways )
 	{
+		upgradeManager = GameMode.Instance?.UpgradeManager;
+		currentSpawnInterval = upgradeManager.CurrentDataSpawnInterval;
+
 		Coroutine co = StartCoroutine( DelayedSetupRoutine( pathways ) );
 		_runningCoroutines.Add( co );
 	}
@@ -74,8 +83,11 @@ public class SpawnManager : MonoBehaviour
 	// Delayed setup coroutine — waits 1 second then runs the original setup logic.
 	private IEnumerator DelayedSetupRoutine( Pathway[] pathways )
 	{
-		// wait one frame
-		yield return null;
+		// wait for level run state
+		while ( GameMode.Instance?.LevelManager?.CurrentLevel.CurrentLevelState != LevelState.LevelRun )
+		{
+			yield return new WaitForSeconds( 0.1f );
+		}
 
 		currentLevelData = GameMode.Instance.LevelManager.CurrentLevel.LevelData;
 		availablePathways = pathways;
@@ -112,15 +124,13 @@ public class SpawnManager : MonoBehaviour
 		StopAllSpawning();
 
 		// Build runtime spawn list from selectedWaveDef.Entities
-		// NOTE: Spawn interval will now come from WaveDefinition.SpawnInterval, not from individual Wave entries.
 		spawns = new Spawn[ selectedWaveDef.Entities.Length ];
 		for ( int i = 0; i < selectedWaveDef.Entities.Length; i++ )
 		{
-			Wave w = selectedWaveDef.Entities[ i ];
+			Entity w = selectedWaveDef.Entities[ i ];
 			Spawn s = new Spawn
 			{
-				Prefab = w.EntityAssetReference,
-				EntitySpeed = selectedWaveDef.entitySpeed
+				Prefab = w.EntityAssetReference
 			};
 			spawns[i] = s;
 		}
@@ -130,7 +140,7 @@ public class SpawnManager : MonoBehaviour
 		_runningCoroutines.Add( waveSequence );
 	}
 
-	private IEnumerator SpawnRoutine( Spawn spawn, float waveSpawnInterval )
+	private IEnumerator SpawnRoutine( Spawn spawn )
 	{
 		// wait until the spawn prefab has a valid runtime key (addressable assigned)
 		float wait = 0f;
@@ -157,7 +167,7 @@ public class SpawnManager : MonoBehaviour
 			if ( candidates.Count == 0 )
 			{
 				// no enabled pathways right now - wait and retry
-				yield return new WaitForSeconds( waveSpawnInterval );
+				yield return new WaitForSeconds( 0.1f );
 				continue;
 			}
 
@@ -220,8 +230,8 @@ public class SpawnManager : MonoBehaviour
 				continue;
 			}
 
-			// get randomized interval for this spawn (now based on the wave-level interval)
-			float randomizedInterval = GetRandomizedInterval( waveSpawnInterval );
+			// get randomized interval for this spawn
+			float randomizedInterval = GetRandomizedInterval( currentSpawnInterval );
 
 			// enforce global minimum time between any two spawned entities (uses randomizedInterval as minimum)
 			float timeSinceLast = Time.time - _lastGlobalSpawnTime;
@@ -270,18 +280,11 @@ public class SpawnManager : MonoBehaviour
 				{
 					// Apply configured wave entity speed to the mover before enabling movement.
 					MoveAlongPathway mover = go.GetComponent<MoveAlongPathway>();
-					if ( mover != null )
-					{
-						mover.Speed = new Vector3( 0f, 0f, spawn.EntitySpeed );
-						mover.Setup();
-					}
-					else
-					{
-						// Still call Setup if component exists but null check handled above.
-					}
+					mover.Speed = new Vector3( 0f, 0f, upgradeManager.CurrentDataFlowSpeed );
+					mover.Setup();
 
 					// Pass spawn manager and entity speed into EntityBase.Setup
-					go.GetComponent<EntityBase>()?.Setup( this, spawn.EntitySpeed );
+					go.GetComponent<EntityBase>()?.Setup( this, upgradeManager.CurrentDataFlowSpeed );
 				}
 			}
 			else
@@ -305,7 +308,7 @@ public class SpawnManager : MonoBehaviour
 	// Returns spawnInterval randomized by +/- 2 second and clamped to a sensible minimum.
 	private float GetRandomizedInterval( float baseInterval )
 	{
-		float randomOffset = Random.Range( -1f, 1f );
+		float randomOffset = Random.Range( -0.25f, 0.25f );
 		float interval = baseInterval + randomOffset;
 		return Mathf.Max( 0.01f, interval );
 	}
@@ -329,12 +332,10 @@ public class SpawnManager : MonoBehaviour
 			}
 
 			Spawn s = spawns[ i ];
-			Wave w = waveDef.Entities[ i ];
 
 			if ( s != null )
 			{
-				// pass the wave-level SpawnInterval into the routine
-				Coroutine co = StartCoroutine( SpawnRoutine( s, Mathf.Max( 0.01f, waveDef.SpawnInterval ) ) );
+				Coroutine co = StartCoroutine( SpawnRoutine( s ) );
 				_runningCoroutines.Add( co );
 			}
 		}

@@ -17,7 +17,7 @@ public class LevelEndPopupController : MonoBehaviour
 
 	public static event Action Event_ReplayCurrentLevel;
 
-	public void Setup()
+	private void Start()
     {
 		popupCanvasGroup.alpha = 0f;
 		popupCanvasGroup.gameObject.SetActive( false );
