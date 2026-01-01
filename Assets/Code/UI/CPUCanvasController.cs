@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 using TMPro;
 
 public class CPUCanvasController : MonoBehaviour
 {
 	private CPUManager cpuManagerParent;
-	private XPThresholdsDefinition xpThresholdsData;
 
 	[SerializeField] private CanvasGroup cpuCanvasGroup;
 	[SerializeField] private TextMeshProUGUI cpuLevelValueText;
@@ -16,12 +16,11 @@ public class CPUCanvasController : MonoBehaviour
 	private int currentXP = 0;
 	private int nextXP = 0;
 
-	public void Setup ( CPUManager cpuManager, XPThresholdsDefinition xpThresholdsDefinition )
+	public void Setup ( CPUManager cpuManager )
 	{
 		cpuManagerParent = cpuManager;
-		xpThresholdsData = xpThresholdsDefinition;
 		cpuLevelValueText.text = "1";
-		xpValueText.text = $"0 / {cpuManagerParent.GetXPThresholdForLevel( 0 )}" + " xp";
+		UpdateCPUXPText( 0 );
 		xpMeterFillImage.fillAmount = 0;
 	}
 
@@ -36,12 +35,10 @@ public class CPUCanvasController : MonoBehaviour
 		currentXP = currentXPValue;
 		nextXP = cpuManagerParent.GetXPThresholdForLevel( currentCPULevel );
 
-		string currentXPText = currentXP.ToString();
-		string nextXPText = nextXP.ToString();
+		string currentXPText = ShortNumberFormatter.FormatShortNumber( currentXP );
+		string nextXPText = ShortNumberFormatter.FormatShortNumber( nextXP );
 
-		// will need to format xp text values and shortern them if they are too long
-
-		xpValueText.text = currentXPText + " / " + nextXPText + " xp";
+		xpValueText.text = currentXPText + " / " + nextXPText;
 
 		UpdateXPMeter();
 	}

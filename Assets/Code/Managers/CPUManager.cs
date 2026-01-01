@@ -121,7 +121,7 @@ public class CPUManager : MonoBehaviour
 			cpuCanvasObj.transform.SetParent( this.transform );
 			cpuCanvasObj.transform.localPosition = new Vector3( 0f, 2f, 0f );
 			cpuCanvasController = cpuCanvasObj.GetComponent<CPUCanvasController>();
-			cpuCanvasController.Setup( this, xpThresholdsData );
+			cpuCanvasController.Setup( this );
 			cpuCanvasController.UpdateCPULevelText( currentCPULevel );
 			cpuCanvasController.UpdateCPUXPText( currentXP );
 		}

@@ -25,6 +25,8 @@ public class SpawnManager : MonoBehaviour
 	// flag to prevent the very first spawned entity from moving
 	private bool _firstSpawnPrevented = false;
 
+	private int _firstSpawnTimeReduction = 2;
+
 	// running coroutines and instantiated handles so we can stop / release on destroy
 	private readonly List<Coroutine> _runningCoroutines = new List<Coroutine>();
 
@@ -73,6 +75,8 @@ public class SpawnManager : MonoBehaviour
 	/// </summary>
 	public void Setup( Pathway[] pathways )
 	{
+		_firstSpawnTimeReduction = 2;
+
 		upgradeManager = GameMode.Instance?.UpgradeManager;
 		currentSpawnInterval = upgradeManager.CurrentDataSpawnInterval;
 
@@ -83,11 +87,8 @@ public class SpawnManager : MonoBehaviour
 	// Delayed setup coroutine — waits 1 second then runs the original setup logic.
 	private IEnumerator DelayedSetupRoutine( Pathway[] pathways )
 	{
-		// wait for level run state
-		while ( GameMode.Instance?.LevelManager?.CurrentLevel.CurrentLevelState != LevelState.LevelRun )
-		{
-			yield return new WaitForSeconds( 0.1f );
-		}
+		// wait 1 frame
+		yield return null;
 
 		currentLevelData = GameMode.Instance.LevelManager.CurrentLevel.LevelData;
 		availablePathways = pathways;
@@ -147,7 +148,7 @@ public class SpawnManager : MonoBehaviour
 		const float timeout = 10f;
 		while ( spawn.Prefab != null && !spawn.Prefab.RuntimeKeyIsValid() && wait < timeout )
 		{
-			yield return new WaitForSeconds( 0.1f );
+			yield return new WaitForSeconds( 0.05f );
 			wait += 0.1f;
 		}
 
@@ -167,7 +168,7 @@ public class SpawnManager : MonoBehaviour
 			if ( candidates.Count == 0 )
 			{
 				// no enabled pathways right now - wait and retry
-				yield return new WaitForSeconds( 0.1f );
+				yield return new WaitForSeconds( 0.05f );
 				continue;
 			}
 
@@ -230,8 +231,20 @@ public class SpawnManager : MonoBehaviour
 				continue;
 			}
 
+			// wait until LevelState == LevelRun
+			while ( GameMode.Instance?.LevelManager?.CurrentLevel?.CurrentLevelState != LevelState.LevelRun )
+			{
+				yield return null;
+			}
+
 			// get randomized interval for this spawn
 			float randomizedInterval = GetRandomizedInterval( currentSpawnInterval );
+
+			if ( _firstSpawnTimeReduction > 0 )
+			{
+				randomizedInterval = 0f;
+				_firstSpawnTimeReduction--;
+			}
 
 			// enforce global minimum time between any two spawned entities (uses randomizedInterval as minimum)
 			float timeSinceLast = Time.time - _lastGlobalSpawnTime;
