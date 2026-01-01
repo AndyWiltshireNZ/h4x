@@ -14,10 +14,14 @@ public class CPUCore : MonoBehaviour
 	// update xp level
 	private CPUManager cpuManager;
 
-	public void Setup( Level level, CPUManager cpuManager )
+	private int packetXPValue;
+
+	public void Setup( Level level, CPUManager cpuManagerParent )
 	{
-		this.currentLevel = level;
-		this.cpuManager = cpuManager;
+		currentLevel = level;
+		cpuManager = cpuManagerParent;
+
+		packetXPValue = GameMode.Instance.UpgradeManager.CurrentPacketValue;
 	}
 
 	// Collision-based handling: only process collisions where the other object's layer
@@ -92,13 +96,11 @@ public class CPUCore : MonoBehaviour
 		{
 			case EntityBase.EntityType.Packet:
 				// add xp to cpu manager
-				int xpValue = otherEntity.gameObject.GetComponent<Packet>()?.XPValue ?? 0;
-				cpuManager.AddXP( xpValue );
-				//Debug.Log( $"Packet collected: {xpValue} +XP!" );
+				cpuManager.AddXP();
+				Debug.Log( $"Packet collected: {GameMode.Instance.UpgradeManager.CurrentPacketValue} +XP!" );
 				break;
 			case EntityBase.EntityType.Silica:
 				// add silica to ...
-
 				Debug.Log( "Silica collected: +Silica!" );
 				break;
 			default:
@@ -111,14 +113,13 @@ public class CPUCore : MonoBehaviour
 		switch ( otherEntity.GetEntityType() )
 		{
 			case EntityBase.EntityType.Virus:
-				// reduce hack timer
-
-				//Debug.Log( "Virus hit: -Hack Time!" );
+				// reduce hack timer on level
+				currentLevel.ReduceHackTimerFromVirus();
+				Debug.Log( $"Virus hit: -{GameMode.Instance.UpgradeManager.CurrentVirusTime}sec Hack Time!" );
 				break;
 			case EntityBase.EntityType.Malware:
 				// reduce hack timer + randomize nodes
-
-				Debug.Log( "Malware hit: -Hack Time + Randomize Nodes!" );
+				Debug.Log( "Malware hit: -{GameMode.Instance.UpgradeManager.CurrentVirusTime}sec Hack Time + Randomize Nodes!" );
 				break;
 			default:
 				break;

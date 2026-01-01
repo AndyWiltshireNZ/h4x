@@ -5,5 +5,4 @@ using UnityEngine.AddressableAssets;
 public class PacketDefinition : ScriptableObject
 {
 	public AssetReference PacketAssetReference;
-	public int XPValue;
 }

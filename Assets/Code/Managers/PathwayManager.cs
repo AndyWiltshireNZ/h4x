@@ -4,6 +4,8 @@ using UnityEngine;
 public class PathwayManager : MonoBehaviour
 {
 	[SerializeField] private NodeManager nodeManager;
+	public NodeManager NodeManager => nodeManager;
+
 	[SerializeField] private SpawnManager spawnManager;
 	public SpawnManager SpawnManager => spawnManager;
 

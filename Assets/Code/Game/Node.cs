@@ -15,6 +15,8 @@ public class Node : MonoBehaviour
 	private bool isHovered = false;
 	public bool IsHovered { get { return isHovered; } set { isHovered = value; } }
 
+	private bool canHover = true;
+
 	private bool firstTimeLoad = false;
 	public bool FirstTimeLoad { get { return firstTimeLoad; } set { firstTimeLoad = value; } }
 
@@ -28,6 +30,7 @@ public class Node : MonoBehaviour
 
 			isOpen = false;
 			isHovered = false;
+			canHover = true;
 
 			firstTimeLoad = true;
 		}
@@ -39,8 +42,21 @@ public class Node : MonoBehaviour
 		Setup();
 	}
 
+	public void StopAllNodes()
+	{
+		nodeOpenObject.SetActive( false );
+		nodeClosedObject.SetActive( true );
+		nodeHoverObject.SetActive( false );
+		isOpen = false;
+		isHovered = false;
+		canHover = false;
+		firstTimeLoad = false;
+	}
+
 	public void ToggleObjects()
     {
+		if ( canHover == false ) { return; }
+
 		switch ( isOpen )
 		{
 			case true:
@@ -60,6 +76,8 @@ public class Node : MonoBehaviour
 
 	public void SetHover( bool on )
 	{
+		if ( canHover == false ) { return; }
+
 		isHovered = on;
 
 		if ( nodeHoverObject != null )

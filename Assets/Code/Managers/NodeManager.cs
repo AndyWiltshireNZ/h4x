@@ -146,4 +146,12 @@ public class NodeManager : MonoBehaviour
 			activeNode = hitNode;
 		}
 	}
+
+	public void ResetAllNodes()
+	{
+		foreach ( var node in nodes )
+		{
+			node?.StopAllNodes();
+		}
+	}
 }

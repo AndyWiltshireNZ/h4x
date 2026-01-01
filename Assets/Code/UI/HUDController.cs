@@ -16,13 +16,22 @@ public class HUDController : MonoBehaviour
 
 	public void UpdateDebugText()
 	{
+		if ( GameMode.Instance == null )
+			return;
+		{
+			
+		}
 		debugText.text = 
-			"Level State: " + GameMode.Instance.LevelManager.CurrentLevel.CurrentLevelState.ToString() +
-			"   |   " + 
-			"Current XP: " + GameMode.Instance.LevelManager.CurrentLevel.CPUManager.CurrentXP.ToString() + 
-			" / " + GameMode.Instance.LevelManager.CurrentLevel.CPUManager.NextXP.ToString() +
-			"   |   " + 
-			"CPU Level: " + GameMode.Instance.LevelManager.CurrentLevel.CPUManager.CurrentCPULevel.ToString();
+			"<color=#F8B1FF>" +
+			GameMode.Instance.LevelManager.CurrentLevel.CurrentLevelState.ToString() +
+			"</color>" +
+			"\n" +
+			"Hack Time: " + GameMode.Instance.UpgradeManager.CurrentHackTime.ToString() + " sec" +
+			"   |   " +
+			"Packet Value: " + GameMode.Instance.UpgradeManager.CurrentPacketValue.ToString() + " xp" +
+			"   |   " +
+			"Virus Time Reduction: " + GameMode.Instance.UpgradeManager.CurrentVirusTime.ToString() + " sec" +
+			"";
 	}
 
 	public void UpdateHackTimerText( int stateIndex )

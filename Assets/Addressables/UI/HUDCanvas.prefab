@@ -142,7 +142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Debug Text
+  m_text: Loading Debug Text...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1a8c03619dae4bf458889c41f8a7bbeb, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: ac4bbbe329439bd4cbf8dbf169ed5f5e, type: 2}
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 8
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -416,7 +416,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0.0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1a8c03619dae4bf458889c41f8a7bbeb, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: ac4bbbe329439bd4cbf8dbf169ed5f5e, type: 2}
@@ -906,7 +906,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hack Timer
+  m_text: Get Ready ...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1a8c03619dae4bf458889c41f8a7bbeb, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: ac4bbbe329439bd4cbf8dbf169ed5f5e, type: 2}
@@ -915,8 +915,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294957564
-  m_fontColor: {r: 0.9882353, g: 0.8509804, b: 1, a: 1}
+    rgba: 4294947320
+  m_fontColor: {r: 0.972549, g: 0.69411767, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

@@ -68,37 +68,31 @@ public class Level : MonoBehaviour
 		{
 			case LevelState.LevelStart:
 				Debug.Log( "Level: Entering LevelStart" );
-
-				cpuManager.Setup();
-
-				// set initial hack timer value based on upgrade level
-				hackTimerElapsed = upgradeManager.CurrentHackTime;
-				GameMode.Instance.UIManager.HUDController.UpdateHackTimer( upgradeManager.CurrentHackTime );
-				GameMode.Instance.UIManager.HUDController.UpdateHackTimerText( 0 ); // Get Ready text
-
+				LevelStart();
 				StartCoroutine ( EnterStartThenRun() );
 				break;
-
 			case LevelState.LevelRun:
 				Debug.Log( "Level: Entering LevelRun" );
-
-				GameMode.Instance.UIManager.HUDController.UpdateHackTimerText( 1 ); // Hack Time Remaining text
-
 				break;
-
 			case LevelState.LevelEndWon:
 				Debug.Log( "Level: Entering LevelEndWon" );
-
 				// triggered by cpu reaching max level
-
 				break;
 			case LevelState.LevelEndLost:
 				Debug.Log( "Level: Entering LevelEndLost" );
-
 				// triggered by hack timer reaching zero
-
 				break;
 		}
+	}
+
+	private void LevelStart()
+	{
+		cpuManager.Setup();
+
+		// set initial hack timer value based on upgrade level
+		hackTimerElapsed = upgradeManager.CurrentHackTime;
+		GameMode.Instance.UIManager.HUDController.UpdateHackTimer( upgradeManager.CurrentHackTime );
+		GameMode.Instance.UIManager.HUDController.UpdateHackTimerText( 0 ); // Get Ready text
 	}
 
 	private IEnumerator EnterStartThenRun()
@@ -114,6 +108,7 @@ public class Level : MonoBehaviour
 		switch ( state )
 		{
 			case LevelState.LevelStart:
+				GameMode.Instance.UIManager.HUDController.UpdateHackTimerText( 1 ); // Hack Time Remaining text
 				break;
 			case LevelState.LevelRun:
 				break;
@@ -147,9 +142,22 @@ public class Level : MonoBehaviour
 		}
 	}
 
+	public void ReduceHackTimerFromVirus()
+	{
+		float amount = upgradeManager.CurrentVirusTime;
+		if ( hackTimerElapsed > amount )
+		{
+			hackTimerElapsed -= amount;
+		}
+		else
+		{
+			hackTimerElapsed = 0f;
+		}
+	}
+
 	public void EndLevelLost()
 	{
-		cpuManager?.PathwayManager?.SpawnManager?.StopEverything();
+		cpuManager?.StopEverythingOnLevelEnd();
 		SetState( LevelState.LevelEndLost );
 	}
 }

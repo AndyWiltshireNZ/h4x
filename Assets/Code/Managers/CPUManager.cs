@@ -11,6 +11,8 @@ public class CPUManager : MonoBehaviour
 
 	[SerializeField] private XPThresholdsDefinition xpThresholdsData;
 
+	private UpgradeManager upgradeManager;
+
 	[SerializeField] private CPUManagerDefinition cpuManagerData;
 
 	[SerializeField] private PathwayManager pathwayManager;
@@ -84,6 +86,8 @@ public class CPUManager : MonoBehaviour
 
 	public async void Setup ()
 	{
+		upgradeManager = GameMode.Instance.UpgradeManager;
+
 		currentLevel = GameMode.Instance.LevelManager.CurrentLevel;
 		currentLevelData = GameMode.Instance.LevelManager.CurrentLevel.LevelData;
 
@@ -170,7 +174,7 @@ public class CPUManager : MonoBehaviour
 	{
 		while ( isDebugCPUAddXPHeld )
 		{
-			AddXP( cpuManagerData.DebugXPGainAmount ); // add XP for debug
+			AddXP(); // add XP for debug
 			yield return null;
 		}
 	}
@@ -237,9 +241,9 @@ public class CPUManager : MonoBehaviour
 		cpuCanvasController?.UpdateCPUXPText( CurrentXP );
 	}
 
-	public void AddXP( int amount )
+	public void AddXP()
 	{
-		if ( amount <= 0 ) return;
+		int amount = upgradeManager.CurrentPacketValue;
 
 		// Prevent adding XP if at max configured level
 		if ( currentLevelData != null && xpThresholdsData != null && CurrentCPULevel >= currentLevelData.EndCPULevel )
@@ -340,8 +344,9 @@ public class CPUManager : MonoBehaviour
 		HUD?.UpdateDebugText();
 	}
 
-	private void StopEverythingOnLevelEnd()
+	public void StopEverythingOnLevelEnd()
 	{
+		pathwayManager?.NodeManager?.ResetAllNodes();
 		pathwayManager?.SpawnManager?.StopEverything();
 	}
 }
