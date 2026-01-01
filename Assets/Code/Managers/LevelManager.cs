@@ -19,6 +19,16 @@ public class LevelManager : MonoBehaviour
 	private AsyncOperationHandle<GameObject> instantiatedHandle;
 	private bool hasInstantiatedHandle = false;
 
+	private void OnEnable()
+	{
+		LevelEndPopupController.Event_ReplayCurrentLevel += Event_ReloadCurrentLevel();
+	}
+
+	private void OnDisable()
+	{
+		LevelEndPopupController.Event_ReplayCurrentLevel -= Event_ReloadCurrentLevel();
+	}
+
 	public void Setup()
 	{
 		Debug.Log( "LevelManager started." );
@@ -90,27 +100,40 @@ public class LevelManager : MonoBehaviour
 		}
 	}
 
-	public void UnloadLevel()
+	public void UnloadLevel( bool reloadLevel )
 	{
 		if ( hasInstantiatedHandle && instantiatedHandle.IsValid() )
 		{
 			Addressables.ReleaseInstance( instantiatedHandle );
 			hasInstantiatedHandle = false;
-			Debug.Log( "Addressables level instance released." );
-			return;
 		}
 
-		// Fallback: find any active Level instance and destroy it
-		Level level = GameObject.FindFirstObjectByType<Level>();
-		if ( level != null )
+		if ( currentLevel != null )
 		{
-			Destroy( level.gameObject );
-			Debug.Log( "Fallback: Level GameObject destroyed." );
+			Destroy( currentLevel.gameObject );
 		}
 		else
 		{
 			Debug.LogWarning( "No loaded Level instance found to unload." );
 		}
+
+		levelToLoadAssetReference = null;
+		currentLevel = null;
+
+		if ( reloadLevel )
+		{
+			Setup();
+		}
+	}
+
+	private Action Event_ReloadCurrentLevel()
+	{
+		return () => ReloadCurrentLevel( true );
+	}
+
+	public void ReloadCurrentLevel( bool reloadLevel )
+	{
+		UnloadLevel( reloadLevel );
 	}
 
 	private void OnDestroy()

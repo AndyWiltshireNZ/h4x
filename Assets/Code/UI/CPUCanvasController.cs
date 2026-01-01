@@ -21,7 +21,7 @@ public class CPUCanvasController : MonoBehaviour
 		cpuManagerParent = cpuManager;
 		xpThresholdsData = xpThresholdsDefinition;
 		cpuLevelValueText.text = "1";
-		xpValueText.text = $"0 / {cpuManagerParent.GetXPThresholdForLevel( 0 )}";
+		xpValueText.text = $"0 / {cpuManagerParent.GetXPThresholdForLevel( 0 )}" + " xp";
 		xpMeterFillImage.fillAmount = 0;
 	}
 
@@ -39,7 +39,9 @@ public class CPUCanvasController : MonoBehaviour
 		string currentXPText = currentXP.ToString();
 		string nextXPText = nextXP.ToString();
 
-		xpValueText.text = currentXPText + " / " + nextXPText;
+		// will need to format xp text values and shortern them if they are too long
+
+		xpValueText.text = currentXPText + " / " + nextXPText + " xp";
 
 		UpdateXPMeter();
 	}

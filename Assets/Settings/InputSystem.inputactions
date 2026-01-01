@@ -140,6 +140,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "DebugRemoveTime",
+                    "type": "PassThrough",
+                    "id": "5797ed99-8ccf-42d6-aed3-5bc1add9a677",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -613,6 +622,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "DebugAddXP",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a5f7635-9088-4a97-9ac2-6267c047aa1e",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "DebugRemoveTime",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -3,10 +3,12 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-	public MainMenuController MainMenuController;
+	[SerializeField] private MainMenuController mainMenuController;
+	public MainMenuController MainMenuController => mainMenuController;
 	[SerializeField] private CanvasGroup mainmenuCanvasGroup;
 
-	public HUDController HUDController;
+	[SerializeField] private HUDController hudController;
+	public HUDController HUDController => hudController;
 	[SerializeField] private CanvasGroup hudCanvasGroup;
 
 	public void Setup()
@@ -15,5 +17,8 @@ public class UIManager : MonoBehaviour
 
 		mainmenuCanvasGroup.alpha = 0f;
 		hudCanvasGroup.alpha = 1f;
+
+		mainMenuController.Setup();
+		hudController.Setup();
 	}
 }

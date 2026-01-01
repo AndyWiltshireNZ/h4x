@@ -117,7 +117,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 300
+        y: 0
         width: 100
         height: 100
       alignment: 0
@@ -139,7 +139,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 100
-        y: 300
+        y: 0
         width: 100
         height: 100
       alignment: 0
@@ -161,7 +161,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 200
-        y: 300
+        y: 0
         width: 100
         height: 100
       alignment: 0
@@ -183,7 +183,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 300
+        y: 0
         width: 100
         height: 100
       alignment: 0
@@ -205,7 +205,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 200
+        y: 100
         width: 100
         height: 100
       alignment: 0
@@ -227,7 +227,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 100
-        y: 200
+        y: 100
         width: 100
         height: 100
       alignment: 0
@@ -249,7 +249,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 200
-        y: 200
+        y: 100
         width: 100
         height: 100
       alignment: 0
@@ -271,7 +271,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 200
+        y: 100
         width: 100
         height: 100
       alignment: 0
@@ -293,7 +293,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 100
+        y: 200
         width: 100
         height: 100
       alignment: 0
@@ -315,7 +315,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 100
-        y: 100
+        y: 200
         width: 100
         height: 100
       alignment: 0
@@ -337,7 +337,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 200
-        y: 100
+        y: 200
         width: 100
         height: 100
       alignment: 0
@@ -359,7 +359,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 100
+        y: 200
         width: 100
         height: 100
       alignment: 0
@@ -381,12 +381,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 300
         width: 100
         height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 20, y: 20, z: 20, w: 20}
       customData: 
       outline: []
       physicsShape: []
@@ -403,12 +403,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 100
-        y: 0
+        y: 300
         width: 100
         height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 24, y: 24, z: 24, w: 24}
       customData: 
       outline: []
       physicsShape: []
@@ -425,12 +425,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 200
-        y: 0
+        y: 300
         width: 100
         height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 40, y: 40, z: 40, w: 40}
       customData: 
       outline: []
       physicsShape: []
@@ -447,12 +447,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 300
-        y: 0
+        y: 300
         width: 100
         height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 45, y: 45, z: 45, w: 45}
       customData: 
       outline: []
       physicsShape: []
@@ -460,6 +460,94 @@ TextureImporter:
       bones: []
       spriteID: 7aaf529f88ea7ab458f6f2300c237c57
       internalID: -1784412566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basic_shapes_00_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 400
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 20, y: 20, z: 20, w: 20}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59396a02ef32cd04d9c8e2c96090ffb4
+      internalID: -72060384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basic_shapes_00_17
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 400
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 24, z: 24, w: 24}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff443e4b3d6cede48bcb2bae7cc691bd
+      internalID: -854936449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basic_shapes_00_18
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 400
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 40, y: 40, z: 40, w: 40}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8e3ef2da102ba849a74476dcb976822
+      internalID: -1005210195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basic_shapes_00_19
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 400
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 44, y: 44, z: 44, w: 44}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb30a602dcca45c4097bd3b1ccf4ea8b
+      internalID: 577306162
       vertices: []
       indices: 
       edges: []
@@ -488,6 +576,10 @@ TextureImporter:
       basic_shapes_00_13: -2057963041
       basic_shapes_00_14: 2074679354
       basic_shapes_00_15: -1784412566
+      basic_shapes_00_16: -72060384
+      basic_shapes_00_17: -854936449
+      basic_shapes_00_18: -1005210195
+      basic_shapes_00_19: 577306162
       basic_shapes_00_2: -585240032
       basic_shapes_00_3: -528137573
       basic_shapes_00_4: 1012759740

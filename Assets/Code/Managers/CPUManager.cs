@@ -106,6 +106,7 @@ public class CPUManager : MonoBehaviour
 			inputManager.InputActions.Game.DebugCpuUp.performed += DebugCPULevelUp_pressed;
 			inputManager.InputActions.Game.DebugCpuDown.performed += DebugCPULevelDown_pressed;
 			inputManager.InputActions.Game.DebugAddXP.performed += DebugCPUAddXP_pressed;
+			inputManager.InputActions.Game.DebugRemoveTime.performed += DebugCPURemoveTime_pressed;
 		}
 
 		pathwayManager.SetupPathways( currentCPULevel );
@@ -143,6 +144,7 @@ public class CPUManager : MonoBehaviour
 			inputManager.InputActions.Game.DebugCpuUp.performed -= DebugCPULevelUp_pressed;
 			inputManager.InputActions.Game.DebugCpuDown.performed -= DebugCPULevelDown_pressed;
 			inputManager.InputActions.Game.DebugAddXP.performed -= DebugCPUAddXP_pressed;
+			inputManager.InputActions.Game.DebugRemoveTime.performed -= DebugCPURemoveTime_pressed;
 		}
 
 		if ( asyncSpawnCPUCanvas.IsValid() )
@@ -182,6 +184,12 @@ public class CPUManager : MonoBehaviour
 	private void DebugCPUAddXPReleased()
 	{
 		isDebugCPUAddXPHeld = false;
+	}
+
+	private void DebugCPURemoveTime_pressed( InputAction.CallbackContext ctx )
+	{
+		if ( ctx.phase != InputActionPhase.Performed ) return;
+		currentLevel.ReduceHackTimerFromVirus();
 	}
 
 	private void DebugCPULevelUp_pressed( InputAction.CallbackContext ctx )
@@ -271,10 +279,8 @@ public class CPUManager : MonoBehaviour
 		int start = currentLevelData.StartCPULevel;
 		int end = currentLevelData.EndCPULevel;
 
-		// Already at max level
 		if ( CurrentCPULevel >= end )
 		{
-			//Debug.Log( "CPUManager: Reached max CPU level." );
 			int maxThreshold = GetXPThresholdForLevel( end );
 			CurrentXP = maxThreshold;
 			NextXP = maxThreshold;

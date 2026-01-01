@@ -7,7 +7,10 @@ public class HUDController : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI hackTimerText;
 	[SerializeField] private TextMeshProUGUI hackTimerValueText;
 
-	private void Start()
+	[SerializeField] private LevelEndPopupController levelEndPopupController;
+	public LevelEndPopupController LevelEndPopupController => levelEndPopupController;
+
+	public void Setup()
 	{
 		debugText.text = "Loading Debug Text...";
 		hackTimerText.text = "Get Ready...";

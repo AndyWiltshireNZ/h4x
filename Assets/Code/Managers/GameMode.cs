@@ -153,22 +153,18 @@ public class GameMode : MonoBehaviour
 				// perform any start initialization then transition to run / menu
 				StartCoroutine ( EnterStartThenRun() );
 				break;
-
 			case GameState.GameMenu:
 				Debug.Log( "Game: Entering GameMenu" );
 				// main menu
 				break;
-
 			case GameState.GameRun:
 				Debug.Log( "Game: Entering GameRun" );
 				// gameplay begins
 				break;
-
 			case GameState.GamePause:
 				Debug.Log( "Game: Entering GamePause" );
 				// gameplay paused
 				break;
-
 			case GameState.GameEnd:
 				Debug.Log( "Game: Entering GameEnd" );
 				// cleanup
@@ -206,11 +202,11 @@ public class GameMode : MonoBehaviour
 	{
 		if ( currentGameState == GameState.GameRun )
 		{
-			UpdateRun();
+			State_UpdateRun();
 		}
 	}
 
-	private void UpdateRun()
+	private void State_UpdateRun()
 	{
 		// Game runtime logic goes here.
 	}

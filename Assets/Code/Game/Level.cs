@@ -68,7 +68,7 @@ public class Level : MonoBehaviour
 		{
 			case LevelState.LevelStart:
 				Debug.Log( "Level: Entering LevelStart" );
-				LevelStart();
+				State_LevelStart();
 				StartCoroutine ( EnterStartThenRun() );
 				break;
 			case LevelState.LevelRun:
@@ -77,15 +77,17 @@ public class Level : MonoBehaviour
 			case LevelState.LevelEndWon:
 				Debug.Log( "Level: Entering LevelEndWon" );
 				// triggered by cpu reaching max level
+				State_LevelEndWon();
 				break;
 			case LevelState.LevelEndLost:
 				Debug.Log( "Level: Entering LevelEndLost" );
 				// triggered by hack timer reaching zero
+				State_LevelEndLost();
 				break;
 		}
 	}
 
-	private void LevelStart()
+	private void State_LevelStart()
 	{
 		cpuManager.Setup();
 
@@ -123,11 +125,11 @@ public class Level : MonoBehaviour
 	{
 		if ( currentLevelState == LevelState.LevelRun )
 		{
-			UpdateRun();
+			State_UpdateRun();
 		}
 	}
 
-	private void UpdateRun()
+	private void State_UpdateRun()
 	{
 		if ( hackTimerElapsed > 0f )
 		{
@@ -138,7 +140,7 @@ public class Level : MonoBehaviour
 		{
 			hackTimerElapsed = 0f;
 			GameMode.Instance.UIManager.HUDController.UpdateHackTimer( hackTimerElapsed );
-			EndLevelLost();
+			HackTimerReachedZeroEndLevelLost();
 		}
 	}
 
@@ -155,9 +157,19 @@ public class Level : MonoBehaviour
 		}
 	}
 
-	public void EndLevelLost()
+	public void HackTimerReachedZeroEndLevelLost()
 	{
 		cpuManager?.StopEverythingOnLevelEnd();
 		SetState( LevelState.LevelEndLost );
+	}
+
+	public void State_LevelEndLost()
+	{
+		GameMode.Instance?.UIManager?.HUDController?.LevelEndPopupController?.FadePopupCanvasGroup( true, false );
+	}
+
+	public void State_LevelEndWon()
+	{
+		GameMode.Instance?.UIManager?.HUDController?.LevelEndPopupController?.FadePopupCanvasGroup( true, true );
 	}
 }

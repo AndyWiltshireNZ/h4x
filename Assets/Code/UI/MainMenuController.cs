@@ -2,13 +2,8 @@ using UnityEngine;
 
 public class MainMenuController : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
+	public void Setup()
+	{
 
-    void Update()
-    {
-        
-    }
+	}
 }

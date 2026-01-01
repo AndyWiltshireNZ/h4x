@@ -226,6 +226,15 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""DebugRemoveTime"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""5797ed99-8ccf-42d6-aed3-5bc1add9a677"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -701,6 +710,17 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""DebugAddXP"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a5f7635-9088-4a97-9ac2-6267c047aa1e"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""DebugRemoveTime"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -785,6 +805,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Game_DebugCpuUp = m_Game.FindAction("DebugCpuUp", throwIfNotFound: true);
         m_Game_DebugCpuDown = m_Game.FindAction("DebugCpuDown", throwIfNotFound: true);
         m_Game_DebugAddXP = m_Game.FindAction("DebugAddXP", throwIfNotFound: true);
+        m_Game_DebugRemoveTime = m_Game.FindAction("DebugRemoveTime", throwIfNotFound: true);
     }
 
     ~@InputSystem()
@@ -880,6 +901,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_DebugCpuUp;
     private readonly InputAction m_Game_DebugCpuDown;
     private readonly InputAction m_Game_DebugAddXP;
+    private readonly InputAction m_Game_DebugRemoveTime;
     /// <summary>
     /// Provides access to input actions defined in input action map "Game".
     /// </summary>
@@ -952,6 +974,10 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @DebugAddXP => m_Wrapper.m_Game_DebugAddXP;
         /// <summary>
+        /// Provides access to the underlying input action "Game/DebugRemoveTime".
+        /// </summary>
+        public InputAction @DebugRemoveTime => m_Wrapper.m_Game_DebugRemoveTime;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Game; }
@@ -1022,6 +1048,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @DebugAddXP.started += instance.OnDebugAddXP;
             @DebugAddXP.performed += instance.OnDebugAddXP;
             @DebugAddXP.canceled += instance.OnDebugAddXP;
+            @DebugRemoveTime.started += instance.OnDebugRemoveTime;
+            @DebugRemoveTime.performed += instance.OnDebugRemoveTime;
+            @DebugRemoveTime.canceled += instance.OnDebugRemoveTime;
         }
 
         /// <summary>
@@ -1078,6 +1107,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @DebugAddXP.started -= instance.OnDebugAddXP;
             @DebugAddXP.performed -= instance.OnDebugAddXP;
             @DebugAddXP.canceled -= instance.OnDebugAddXP;
+            @DebugRemoveTime.started -= instance.OnDebugRemoveTime;
+            @DebugRemoveTime.performed -= instance.OnDebugRemoveTime;
+            @DebugRemoveTime.canceled -= instance.OnDebugRemoveTime;
         }
 
         /// <summary>
@@ -1288,5 +1320,12 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDebugAddXP(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DebugRemoveTime" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDebugRemoveTime(InputAction.CallbackContext context);
     }
 }
