@@ -74,7 +74,8 @@ public class SpawnManager : MonoBehaviour
 	// Delayed setup coroutine — waits 1 second then runs the original setup logic.
 	private IEnumerator DelayedSetupRoutine( Pathway[] pathways )
 	{
-		yield return new WaitForSeconds( 1f );
+		// wait one frame
+		yield return null;
 
 		currentLevelData = GameMode.Instance.LevelManager.CurrentLevel.LevelData;
 		availablePathways = pathways;
