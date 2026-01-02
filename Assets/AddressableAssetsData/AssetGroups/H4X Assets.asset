@@ -95,6 +95,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5061ac72bca8cdf4db1f94a0b4f73e61
+    m_Address: Assets/Addressables/UI/Upgrade_Button.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5343a5a7add0618428bfec1e65b78572
     m_Address: Assets/Addressables/Game/UICamera.prefab
     m_ReadOnly: 0
@@ -112,6 +117,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 692085c0de4880f4e9ae9c9d78eccada
     m_Address: Assets/Addressables/Managers/LevelManager.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72cfedf6ba2202242ad1fb7f04258f9e
+    m_Address: Assets/Addressables/UI/Line.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

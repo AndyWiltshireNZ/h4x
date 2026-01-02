@@ -6,11 +6,10 @@ using UnityEngine.SceneManagement;
 public class LevelEndPopupController : MonoBehaviour
 {
 	[SerializeField] private CanvasGroup popupCanvasGroup;
-	[SerializeField] private GameObject levelWonObject;
-	[SerializeField] private GameObject levelLostObject;
-
 	[SerializeField] private MMF_Player showPopupFeedback;
 	[SerializeField] private MMF_Player hidePopupFeedback;
+	[SerializeField] private GameObject levelWonObject;
+	[SerializeField] private GameObject levelLostObject;
 
 	private bool isLevelWon;
 	public bool IsLevelWon { get { return isLevelWon; } set { isLevelWon = value; } }

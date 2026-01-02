@@ -4,7 +4,6 @@ using MoreMountains.Feedbacks;
 using System;
 using System.Threading.Tasks;
 using UnityEngine.Events;
-using System.Collections;
 
 public enum FunkSelectionState
 {
@@ -184,7 +183,14 @@ public class FunkButton : MonoBehaviour, ISubmitHandler, IPointerDownHandler, IP
 		}
 		else
 		{
-			SetState( FunkSelectionState.Normal );
+			// If the pointer is still over this button after releasing, keep it Highlighted.
+			bool pointerOver = false;
+			if ( RectTransform != null )
+			{
+				pointerOver = RectTransformUtility.RectangleContainsScreenPoint( RectTransform, eventData.position, eventData.enterEventCamera );
+			}
+
+			SetState( pointerOver ? FunkSelectionState.Highlighted : FunkSelectionState.Normal );
 		}
 
 		TryPress();

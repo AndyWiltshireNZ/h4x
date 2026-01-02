@@ -4,10 +4,10 @@
   <Project Path="SingularityGroup.HotReload.Editor.csproj" />
   <Project Path="Febucci.TextAnimatorForUnity.TMP.Runtime.csproj" />
   <Project Path="SplineArchitect.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="MoreMountains.Tools.Editor.csproj" />
   <Project Path="SingularityGroup.HotReload.Runtime.csproj" />
   <Project Path="Lofelt.NiceVibrations.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Masking.Runtime.csproj" />
   <Project Path="SplineArchitect.Editor.csproj" />
   <Project Path="VoxelLabs.UltimatePreview.Lib.csproj" />
