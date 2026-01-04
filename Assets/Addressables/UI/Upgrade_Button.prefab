@@ -1725,6 +1725,7 @@ MonoBehaviour:
   upgradeData: {fileID: 0}
   buttonCanvasGroup: {fileID: 8163485104460639633}
   startUnlocked: 0
+  stayLocked: 0
   upgradeLockedButton: {fileID: 2120393614042098761}
   upgradeUnaffordableButton: {fileID: 3301630942289860403}
   upgradeUnlockedButton: {fileID: 7118735701680740987}
@@ -1737,6 +1738,7 @@ MonoBehaviour:
   currentUpgradeLevelText: {fileID: 5112246319946720517}
   connectedUpgradeButtons:
   - {fileID: 0}
+  connectedLines: []
 --- !u!225 &8163485104460639633
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -4490,7 +4492,7 @@ MonoBehaviour:
         AnimateScaleDuration: 0.2
         AnimatePositionSpeed: 1
         RemapCurveZero: 1
-        RemapCurveOne: 2
+        RemapCurveOne: 1.5
         Offset: 0
         AnimateX: 1
         AnimateScaleTweenX:

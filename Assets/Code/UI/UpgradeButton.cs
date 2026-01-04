@@ -24,6 +24,9 @@ public class UpgradeButton : MonoBehaviour
 
 	[SerializeField] private bool startUnlocked = false;
 	private bool isUnlocked = false;
+	public bool IsUnlocked => isUnlocked;
+
+	[SerializeField] private bool stayLocked = false;
 
 	[SerializeField] private FunkButton upgradeLockedButton;
 	[SerializeField] private FunkButton upgradeUnaffordableButton;
@@ -35,19 +38,20 @@ public class UpgradeButton : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI currentUpgradeLevelText;
 
 	[SerializeField] private UpgradeButton[] connectedUpgradeButtons;
+	[SerializeField] private GameObject[] connectedLines;
 
 	private UpgradeButtonState currentUpgradeButtonState;
 	public UpgradeButtonState CurrentUpgradeButtonState => currentUpgradeButtonState;
+
+	private void Awake()
+	{
+		buttonCanvasGroup.alpha = 0f;
+	}
 
 	// setup by upgrade popup controller
 	public void Setup( UpgradeManager newUpgradeManager ) 
 	{
 		upgradeManager = newUpgradeManager;
-
-		currentUpgradeLevelIndex = upgradeManager.GetCurrentUpgradeLevel( upgradeData ) - 1;
-		maxUpgradeLevelIndex = upgradeData?.StatChangePerUpgradeLevel != null
-			? upgradeData.StatChangePerUpgradeLevel.Length
-			: 0;
 
 		foreach ( Image iconImage in iconImages )
 		{
@@ -68,12 +72,31 @@ public class UpgradeButton : MonoBehaviour
 			buttonCanvasGroup.alpha = 1f;
 		}
 
+		// ensure connected lines start inactive; they should only be activated after this upgrade has been purchased at least once
+		if ( connectedLines != null )
+		{
+			foreach ( GameObject line in connectedLines )
+			{
+				if ( line != null )
+				{
+					line.SetActive( false );
+				}
+			}
+		}
+
+		currentUpgradeLevelIndex = upgradeManager.GetCurrentUpgradeLevel( upgradeData ) - 1;
+		maxUpgradeLevelIndex = upgradeData?.StatChangePerUpgradeLevel != null
+			? upgradeData.StatChangePerUpgradeLevel.Length
+			: 0;
+
 		RefreshUpgradeButton();
 	}
 
 	// triggered by upgrade popup controller on fade in canvas
 	public void RefreshUpgradeButton()
 	{
+		if ( stayLocked ) return;
+
 		UpdateUpgradeButton();
 	}
 
@@ -82,8 +105,6 @@ public class UpgradeButton : MonoBehaviour
 		currentUpgradeLevelIndex = upgradeManager.GetCurrentUpgradeLevel( upgradeData );
 
 		currentUpgradeLevelText.text = Mathf.Max(0, currentUpgradeLevelIndex).ToString() + "/" + maxUpgradeLevelIndex.ToString();
-
-		Debug.Log("Stat Value: " + upgradeManager.CurrentHackTime.ToString() );
 
 		// if we've reached the last valid index mark the button as maxed
 		if ( currentUpgradeLevelIndex >= maxUpgradeLevelIndex )
@@ -119,6 +140,18 @@ public class UpgradeButton : MonoBehaviour
 				upgradeUnaffordableButton.gameObject.SetActive( false );
 				upgradeUnlockedButton.gameObject.SetActive( false );
 				upgradeMaxedButton.gameObject.SetActive( false );
+
+				// connected lines must be inactive while this upgrade is locked
+				if ( connectedLines != null )
+				{
+					foreach ( GameObject line in connectedLines )
+					{
+						if ( line != null )
+						{
+							line.SetActive( false );
+						}
+					}
+				}
 				break;
 			case UpgradeButtonState.Unaffordable:
 				upgradeLockedButton.gameObject.SetActive( false );
@@ -131,6 +164,9 @@ public class UpgradeButton : MonoBehaviour
 				upgradeUnaffordableButton.gameObject.SetActive( false );
 				upgradeUnlockedButton.gameObject.SetActive( true );
 				upgradeMaxedButton.gameObject.SetActive( false );
+				
+				// Reveal connected lines and buttons when the upgrade has been purchased at least once.
+				RevealConnectedAfterPurchase();
 				break;
 			case UpgradeButtonState.Maxed:
 				upgradeLockedButton.gameObject.SetActive( false );
@@ -141,15 +177,67 @@ public class UpgradeButton : MonoBehaviour
 		}
 	}
 
+	// Ensure connected upgrades and connection lines are revealed when this upgrade has any purchased levels.
+	// This is extracted so we can call it both on entering the Unlocked state and immediately after a purchase,
+	// because the state may already be Unlocked and SetState would early-return.
+	private void RevealConnectedAfterPurchase()
+	{
+		if ( upgradeManager == null || upgradeManager.GetCurrentUpgradeLevel( upgradeData ) <= 0 )
+		{
+			return;
+		}
+
+		if ( connectedUpgradeButtons != null )
+		{
+			foreach ( UpgradeButton connected in connectedUpgradeButtons )
+			{
+				if ( connected == null || connected.IsUnlocked )
+				{
+					continue;
+				}
+
+				if ( connected.ButtonCanvasGroup != null )
+				{
+					connected.ButtonCanvasGroup.alpha = 1f;
+				}
+
+				if ( !connected.stayLocked )
+				{
+					connected.isUnlocked = true;
+					connected.SetState( UpgradeButtonState.Unlocked );
+				}
+			}
+		}
+
+		if ( connectedLines != null )
+		{
+			foreach ( GameObject line in connectedLines )
+			{
+				if ( line == null )
+				{
+					continue;
+				}
+
+				line.SetActive( true );
+			}
+		}
+	}
+
 	public void ButtonEvent_PurchaseUpgrade()
 	{
 		if ( currentUpgradeButtonState == UpgradeButtonState.Unlocked )
 		{
-			// send upgrade def to upgrade manager so it knows what to upgrade
-			upgradeManager?.PurchaseUpgrade( upgradeData );
+			if ( upgradeManager == null ) return;
+
+			// perform purchase
+			upgradeManager.PurchaseUpgrade( upgradeData );
 
 			// refresh and re-evaluate maxed state
 			RefreshUpgradeButton();
+
+			Debug.Log($"{upgradeData.ButtonUpgradeType.ToString()} Value: " + upgradeManager.GetStat(upgradeData).ToString() );
+
+			RevealConnectedAfterPurchase();
 		}
 	}
 }

@@ -83,6 +83,28 @@ public class UpgradeManager : MonoBehaviour
 		return result;
 	}
 
+	// Public helper for UI: get the computed stat value for a specific UpgradeDefinition.
+	public float GetStat( UpgradeDefinition def )
+	{
+		if (def == null) return 0f;
+
+		switch (def.ButtonUpgradeType)
+		{
+			case UpgradeDefinition.UpgradeType.HackTimerIncrease:
+				return GetCurrentStatValue(upgradeManagerDef.BaseHackTimeStatValue, GetHackTimeDefs(), hackTimeIndices);
+			case UpgradeDefinition.UpgradeType.PacketXPValueIncrease:
+				return GetCurrentStatValue(upgradeManagerDef.BasePacketXPValueStat, GetPacketValueDefs(), packetValueIndices);
+			case UpgradeDefinition.UpgradeType.VirusHackTimeReduction:
+				return GetCurrentStatValue(upgradeManagerDef.BaseVirusTimeStatValue, GetVirusTimeDefs(), virusTimeIndices);
+			case UpgradeDefinition.UpgradeType.DataSpawnIntervalDecrease:
+				return GetCurrentStatValue(upgradeManagerDef.BaseDataSpawnIntervalStatValue, GetDataSpawnIntervalDefs(), dataSpawnIntervalIndices);
+			case UpgradeDefinition.UpgradeType.DataFlowSpeedIncrease:
+				return GetCurrentStatValue(upgradeManagerDef.BaseDataFlowSpeedStatValue, GetDataFlowSpeedDefs(), dataFlowSpeedIndices);
+			default:
+				return 0f;
+		}
+	}
+
 	// Return the current level index for the provided UpgradeDefinition asset.
 	public int GetCurrentUpgradeLevel(UpgradeDefinition def)
 	{
