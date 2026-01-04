@@ -10,11 +10,17 @@ public class HUDController : MonoBehaviour
 	[SerializeField] private LevelEndPopupController levelEndPopupController;
 	public LevelEndPopupController LevelEndPopupController => levelEndPopupController;
 
+	[SerializeField] private UpgradesPopupController upgradesPopupController;
+	public UpgradesPopupController UpgradesPopupController => upgradesPopupController;
+
+	// setup ui manager
 	public void Setup()
 	{
 		debugText.text = "Loading Debug Text...";
 		hackTimerText.text = "Get Ready...";
 		hackTimerValueText.text = "";
+
+		upgradesPopupController.Setup();
 	}
 
 	public void UpdateDebugText()

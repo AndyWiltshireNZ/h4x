@@ -2,7 +2,7 @@ using System;
 
 public static class ShortNumberFormatter
 {
-	public static string FormatShortNumber(int value)
+	public static string FormatShortNumber(float value)
 	{
 		// Keep values below 1000 as full numbers; thousands -> k, millions -> m, billions -> b, trillions -> t
 		long absValue = Math.Abs((long)value);

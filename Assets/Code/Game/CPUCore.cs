@@ -14,7 +14,7 @@ public class CPUCore : MonoBehaviour
 	// update xp level
 	private CPUManager cpuManager;
 
-	private int packetXPValue;
+	private float packetXPValue;
 
 	public void Setup( Level level, CPUManager cpuManagerParent )
 	{

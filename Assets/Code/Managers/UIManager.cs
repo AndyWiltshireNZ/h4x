@@ -1,5 +1,5 @@
 using UnityEngine;
-using TMPro;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -31,6 +31,12 @@ public class UIManager : MonoBehaviour
 		mainmenuCanvasGroup.alpha = 0f;
 		hudCanvasGroup.alpha = 1f;
 
+		StartCoroutine( UISetupDelayRoutine() );
+	}
+
+	private IEnumerator UISetupDelayRoutine()
+	{
+		yield return new WaitForEndOfFrame();
 		mainMenuController.Setup();
 		hudController.Setup();
 	}

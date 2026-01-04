@@ -468,9 +468,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3820048696943746370, guid: 3da05e9f66c9f254c8875335e7e9179e, type: 3}
+  m_Sprite: {fileID: -4298812, guid: eac053c7c87e51c46b24126c1ec99671, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -543,9 +543,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3820048696943746370, guid: 3da05e9f66c9f254c8875335e7e9179e, type: 3}
+  m_Sprite: {fileID: -4298812, guid: eac053c7c87e51c46b24126c1ec99671, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1641,7 +1641,19 @@ MonoBehaviour:
   disabledStateFeedback: {fileID: 0}
   onClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3229152258558255086}
+        m_TargetAssemblyTypeName: UpgradeButton, Assembly-CSharp
+        m_MethodName: ButtonEvent_PurchaseUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1667,6 +1679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7315289952204398790}
   - component: {fileID: 3229152258558255086}
+  - component: {fileID: 8163485104460639633}
   m_Layer: 5
   m_Name: Upgrade_Button
   m_TagString: Untagged
@@ -1709,10 +1722,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70282c62e32d5834d8946d1535013c0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  upgradeData: {fileID: 0}
+  buttonCanvasGroup: {fileID: 8163485104460639633}
+  startUnlocked: 0
   upgradeLockedButton: {fileID: 2120393614042098761}
   upgradeUnaffordableButton: {fileID: 3301630942289860403}
   upgradeUnlockedButton: {fileID: 7118735701680740987}
   upgradeMaxedButton: {fileID: 2124810529238766329}
+  iconImages:
+  - {fileID: 5908160696180653077}
+  - {fileID: 4841031505690151898}
+  - {fileID: 9074628475589438337}
+  - {fileID: 6582610054185850635}
+  currentUpgradeLevelText: {fileID: 5112246319946720517}
+  connectedUpgradeButtons:
+  - {fileID: 0}
+--- !u!225 &8163485104460639633
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3932284733697937351}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4275778951725378771
 GameObject:
   m_ObjectHideFlags: 0
@@ -4741,9 +4777,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3820048696943746370, guid: 3da05e9f66c9f254c8875335e7e9179e, type: 3}
+  m_Sprite: {fileID: -4298812, guid: eac053c7c87e51c46b24126c1ec99671, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -6106,9 +6142,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3820048696943746370, guid: 3da05e9f66c9f254c8875335e7e9179e, type: 3}
+  m_Sprite: {fileID: -4298812, guid: eac053c7c87e51c46b24126c1ec99671, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

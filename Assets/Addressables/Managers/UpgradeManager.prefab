@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebaeb8fe3ad7b8946879eae820d296a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
-  upgradeManagerData: {fileID: 11400000, guid: a0e24abb04587914b8c5a4edd5220da5, type: 2}
+  upgradeManagerDef: {fileID: 11400000, guid: a0e24abb04587914b8c5a4edd5220da5, type: 2}

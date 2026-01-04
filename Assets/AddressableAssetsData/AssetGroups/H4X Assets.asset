@@ -90,6 +90,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 42ba25c3a6da2ec4da0b07d160fb670e
+    m_Address: Assets/AData/Upgrades
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4c8bf10024a525044a582a6e272ed568
     m_Address: Assets/Addressables/UI/UI_Button.prefab
     m_ReadOnly: 0
@@ -105,6 +110,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 554bd029e663b424f8a679da0baae9db
+    m_Address: Assets/AData/Upgrades/Up05_IncreaseDataFlowSpeed.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 614d3c77ab540f6449a80336b6f35ec8
     m_Address: Assets/Addressables/Game/Entities
     m_ReadOnly: 0
@@ -112,6 +122,16 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 61ccfbb304d0c7443b5e991f9fdfaeb7
     m_Address: Assets/Addressables/Managers/AudioManager.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62d31eac3ee2c434c8ff68eca4249e38
+    m_Address: Assets/AData/Upgrades/Up01_IncreaseHackTime.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66ca1ba06c127d741b3748b1ef49616c
+    m_Address: Assets/AData/Upgrades/Up02_IncreasePacketValue.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -170,6 +190,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab0f95560401add4f8ea2264969608c7
+    m_Address: Assets/AData/Upgrades/Up04_DecreaseDataSpawnInterval.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ac2de7630b460c74fb3352f3dfb7a676
     m_Address: Assets/Addressables/UI
     m_ReadOnly: 0
@@ -192,6 +217,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c3347c67f11def647b20de57ce46e807
     m_Address: Assets/Addressables/Game/Levels
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ce5fdd81fb811404e80ec627afe51631
+    m_Address: Assets/AData/Upgrades/Up03_DecreaseVirusTime.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

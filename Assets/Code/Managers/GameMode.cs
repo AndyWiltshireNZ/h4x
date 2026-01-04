@@ -85,15 +85,6 @@ public class GameMode : MonoBehaviour
 		currentCamera = Camera.main;
 		uiCamera = currentCamera.gameObject.GetComponent<CameraController>().UICamera;
 
-		asyncSpawnUIManager = GameModeData.UIManagerAssetReference.InstantiateAsync();
-		await asyncSpawnUIManager.Task;
-		if ( asyncSpawnUIManager.Status == AsyncOperationStatus.Succeeded )
-		{
-			GameObject uimanagerObj = asyncSpawnUIManager.Result;
-			UIManager = uimanagerObj.GetComponent<UIManager>();
-			UIManager.Setup();
-		}
-
 		asyncSpawnInputManager = GameModeData.InputManagerAssetReference.InstantiateAsync();
 		await asyncSpawnInputManager.Task;
 		if ( asyncSpawnInputManager.Status == AsyncOperationStatus.Succeeded )
@@ -121,6 +112,15 @@ public class GameMode : MonoBehaviour
 			GameObject levelmanagerObj = asyncSpawnLevelManager.Result;
 			LevelManager = levelmanagerObj.GetComponent<LevelManager>();
 			LevelManager.Setup();
+		}
+
+		asyncSpawnUIManager = GameModeData.UIManagerAssetReference.InstantiateAsync();
+		await asyncSpawnUIManager.Task;
+		if ( asyncSpawnUIManager.Status == AsyncOperationStatus.Succeeded )
+		{
+			GameObject uimanagerObj = asyncSpawnUIManager.Result;
+			UIManager = uimanagerObj.GetComponent<UIManager>();
+			UIManager.Setup();
 		}
 
 		asyncSpawnAudioManager = GameModeData.AudioManagerAssetReference.InstantiateAsync();

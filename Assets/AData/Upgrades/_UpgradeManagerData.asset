@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4901dde84180b468636884b647368d, type: 3}
+  m_Name: _UpgradeManagerData
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeManagerDefinition
+  BaseHackTimeStatValue: 60
+  upgradeDefIncreaseHackTime01: {fileID: 11400000, guid: 62d31eac3ee2c434c8ff68eca4249e38, type: 2}
+  upgradeDefIncreaseHackTime02: {fileID: 11400000, guid: f12e84492a512184ca0e95e755e4115d, type: 2}
+  upgradeDefIncreaseHackTime03: {fileID: 11400000, guid: 05eafa46a7b3a0744987d649a462081e, type: 2}
+  upgradeDefIncreaseHackTime04: {fileID: 11400000, guid: dd727717a6a2e134fb693e5f4d3492bd, type: 2}
+  BasePacketXPValueStat: 5
+  upgradeDefIncreasePacketValue01: {fileID: 11400000, guid: 66ca1ba06c127d741b3748b1ef49616c, type: 2}
+  upgradeDefIncreasePacketValue02: {fileID: 11400000, guid: 2375e2f4d44576d40b43d76613ce7612, type: 2}
+  upgradeDefIncreasePacketValue03: {fileID: 11400000, guid: 2a51d9e8fe1779c4d998a97b96a0d993, type: 2}
+  upgradeDefIncreasePacketValue04: {fileID: 11400000, guid: 7a744150d063ade4dacfb74de5b3cdd2, type: 2}
+  BaseVirusTimeStatValue: 10
+  upgradeDefDecreaseVirusTime01: {fileID: 11400000, guid: ce5fdd81fb811404e80ec627afe51631, type: 2}
+  upgradeDefDecreaseVirusTime02: {fileID: 11400000, guid: 69c39c0a34e304949bb8e36ad220856d, type: 2}
+  upgradeDefDecreaseVirusTime03: {fileID: 11400000, guid: a389c515e5bf9214b8ebcf8671c5c026, type: 2}
+  upgradeDefDecreaseVirusTime04: {fileID: 11400000, guid: dcf1478bcc3aaca4ba063a158aec3e8a, type: 2}
+  BaseDataSpawnIntervalStatValue: 3.625
+  upgradeDefDecreaseDataSpawnInterval01: {fileID: 11400000, guid: ab0f95560401add4f8ea2264969608c7, type: 2}
+  upgradeDefDecreaseDataSpawnInterval02: {fileID: 11400000, guid: b6cef5626ca279245bed09c1a896b789, type: 2}
+  upgradeDefDecreaseDataSpawnInterval03: {fileID: 11400000, guid: 77b388fa0be33624cb0eaff646408aaa, type: 2}
+  upgradeDefDecreaseDataSpawnInterval04: {fileID: 11400000, guid: 8567a7b4338549646afd42de8f4cc711, type: 2}
+  BaseDataFlowSpeedStatValue: 5.5
+  upgradeDefIncreaseDataFlowSpeed01: {fileID: 11400000, guid: 554bd029e663b424f8a679da0baae9db, type: 2}
+  upgradeDefIncreaseDataFlowSpeed02: {fileID: 11400000, guid: 1902b12448b76e74a86ae44c7cca9da6, type: 2}
+  upgradeDefIncreaseDataFlowSpeed03: {fileID: 11400000, guid: 87d2052b2dc15054295e7dc827762ccf, type: 2}
+  upgradeDefIncreaseDataFlowSpeed04: {fileID: 11400000, guid: 5c831aca72c62144baa3bd9084d3cf29, type: 2}

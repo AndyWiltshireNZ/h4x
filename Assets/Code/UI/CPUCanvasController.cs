@@ -13,8 +13,8 @@ public class CPUCanvasController : MonoBehaviour
 	[SerializeField] private Image xpMeterFillImage;
 
 	private int currentCPULevel = 1;
-	private int currentXP = 0;
-	private int nextXP = 0;
+	private float currentXP = 0;
+	private float nextXP = 0;
 
 	public void Setup ( CPUManager cpuManager )
 	{
@@ -30,7 +30,7 @@ public class CPUCanvasController : MonoBehaviour
 		cpuLevelValueText.text = currentCPULevelValue.ToString();
 	}
 
-	public void UpdateCPUXPText( int currentXPValue )
+	public void UpdateCPUXPText( float currentXPValue )
 	{
 		currentXP = currentXPValue;
 		nextXP = cpuManagerParent.GetXPThresholdForLevel( currentCPULevel );

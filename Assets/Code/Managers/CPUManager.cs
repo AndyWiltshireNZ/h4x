@@ -44,8 +44,8 @@ public class CPUManager : MonoBehaviour
 		}
 	}
 
-	private int currentXP;
-	public int CurrentXP
+	private float currentXP;
+	public float CurrentXP
 	{
 		get { return currentXP; }
 		private set
@@ -55,8 +55,8 @@ public class CPUManager : MonoBehaviour
 		}
 	}
 
-	private int nextXP;
-	public int NextXP
+	private float nextXP;
+	public float NextXP
 	{
 		get { return nextXP; }
 		private set
@@ -86,7 +86,7 @@ public class CPUManager : MonoBehaviour
 
 	public async void Setup ()
 	{
-		upgradeManager = GameMode.Instance.UpgradeManager;
+		upgradeManager = GameMode.Instance?.UpgradeManager;
 
 		currentLevel = GameMode.Instance.LevelManager.CurrentLevel;
 		currentLevelData = GameMode.Instance.LevelManager.CurrentLevel.LevelData;
@@ -251,12 +251,12 @@ public class CPUManager : MonoBehaviour
 
 	public void AddXP()
 	{
-		int amount = upgradeManager.CurrentPacketValue;
+		float amount = upgradeManager.CurrentPacketValue;
 
 		// Prevent adding XP if at max configured level
 		if ( currentLevelData != null && xpThresholdsData != null && CurrentCPULevel >= currentLevelData.EndCPULevel )
 		{
-			int maxThreshold = GetXPThresholdForLevel( currentLevelData.EndCPULevel );
+			float maxThreshold = GetXPThresholdForLevel( currentLevelData.EndCPULevel );
 			CurrentXP = maxThreshold;
 			NextXP = maxThreshold;
 			cpuCanvasController?.UpdateCPUXPText( CurrentXP );
